@@ -1,0 +1,27 @@
+{
+  "name": "flipnote-player",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@just-boris/preact-scripts": "1.1.0",
+    "element-react": "^1.4.8",
+    "element-theme-chalk": "^2.2.2",
+    "element-theme-default": "^1.4.13",
+    "flipnote.js": "^1.4.5",
+    "foundation-sites": "^6.4.4-rc1",
+    "node-sass-chokidar": "^0.0.3",
+    "npm-run-all": "^4.1.2",
+    "preact": "^8.2.7",
+    "preact-compat": "^3.18.0",
+    "strclass": "^2.0.9"
+  },
+  "scripts": {
+    "build-css": "node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/",
+    "watch-css": "npm run build-css && node-sass-chokidar --include-path ./src --include-path ./node_modules src/ -o src/ --watch --recursive",
+    "start-js": "react-scripts start",
+    "start": "npm-run-all -p watch-css start-js",
+    "build-js": "react-scripts build",
+    "build": "npm-run-all build-css build-js",
+    "eject": "react-scripts eject"
+  }
+}

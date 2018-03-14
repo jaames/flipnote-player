@@ -1,0 +1,53 @@
+.memoPlayer {
+  position: relative;
+}
+
+.memoPlayer__canvas {
+  position: relative;
+
+  canvas {
+    display: block;
+    image-rendering: optimizeSpeed;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: -o-crisp-edges;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: pixelated;
+    image-rendering: optimize-contrast;
+    -ms-interpolation-mode: nearest-neighbor;
+  }
+}
+
+.frameCounter {
+  display: inline-block;
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  padding: 0 8px;
+  border-radius: 4px;
+  background: #fff;
+  color: #000;
+  font-size: 14px;
+  line-height: 24px;
+  z-index: 2;
+  pointer-events: none;
+  // force monospaced numbers
+  // https://stackoverflow.com/questions/10149330/force-non-monospace-font-into-fixed-width-using-css
+  font-variant-numeric: tabular-nums;
+}
+
+.controls {
+  height: 48px;
+  @include clearfix();
+
+  .controlsGroup {
+    display: inline-block;
+
+    &.controlsGroup--left {
+      float: left;
+    }
+
+    &.controlsGroup--right {
+      float: right;
+    }
+  }
+}

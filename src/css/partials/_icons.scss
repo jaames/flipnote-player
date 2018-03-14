@@ -1,0 +1,41 @@
+$spritesheet-icon-size: 48px;
+$spritesheet-width: 192px;
+$spritesheet-height: 500px;
+
+$icon-size: 32px;
+$icon-scale: $icon-size / $spritesheet-icon-size;
+// list of icons
+$icons: (
+  play,
+  pause,
+  loop,
+  noloop,
+  firstFrame,
+  lastFrame,
+  prevFrame,
+  nextFrame,
+  cog,
+);
+
+.icon {
+  display: inline-block;
+  width: $icon-size;
+  height: $icon-size;
+  background-repeat: no-repeat;
+  background-image: url("../assets/icon_spritesheet@4x.png");
+  background-size: #{$spritesheet-width * $icon-scale} #{$spritesheet-height * $icon-scale};
+  background-position-x: 0;
+}
+
+.icon--disabled {
+  background-position-x: -32px;
+}
+
+
+$index: 0;
+@each $name in $icons {
+  .icon.icon--#{$name} {
+    background-position-y: -#{$index * $icon-size};
+  }
+  $index: $index + 1;
+}

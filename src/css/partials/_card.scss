@@ -1,0 +1,39 @@
+$card-radius: 8px;
+
+.card {
+  position: relative;
+  border-radius: $card-radius;
+  min-height: $card-radius * 2;
+  background: #ffffff;
+  border: 1px solid $border-color;
+  border-bottom-width: 2px;
+  overflow: hidden;
+
+  &.card--shadow {
+    box-shadow: 0 4px 12px -4px $shadow-color;
+  }
+
+  > .card__head:first-child,
+  > .card__body:first-child,
+  > .card__foot:first-child
+  > .card__media:first-child {
+    border-top-left-radius: $card-radius;
+    border-top-right-radius: $card-radius;
+  }
+
+  > .card__head:last-child,
+  > .card__body:last-child,
+  > .card__foot:last-child
+  > .card__media:last-child {
+    border-bottom-left-radius: $card-radius;
+    border-bottom-right-radius: $card-radius;
+  }
+
+  > .card__foot:last-child {
+    margin-bottom: -2px;
+  }
+
+  .card__foot {
+    background-color: $light-gray;
+  }
+}

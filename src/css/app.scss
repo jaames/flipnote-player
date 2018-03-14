@@ -1,0 +1,52 @@
+// import libs and shared variables
+@import "_shared";
+
+@include foundation-global-styles;
+@include foundation-typography;
+// import component files
+@import "partials/_card";
+@import "partials/_icons";
+@import "partials/_details";
+@import "partials/_viewer";
+@import "partials/_player";
+@import "element-theme-chalk/src/switch";
+@import "element-theme-chalk/src/button";
+
+// general page layout
+html, body {
+  height: 100%;
+}
+
+.app {
+  background-color: $background-color;
+  // background-image: url(../assets/gridbg.png);
+  // background-repeat: repeat;
+  // background-size: 12px 14px;
+  width: 100vw;
+  min-height: 100vh;
+  padding: 0 60px;
+  display: flex;
+  flex-direction: column;
+
+  &:after, &:before {
+    content: '';
+    display: block;
+    flex: 1 1 60px;
+  }
+}
+
+.wrap {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  flex: 0 0;
+  display: flex;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px -4px $shadow-color;
+}

@@ -1,1 +1,1 @@
-# flipnote-player
+# Flipnote-Player

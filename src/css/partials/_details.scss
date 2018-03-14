@@ -1,0 +1,26 @@
+.details {
+  background: #fafafb;
+  flex: 0 0 300px;
+}
+
+.memoInfo {
+  // background: $medium-gray;
+  // padding: 0px 24px;
+  display: flex;
+  flex-direction: row;
+}
+
+.memoInfo__thumb {
+  flex: 0 0 84px;
+  width: 84px;
+}
+
+.memoInfo__content {
+  // margin-left: 12px;
+  flex: 1;
+}
+
+.memoInfo__title {
+  margin-top: 4px;
+  font-size: 16px;
+}
