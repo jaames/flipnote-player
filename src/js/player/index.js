@@ -109,6 +109,7 @@ export default class player extends Component {
 
   resizeCanvas() {
     var rect = this.canvasContainer.getBoundingClientRect();
+    console.log(rect)
     this.memo.canvas.resize(rect.width, rect.width * 0.75);
   }
 

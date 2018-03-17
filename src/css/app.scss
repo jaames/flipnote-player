@@ -9,8 +9,8 @@
 @import "partials/_details";
 @import "partials/_viewer";
 @import "partials/_player";
-@import "element-theme-chalk/src/switch";
-@import "element-theme-chalk/src/button";
+@import "~element-theme-chalk/src/switch";
+@import "~element-theme-chalk/src/button";
 
 // general page layout
 html, body {

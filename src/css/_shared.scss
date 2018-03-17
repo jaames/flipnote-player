@@ -13,6 +13,6 @@ $border-color: #e7e7f2;
 $--font-path: "";
 
 // Foundation SCSS framework: https://foundation.zurb.com/sites
-@import "foundation-sites/scss/foundation";
-@import "element-theme-chalk/src/mixins/mixins";
-@import "element-theme-chalk/src/common/var";
+@import "~foundation-sites/scss/foundation";
+@import "~element-theme-chalk/src/mixins/mixins";
+@import "~element-theme-chalk/src/common/var";
