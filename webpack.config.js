@@ -26,10 +26,10 @@ const autoprefixer = require("autoprefixer");
 const cssnano = require("cssnano");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin")
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+const Dotenv = require("dotenv-webpack");
 
 const IS_DEV_ENV = process.env.NODE_ENV === "development";
-
 
 module.exports = createConfig([
   setContext(path.resolve(__dirname, "src")),
@@ -58,11 +58,10 @@ module.exports = createConfig([
   match("*.js", [
     babel({
       presets: [
-        "react-app"
+        ["env", {"modules": false}]
       ],
       plugins: [
-        ["transform-react-jsx", { "pragma": "h" }]
-        // "transform-react-jsx"
+        ["transform-react-jsx", { "pragma": "h" }],
       ]
     }),
   ]),
@@ -90,6 +89,11 @@ module.exports = createConfig([
     })
   ]),
   addPlugins([
+    new Dotenv({
+      path: ".env",
+      safe: true,
+      systemvars: true,
+    }),
     new webpack.BannerPlugin({
       banner: [
         // "Add a copyright message or something silly here",
@@ -100,7 +104,7 @@ module.exports = createConfig([
     new CopyWebpackPlugin([{
       from: path.resolve(__dirname, "public/"),
       to: path.resolve(__dirname, "build/"),
-      ignore: ["*.html"]
+      ignore: ["*.html", ".DS_Store"]
     }], {}),
     new HtmlWebpackPlugin({
       inject: true,
@@ -108,17 +112,15 @@ module.exports = createConfig([
       template: path.resolve(__dirname, "public/index.html"),
       minify: {
         removeComments: true,
-        // collapseWhitespace: true,
+        collapseWhitespace: true,
         removeRedundantAttributes: true,
         useShortDoctype: true,
-        // removeEmptyAttributes: true,
-        // removeStyleLinkTypeAttributes: true,
         keepClosingSlash: true,
         minifyJS: true,
         minifyCSS: true,
         minifyURLs: true,
       },
-    })
+    }),
   ]),
   setEnv({
     NODE_ENV: process.env.NODE_ENV
@@ -145,16 +147,8 @@ module.exports = createConfig([
   ]),
   env("production", [
     addPlugins([
-      new CleanWebpackPlugin(["build"]),
-      new webpack.optimize.UglifyJsPlugin({
-        sourceMap: false,
-        // Mangle "protected" properties (properties that start with "_")
-        mangle: {props: {regex: /^_/}},
-        compress: {
-          warnings: false,
-          drop_console: true
-        },
-      })
+      new CleanWebpackPlugin(["build"], {verbose: false}),
+      new webpack.optimize.UglifyJsPlugin()
     ])
   ]),
 ]);

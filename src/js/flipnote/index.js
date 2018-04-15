@@ -3,6 +3,9 @@ import flipnote from "flipnote.js";
 export default class flipnotePlayer extends flipnote.player {
   constructor(canvas, params) {
     super(canvas, params.width, params.height);
+    if (params.className) {
+      this.canvas.el.classList.add(params.className);
+    }
     this.canvas.setFilter(params.interpolation);
     this._linearInterpolation = params.interpolation === "linear";
     this._layerVisibility = {
@@ -12,7 +15,7 @@ export default class flipnotePlayer extends flipnote.player {
   }
 
   get progress() {
-    return (100 / this.frameCount) * this.currentFrame; 
+    return (100 / this.frameCount) * (this.currentFrame + 1); 
   }
 
   set progress(value) {
@@ -26,9 +29,13 @@ export default class flipnotePlayer extends flipnote.player {
 
   toggleLayer(index) {
     var visible = this._layerVisibility[index] = !this._layerVisibility[index];
-    this.canvas.setLayerVisibilty(index, visible ? 1 : 0);
-    this.canvas.refresh();
+    this.setLayerVisibilty(visible);
     return visible;
+  }
+
+  setLayerVisibilty(index, value) {
+    this.canvas.setLayerVisibilty(index, value ? 1 : 0);
+    this.canvas.refresh();
   }
 
   togglePlay() {
@@ -42,8 +49,12 @@ export default class flipnotePlayer extends flipnote.player {
 
   toggleInterpolation() {
     var linear = this._linearInterpolation = !this._linearInterpolation;
-    this.canvas.setFilter(linear ? "linear" : "nearest");
-    this.canvas.refresh();
+    this.setInterpolation(linear ? "linear" : "nearest");
     return linear;
+  }
+
+  setInterpolation(filter) {
+    this.canvas.setFilter(filter);
+    this.canvas.refresh();
   }
 }

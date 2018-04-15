@@ -1,5 +1,3 @@
-# we're compiling scss -> css so no need to have css in source
-src/**/*.css
 # sample flipnote .ppms shouldn't be in source
 *.ppm
 
@@ -14,10 +12,7 @@ src/**/*.css
 
 # misc
 .DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env
 
 npm-debug.log*
 yarn-debug.log*

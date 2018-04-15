@@ -1,16 +1,14 @@
 // import libs and shared variables
-@import "_shared";
+@import "./vars";
 
 @include foundation-global-styles;
 @include foundation-typography;
 // import component files
-@import "partials/_card";
+// @import "partials/_card";
 @import "partials/_icons";
-@import "partials/_details";
-@import "partials/_viewer";
-@import "partials/_player";
-@import "~element-theme-chalk/src/switch";
-@import "~element-theme-chalk/src/button";
+// @import "partials/_details";
+// @import "partials/_viewer";
+// @import "partials/_player";
 
 // general page layout
 html, body {
@@ -18,16 +16,15 @@ html, body {
 }
 
 .app {
-  background-color: $background-color;
-  // background-image: url(../assets/gridbg.png);
-  // background-repeat: repeat;
-  // background-size: 12px 14px;
   width: 100vw;
   min-height: 100vh;
-  padding: 0 60px;
   display: flex;
   flex-direction: column;
-
+  justify-content: center;
+  align-content: center;
+  // left and right padding
+  padding: 0 60px;
+  // top and bottom padding
   &:after, &:before {
     content: '';
     display: block;
@@ -36,17 +33,187 @@ html, body {
 }
 
 .wrap {
-  height: 100%;
+  flex: 0;
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  max-width: 640px;
+  margin: auto;
+
+  &.wrap--wide {
+    max-width: 980px;
+  }
+
+  &.wrap--narrow {
+    max-width: 320px;
+  }
 }
 
-.modal {
-  flex: 0 0;
+.flipnoteView {
   display: flex;
-  border-radius: 4px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px -4px $shadow-color;
+}
+
+.flipnoteView__main {
+  flex: 0 0 640px + 32px;
+  background: #e2e5e8;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+
+.flipnoteView__side {
+  flex: 1;
+  background: #fff;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.player__canvasFrame {
+  position: relative;
+  margin: 24px;
+  margin-bottom: 4px;
+}
+
+.player__progress {
+  margin: 0 24px;
+}
+
+.player__controls {
+  margin: 0 24px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-direction: row;
+
+  i {
+    margin: 0px 6px;
+  }
+}
+
+.controlsGroup {
+  flex: 0;
+  display: flex;
+  flex-direction: row;
+
+  &.controlsGroup--left {
+    margin-right: auto;
+  }
+
+  &.controlsGroup--right {
+    margin-left: auto;
+  }
+
+  i {
+    flex: 0;
+    flex-basis: 32px;
+  }
+}
+
+.player__canvas {
+  display: block;
+  image-rendering: optimizeSpeed;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -o-crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: pixelated;
+  image-rendering: optimize-contrast;
+  -ms-interpolation-mode: nearest-neighbor;
+  border-radius: 3px;
+}
+
+body.is-slider-active {
+  cursor: ew-resize;
+}
+
+.progressBar {
+  padding: 12px 0;
+  cursor: pointer;
+}
+
+.slider {
+  background-color: #fff;
+  height: 5px;
+  position: relative;
+  border-radius: 3px;
+}
+
+.slider__level {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background: #9DE866;
+}
+
+.slider__handle {
+  position: absolute;
+  display: none;
+  top: 0;
+  bottom: 0;
+  margin-left: -7px;
+  margin-top: -5px;
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  border: 4px solid #9DE866;
+  border-radius: 50%;
+}
+
+body.is-slider-active {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.progressBar:hover .slider__handle,
+.slider.is-active .slider__handle {
+  display: block;
+}
+
+.memoInfo {
+  padding: 24px;
+  // background: $medium-gray;
+  // padding: 0px 24px;
+  display: flex;
+  flex-direction: row;
+}
+
+.memoInfo__thumb {
+  flex: 0 0 84px;
+  width: 84px;
+}
+
+.memoInfo__content {
+  // margin-left: 12px;
+  flex: 1;
+}
+
+.memoInfo__title {
+  font-size: 1.025rem;
+  line-height: 2.5em;
+  border-bottom: 1px solid #bcc2c7;
+}
+
+.detail__stat {
+  color: #6f7275;
+  font-size: 0.9rem;
+  display: table;
+  width: 100%;
+  margin-top: 4px;
+  border-bottom: 1px dashed #bcc2c7;
+  line-height: 2.5em;
+}
+
+.stat__title {
+  display: table-cell;
+}
+
+.stat__value {
+  text-align: right;
+  display: table-cell;
+}
+
+.settingsMenu {
+  background: #fff;
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
 }

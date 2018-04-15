@@ -1,8 +1,9 @@
 import { h, Component } from "preact";
-import flipnote from "./flipnote";
 
+import flipnote from "./flipnote";
 import Player from "./player";
 import Details from "./details";
+
 
 class App extends Component {
 
@@ -11,25 +12,27 @@ class App extends Component {
     this.flipnote = new flipnote(document.createElement("canvas"), {
       width: 512,
       height: 384,
-      interpolation: "linear"
+      className: "player__canvas",
+      interpolation: "linear",
     });
     window.app = this;
   }
 
   componentDidMount() {
-    this.flipnote.open("./samples/keke.ppm");
+    this.flipnote.open("./static/ppm/hatch.ppm");
+    this.flipnote.volume = 0.5;
   }
 
-  render() {
+  render(props, state) {
     return (
       <main class="app">
-        <div class="wrap">
-          <div class="modal viewer">
-            <div class="viewer__player">
-              <Player flipnote={this.flipnote} ref={(node) => {this.player = node;}}/>
+        <div class="wrap wrap--wide">
+          <div class="modal flipnoteView">
+            <div class="flipnoteView__main">
+             <Player flipnote={this.flipnote}></Player>
             </div>
-            <div class="viewer__details">
-              <Details flipnote={this.flipnote}/>
+            <div class="flipnoteView__side">
+              <Details flipnote={this.flipnote}></Details>
             </div>
           </div>
         </div>
