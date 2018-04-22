@@ -82,7 +82,7 @@ export default class player extends Component {
   }
 
   handleClick(type, e) {
-    e.stopPropagation();
+    if (type == "toggleSettings") e.stopPropagation();
     if ("function" === typeof this[type]) this[type](e);
   }
 

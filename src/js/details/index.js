@@ -48,11 +48,9 @@ export default class Details extends Component {
       );
     }
     return (
-      <div class="memoInfo">
-        <div class="memoInfo__content">
-          <h4 class="memoInfo__title">Flipnote By {state.author}</h4>
-          { details }
-        </div>
+      <div class="detail">
+        <h4 class="detail__title">Flipnote By {state.author}</h4>
+        { details }
       </div>
     );
   }

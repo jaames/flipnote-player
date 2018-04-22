@@ -2,14 +2,19 @@ $body-background: #efefef;
 $light-gray: #949AA0;
 $medium-gray: #626569;
 $dark-gray: #2b2b3b;
+
+$foundation-palette: (
+  primary: #9DE866,
+  secondary: #767676,
+  success: #3adb76,
+  warning: #ffae00,
+  alert: #cc4b37,
+);
+
 $black: #141414;
 $white: #fff;
 $body-font-family: -apple-system, BlinkMacSystemFont, 'avenir next', avenir, helvetica, 'helvetica neue', ubuntu, roboto, noto, 'segoe ui', arial, sans-serif;
 $header-font-weight: bold;
 
-$--font-path: "";
-
 // Foundation SCSS framework: https://foundation.zurb.com/sites
 @import "~foundation-sites/scss/foundation";
-@import "~element-theme-chalk/src/mixins/mixins";
-@import "~element-theme-chalk/src/common/var";

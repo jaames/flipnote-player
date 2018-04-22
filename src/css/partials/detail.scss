@@ -1,0 +1,28 @@
+.detail {
+  padding: 24px;
+}
+
+.detail__title {
+  font-size: 1.025rem;
+  line-height: 2.5em;
+  border-bottom: 1px solid #bcc2c7;
+}
+
+.detail__stat {
+  color: #6f7275;
+  font-size: 0.9rem;
+  display: table;
+  width: 100%;
+  margin-top: 4px;
+  border-bottom: 1px dashed #bcc2c7;
+  line-height: 2.5em;
+}
+
+.stat__title {
+  display: table-cell;
+}
+
+.stat__value {
+  text-align: right;
+  display: table-cell;
+}
