@@ -2,7 +2,8 @@ import { h, Component } from "preact";
 
 import { Overlay } from "react-overlays";
 
-import PopoverMenu from "./popoverMenu";
+import SettingsMenu from "./settingsMenu";
+import SettingsMenuItem from "./settingsMenuItem";
 import FrameCounter from "./frameCounter";
 import ProgressBar from "./progressBar";
 export default class player extends Component {
@@ -16,7 +17,9 @@ export default class player extends Component {
       currentFrame: 0,
       frameCount: 1,
       showFrameCounter: false,
-      showSettingsMenu: false
+      showSettingsMenu: false,
+      showLayers: { 1: true, 2: true },
+      smoothDisplay: true,
     };
   }
 
@@ -48,7 +51,12 @@ export default class player extends Component {
             onHide={() => this.setState({ showSettingsMenu: false })}
             rootClose={true}
           >
-            <PopoverMenu/>
+            <SettingsMenu>
+              <SettingsMenuItem label="Loop" value={this.state.loop} handleInput={() => this.toggleLoop()} />
+              <SettingsMenuItem label="Layer 1" value={this.state.showLayers[1]} handleInput={() => this.toggleLayer(1)} />
+              <SettingsMenuItem label="Layer 2" value={this.state.showLayers[2]} handleInput={() => this.toggleLayer(2)} />
+              <SettingsMenuItem label="Smooth Display" value={this.state.smoothDisplay} handleInput={() => this.toggleSmooth()} />
+            </SettingsMenu>
           </Overlay>
           <FrameCounter visible={this.state.showFrameCounter} currentFrame={this.state.currentFrame} frameCount={this.state.frameCount}/>
           {/* webgl canvas is inserted here -- canvas has the "player__canvas" class*/}
@@ -67,8 +75,6 @@ export default class player extends Component {
           <div class="controlsGroup controlsGroup--left">
             <i class={["icon", state.paused ? "icon--play" : "icon--pause"].join(" ")} onClick={(e) => this.handleClick("togglePlay", e)}></i>
             <i class="icon icon--cog" onClick={(e) => this.handleClick("toggleSettings", e)}></i>
-            {/* <span onClick={(e) => this.handleClick("togglePlay", e)}>{this.state.paused ? "play" : "pause"}</span>
-            <span onClick={(e) => this.handleClick("toggleLoop", e)}>{this.state.loop ? "loop on" : "loop off"}</span> */}
           </div>
           <div class="controlsGroup controlsGroup--right">  
             <i class="icon icon--firstFrame" onClick={(e) => this.handleClick("firstFrame", e)}></i>
@@ -152,7 +158,19 @@ export default class player extends Component {
 
   toggleSettings() {
     this.setState({showSettingsMenu: !this.state.showSettingsMenu});
-    console.log(this.state.showSettingsMenu)
+  }
+
+  toggleLayer(index) {
+    var layers = this.state.showLayers;
+    layers[index] = !layers[index];
+    this.memo.setLayerVisibilty(index,  layers[index]);
+    this.setState({showLayers: layers});
+  }
+
+  toggleSmooth() {
+    var smooth = !this.state.smoothDisplay;
+    this.memo.setInterpolation(smooth ? "linear" : "nearest");
+    this.setState({smoothDisplay: smooth});
   }
 
   setFrame(index) {

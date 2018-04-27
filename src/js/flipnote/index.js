@@ -34,6 +34,7 @@ export default class flipnotePlayer extends flipnote.player {
   }
 
   setLayerVisibilty(index, value) {
+    this._layerVisibility = value;
     this.canvas.setLayerVisibilty(index, value ? 1 : 0);
     this.canvas.refresh();
   }
