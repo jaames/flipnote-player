@@ -1,6 +1,6 @@
 $spritesheet-icon-size: 48px;
-$spritesheet-width: 192px;
-$spritesheet-height: 500px;
+$spritesheet-width: 144px;
+$spritesheet-height: 490px;
 
 $icon-size: 32px;
 $icon-scale: $icon-size / $spritesheet-icon-size;
@@ -27,8 +27,12 @@ $icons: (
   background-position-x: 0;
 }
 
-.icon--disabled {
+.icon:hover {
   background-position-x: -32px;
+}
+
+.icon--disabled {
+  background-position-x: -64px;
 }
 
 

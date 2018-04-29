@@ -1,27 +1,28 @@
 .switch {
-  border: 2px solid #949AA0;
+  border: 2px solid $primary-color;
   width: 32px;
   height: 18px;
   border-radius: 13px;
   cursor: pointer;
   display: inline-block;
   vertical-align: middle;
-  transition: background 0.3s;
+  transition: background 0.2s;
 }
 
 .switch-toggle {
-  background: #949AA0;
-  // box-shadow: 1px 1px 1px #ccc;
-  width: 14px;
-  height: 14px;
-  left: 0;
+  background: #fff;
+  border: 2px solid $primary-color;
+  width: 18px;
+  height: 18px;
+  top: -2px;
+  left: -2px;
   border-radius: 12px;
   position: relative;
-  transition: transform 0.3s ease-in-out, background 0.3s;
+  transition: transform 0.2s;
 }
 
 .switch.on {
-  background: #949AA0;
+  background: $primary-color;
 }
 
 .switch.on .switch-toggle {
