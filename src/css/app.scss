@@ -18,17 +18,20 @@ html, body {
 .app {
   width: 100vw;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-content: center;
-  // left and right padding
-  padding: 0 80px;
-  // top and bottom padding
-  &:after, &:before {
-    content: '';
-    display: block;
-    flex: 1 1 80px;
+
+  @include breakpoint(medium) {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    // left and right padding
+    padding: 0 80px;
+    // top and bottom padding
+    &:after, &:before {
+      content: '';
+      display: block;
+      flex: 1 1 80px;
+    }
   }
 }
 
@@ -47,20 +50,55 @@ html, body {
   }
 }
 
-.flipnoteView {
+.topBar {
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  position: fixed;
   display: flex;
+  flex-direction: row;
+}
+
+.topBar__group {
+  flex: 0;
+}
+
+.topBar__group--left {
+  margin-right: auto;
+}
+
+.topBar__group--right {
+  margin-left: auto;
+}
+
+.topBar__logo {
+  height: 48px;
+  width: 48px;
+  display: inline;
+  vertical-align: middle;
+}
+
+.flipnoteView {
+  @include breakpoint(medium) {
+    display: flex;
+  }
 }
 
 .flipnoteView__main {
-  flex: 0 0 640px + 32px;
   background: #e2e5e8;
-  border-top-left-radius: 6px;
-  border-bottom-left-radius: 6px;
+  @include breakpoint(medium) {
+    flex: 0 0 640px + 32px;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+  }
 }
 
 .flipnoteView__side {
-  flex: 1;
   background: #fff;
-  border-top-right-radius: 6px;
-  border-bottom-right-radius: 6px;
+  @include breakpoint(medium) {
+    flex: 1;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+  }
 }

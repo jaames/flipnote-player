@@ -4,6 +4,8 @@ $spritesheet-height: 490px;
 
 $icon-size: 32px;
 $icon-scale: $icon-size / $spritesheet-icon-size;
+$icon-size-mobile: 28px;
+$icon-scale-mobile: $icon-size-mobile / $spritesheet-icon-size;
 // list of icons
 $icons: (
   play,
@@ -19,27 +21,51 @@ $icons: (
 
 .icon {
   display: inline-block;
-  width: $icon-size;
-  height: $icon-size;
   background-repeat: no-repeat;
   background-image: url("../assets/icon_spritesheet@4x.png");
-  background-size: #{$spritesheet-width * $icon-scale} #{$spritesheet-height * $icon-scale};
   background-position-x: 0;
+  background-size: #{$spritesheet-width * $icon-scale-mobile} #{$spritesheet-height * $icon-scale-mobile};
+  width: $icon-size-mobile;
+  height: $icon-size-mobile;
+  cursor: pointer;
 }
 
 .icon:hover {
-  background-position-x: -32px;
+  background-position-x: -$icon-size-mobile;
 }
 
 .icon--disabled {
-  background-position-x: -64px;
+  background-position-x: -$icon-size-mobile * 2;
 }
-
 
 $index: 0;
 @each $name in $icons {
   .icon.icon--#{$name} {
-    background-position-y: -#{$index * $icon-size};
+    background-position-y: -#{$index * $icon-size-mobile};
   }
   $index: $index + 1;
+}
+
+@include breakpoint(medium) {
+  .icon {
+    background-size: #{$spritesheet-width * $icon-scale} #{$spritesheet-height * $icon-scale};
+    width: $icon-size;
+    height: $icon-size;
+  }
+
+  .icon:hover {
+    background-position-x: -$icon-size;
+  }
+  
+  .icon--disabled {
+    background-position-x: -$icon-size * 2;
+  }
+
+  $index: 0;
+  @each $name in $icons {
+    .icon.icon--#{$name} {
+      background-position-y: -#{$index * $icon-size};
+    }
+    $index: $index + 1;
+  }
 }

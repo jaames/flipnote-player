@@ -32,6 +32,8 @@ export default class player extends Component {
     this.memo.on("frame:update", this._frameUpdate);
     this.memo.on("playback:end", this._playbackEnd);
     this.memo.on("load", this._memoLoad);
+    this._resizeHandler = (e) => { this.resizeCanvas() }
+    window.addEventListener("resize", this._resizeHandler);
   }
 
   componentWillUnmount() {
@@ -39,6 +41,7 @@ export default class player extends Component {
     this.memo.off("frame:update", this._frameUpdate);
     this.memo.off("playback:end", this._playbackEnd);
     this.memo.off("load", this._memoLoad);
+    window.removeEventListener("resize", this._resizeHandler);
   }
 
   render(props, state) {

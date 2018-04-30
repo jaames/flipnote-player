@@ -1,18 +1,29 @@
 .player__canvasFrame {
   position: relative;
-  margin: 24px;
-  margin-bottom: 4px;
+
+  @include breakpoint(medium) {
+    margin: 24px;
+    margin-bottom: 4px;
+  }
 }
 
 .player__progress {
-  margin: 0 24px;
+  margin: 0 12px;
+
+  @include breakpoint(medium) {
+    margin: 0 24px;
+  }
 }
 
 .player__controls {
-  margin: 0 24px;
-  margin-bottom: 16px;
   display: flex;
   flex-direction: row;
+  margin: 0 12px;
+  padding-bottom: 16px;
+
+  @include breakpoint(medium) {
+    margin: 0 24px;
+  }
 
   i {
     margin: 0px 6px;
@@ -34,7 +45,11 @@
 
   i {
     flex: 0;
-    flex-basis: 32px;
+    flex-basis: 28px;
+
+    @include breakpoint(medium) {
+      flex-basis: 32px;
+    }
   }
 }
 
@@ -47,7 +62,10 @@
   image-rendering: pixelated;
   image-rendering: optimize-contrast;
   -ms-interpolation-mode: nearest-neighbor;
-  border-radius: 3px;
+
+  @include breakpoint(medium) {
+    border-radius: 3px;
+  }
 }
 
 body.is-slider-active {
