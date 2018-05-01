@@ -1,11 +1,17 @@
 import { h, Component } from "preact";
 
 import { Overlay } from "react-overlays";
+import { HotKeys } from "react-hotkeys";
 import Slider from "rc-slider";
 
 import SettingsMenu from "./settingsMenu";
 import SettingsMenuItem from "./settingsMenuItem";
 import FrameCounter from "./frameCounter";
+
+const keyMap = {
+  prevFrame: ["left", "a"],
+  nextFrame: ["right", "d"],
+}
 
 export default class player extends Component {
 
@@ -23,6 +29,10 @@ export default class player extends Component {
       smoothScaling: true,
       volume: 0,
     };
+    this.keyHandlers = {};
+    for (const key in keyMap) if (keyMap.hasOwnProperty(key)) {
+      this.keyHandlers[key] = () => this[key]();
+    }
   }
 
   componentDidMount() {
@@ -47,7 +57,9 @@ export default class player extends Component {
   }
 
   render(props, state) {
+
     return (
+      <HotKeys keyMap={keyMap} handlers={this.keyHandlers}>
       <div class="player">
         <div class="player__canvasFrame" ref={el => this.canvasFrame = el}>
           <Overlay
@@ -90,61 +102,8 @@ export default class player extends Component {
           </div>
         </div>
       </div>
+      </HotKeys>
     );
-  }
-
-  handleKey(e) {
-    var capture = true;
-    var shiftKey = e.shiftKey;
-    switch (e.keyCode) {
-      // left arrow or "a" key
-      case 37:
-      case 65:
-        if (shiftKey) {
-          this.setFrame(this.state.currentFrame - 10);
-        } else {
-          this.prevFrame();
-        }
-        break;
-      // right arrow or "d" key
-      case 39:
-      case 68:
-        if (shiftKey) {
-          this.setFrame(this.state.currentFrame + 10);
-        } else {
-          this.nextFrame();
-        }
-        break;
-      default:
-        capture = false;
-        break;
-    }
-    if (capture) {
-      e.stopPropagation();
-      e.preventDefault();
-      return false;
-    } 
-    return true
-  }
-
-  handleKeyPress(e) {
-    var capture = true;
-    var shiftKey = e.shiftKey;
-    switch (e.keyCode) {
-      // space key
-      case 32:
-        this.togglePlay();
-        break;
-      default:
-        capture = false;
-        break;
-    }
-    if (capture) {
-      e.stopPropagation();
-      e.preventDefault();
-      return false;
-    }
-    return true
   }
 
   handleClick(type, e) {
