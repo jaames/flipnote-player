@@ -1,11 +1,12 @@
 import { h, Component } from "preact";
 
 import { Overlay } from "react-overlays";
+import Slider from "rc-slider";
 
 import SettingsMenu from "./settingsMenu";
 import SettingsMenuItem from "./settingsMenuItem";
 import FrameCounter from "./frameCounter";
-import ProgressBar from "./progressBar";
+
 export default class player extends Component {
 
   constructor(props) {
@@ -19,7 +20,8 @@ export default class player extends Component {
       showFrameCounter: false,
       showSettingsMenu: false,
       showLayers: { 1: true, 2: true },
-      smoothDisplay: true,
+      smoothScaling: true,
+      volume: 0,
     };
   }
 
@@ -55,23 +57,24 @@ export default class player extends Component {
             rootClose={true}
           >
             <SettingsMenu>
-              <SettingsMenuItem label="Loop" value={this.state.loop} handleInput={() => this.toggleLoop()} />
-              <SettingsMenuItem label="Layer 1" value={this.state.showLayers[1]} handleInput={() => this.toggleLayer(1)} />
-              <SettingsMenuItem label="Layer 2" value={this.state.showLayers[2]} handleInput={() => this.toggleLayer(2)} />
-              <SettingsMenuItem label="Smooth Display" value={this.state.smoothDisplay} handleInput={() => this.toggleSmooth()} />
+              <SettingsMenuItem label="Loop" value={this.state.loop} onChange={() => this.toggleLoop()} />
+              <SettingsMenuItem label="Volume" type="slider" value={this.state.volume} onChange={(v) => this.setVolume(v)} />
+              <SettingsMenuItem label="Layer 1" value={this.state.showLayers[1]} onChange={() => this.toggleLayer(1)} />
+              <SettingsMenuItem label="Layer 2" value={this.state.showLayers[2]} onChange={() => this.toggleLayer(2)} />
+              <SettingsMenuItem label="Smooth Scaling" value={this.state.smoothScaling} onChange={() => this.toggleSmooth()} />
             </SettingsMenu>
           </Overlay>
           <FrameCounter visible={this.state.showFrameCounter} currentFrame={this.state.currentFrame} frameCount={this.state.frameCount}/>
           {/* webgl canvas is inserted here -- canvas has the "player__canvas" class*/}
         </div>
         <div class="player__progress">
-          <ProgressBar 
-            min={1}
+          <Slider
+            min={0}
             max={this.state.frameCount}
-            ref={el => this.progressBar = el}
-            onChange={state => this.handleProgressBarEvent("change", state)}
-            onInputStart={state => this.handleProgressBarEvent("inputStart", state)}
-            onInputEnd={state => this.handleProgressBarEvent("inputEnd", state)}
+            value={this.state.currentFrame}
+            onChange={value => this.handleProgressBarEvent("change", value)}
+            onBeforeChange={value => this.handleProgressBarEvent("inputStart", value)}
+            onAfterChange={value => this.handleProgressBarEvent("inputEnd", value)}
           />
         </div>
         <div class="player__controls controls">
@@ -90,15 +93,69 @@ export default class player extends Component {
     );
   }
 
+  handleKey(e) {
+    var capture = true;
+    var shiftKey = e.shiftKey;
+    switch (e.keyCode) {
+      // left arrow or "a" key
+      case 37:
+      case 65:
+        if (shiftKey) {
+          this.setFrame(this.state.currentFrame - 10);
+        } else {
+          this.prevFrame();
+        }
+        break;
+      // right arrow or "d" key
+      case 39:
+      case 68:
+        if (shiftKey) {
+          this.setFrame(this.state.currentFrame + 10);
+        } else {
+          this.nextFrame();
+        }
+        break;
+      default:
+        capture = false;
+        break;
+    }
+    if (capture) {
+      e.stopPropagation();
+      e.preventDefault();
+      return false;
+    } 
+    return true
+  }
+
+  handleKeyPress(e) {
+    var capture = true;
+    var shiftKey = e.shiftKey;
+    switch (e.keyCode) {
+      // space key
+      case 32:
+        this.togglePlay();
+        break;
+      default:
+        capture = false;
+        break;
+    }
+    if (capture) {
+      e.stopPropagation();
+      e.preventDefault();
+      return false;
+    }
+    return true
+  }
+
   handleClick(type, e) {
     if (type == "toggleSettings") e.stopPropagation();
     if ("function" === typeof this[type]) this[type](e);
   }
 
-  handleProgressBarEvent(type, state) {
+  handleProgressBarEvent(type, value) {
     switch (type) {
       case "change":
-        this.setFrame(state.value-1);
+        this.setFrame(value);
         break;
       case "inputStart":
         this.wasPlaying = !this.state.paused;
@@ -115,7 +172,6 @@ export default class player extends Component {
 
   _frameUpdate(frameIndex) {
     this.setState({currentFrame: frameIndex});
-    this.progressBar.setValue(this.state.currentFrame + 1);
   }
 
   _playbackEnd() {
@@ -163,6 +219,11 @@ export default class player extends Component {
     this.setState({showSettingsMenu: !this.state.showSettingsMenu});
   }
 
+  setVolume(level) {
+    this.memo.volume = level / 100;
+    this.setState({volume: level});
+  }
+
   toggleLayer(index) {
     var layers = this.state.showLayers;
     layers[index] = !layers[index];
@@ -171,9 +232,9 @@ export default class player extends Component {
   }
 
   toggleSmooth() {
-    var smooth = !this.state.smoothDisplay;
+    var smooth = !this.state.smoothScaling;
     this.memo.setInterpolation(smooth ? "linear" : "nearest");
-    this.setState({smoothDisplay: smooth});
+    this.setState({smoothScaling: smooth});
   }
 
   setFrame(index) {

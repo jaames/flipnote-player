@@ -6,9 +6,10 @@
 
 // import component files
 @import "partials/icons";
+@import "partials/switch";
+@import "partials/slider";
 @import "partials/player";
 @import "partials/detail";
-@import "partials/switch";
 
 // general page layout
 html, body {
@@ -73,9 +74,8 @@ html, body {
 }
 
 .topBar__logo {
-  height: 48px;
-  width: 48px;
-  display: inline;
+  height: 64px;
+  width: 40px;
   vertical-align: middle;
 }
 

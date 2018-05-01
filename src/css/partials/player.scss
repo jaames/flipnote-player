@@ -1,5 +1,6 @@
 .player__canvasFrame {
   position: relative;
+  overflow: hidden;
 
   @include breakpoint(medium) {
     margin: 24px;
@@ -69,54 +70,11 @@
 }
 
 body.is-slider-active {
-  cursor: ew-resize;
-}
-
-.progressBar {
-  padding: 12px 0;
-  cursor: pointer;
-}
-
-.slider {
-  background-color: #fff;
-  height: 5px;
-  position: relative;
-  border-radius: 3px;
-}
-
-.slider__level {
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  background: $primary-color;
-}
-
-.slider__handle {
-  position: absolute;
-  display: none;
-  top: 0;
-  bottom: 0;
-  margin-left: -7px;
-  margin-top: -5px;
-  width: 14px;
-  height: 14px;
-  background: #fff;
-  border: 3px solid $primary-color;
-  border-radius: 50%;
-}
-
-body.is-slider-active {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-}
-
-.progressBar:hover .slider__handle,
-.slider.is-active .slider__handle {
-  display: block;
 }
 
 .settingsMenu {
@@ -127,7 +85,7 @@ body.is-slider-active {
   position: absolute;
   bottom: 12px;
   left: 12px;
-  padding: 8px 0;
+  // padding: 8px 0;
 }
 
 .settingsItem {
@@ -140,12 +98,26 @@ body.is-slider-active {
   &:hover {
     background:#efefef;
   }
+
+  &:first-of-type {
+    padding-top: 8px;
+  }
+
+  &:last-of-type {
+    padding-bottom: 8px;
+  }
 }
 
 .settingsItem__label {
   flex: 1;
   margin-right: auto;
   padding: 0 12px;
+}
+
+.settingsItem__slider {
+  width: 80px;
+  vertical-align: middle;
+  display: inline-block;
 }
 
 .settingsItem__input {

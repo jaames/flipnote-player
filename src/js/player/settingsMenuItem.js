@@ -1,5 +1,6 @@
 import { h, Component } from "preact";
 import Switch from "react-toggle-switch";
+import Slider from "rc-slider";
 
 export default class SettingsMenuItem extends Component {
   render(props, state) {
@@ -7,9 +8,25 @@ export default class SettingsMenuItem extends Component {
     var inputElement = "";
 
     switch (props.type) {
+      case "slider":
+        inputElement = (
+        <Slider
+          className="settingsItem__slider"
+          value={ props.value }
+          min={ props.min }
+          max={ props.max }
+          onChange={ props.onChange }
+          onAfterChange={ props.onAfterChange }
+          onBeforeChange={ props.onBeforeChange }
+        />);
+        break;
       case "switch":
       default:
-        inputElement = (<Switch on={ props.value } onClick={ props.handleInput }></Switch>);
+        inputElement = (
+        <Switch 
+          on={ props.value } 
+          onClick={ props.onChange }
+        />);
         break;
     }
 
@@ -26,5 +43,9 @@ SettingsMenuItem.defaultProps = {
   label: "",
   type: "switch",
   value: false,
-  handleInput: function(){}
+  min: 0,
+  max: 100,
+  onBeforeChange: function(){},
+  onChange: function(){},
+  onAfterChange: function(){},
 }
