@@ -4,7 +4,7 @@
 
   @include breakpoint(medium) {
     margin: 24px;
-    margin-bottom: 4px;
+    margin-bottom: 2px;
   }
 }
 
@@ -69,23 +69,20 @@
   }
 }
 
-body.is-slider-active {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+.player__progressSlider {
+  padding: 12px 0;
 }
 
 .settingsMenu {
   border-radius: 3px;
   background: #fff;
   border: 2px solid #efefef;
-  // box-shadow: 0 3px 5px -1px rgba(98, 101, 119, 0.507);
   position: absolute;
-  bottom: 12px;
-  left: 12px;
-  // padding: 8px 0;
+  // I hate using !important, but react-overlays kinda forces me to here :">
+  bottom: 12px !important;
+  left: 12px !important;
+  top: auto !important;
+  right: auto !important;
 }
 
 .settingsItem {

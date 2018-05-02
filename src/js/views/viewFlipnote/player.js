@@ -1,12 +1,10 @@
 import { h, Component } from "preact";
-
-import { Overlay } from "react-overlays";
 import { HotKeys } from "react-hotkeys";
-import Slider from "rc-slider";
 
-import SettingsMenu from "./settingsMenu";
-import SettingsMenuItem from "./settingsMenuItem";
-import FrameCounter from "./frameCounter";
+import Slider from "components/slider";
+import SettingsMenu from "components/settingsMenu";
+import SettingsMenuItem from "components/settingsMenuItem";
+import FrameCounter from "components/frameCounter";
 
 const keyMap = {
   prevFrame: ["left", "a"],
@@ -27,7 +25,7 @@ export default class player extends Component {
       showSettingsMenu: false,
       showLayers: { 1: true, 2: true },
       smoothScaling: true,
-      volume: 0,
+      volume: props.flipnote.volume * 100,
     };
     this.keyHandlers = {};
     for (const key in keyMap) if (keyMap.hasOwnProperty(key)) {
@@ -62,25 +60,19 @@ export default class player extends Component {
       <HotKeys keyMap={keyMap} handlers={this.keyHandlers}>
       <div class="player">
         <div class="player__canvasFrame" ref={el => this.canvasFrame = el}>
-          <Overlay
-            show={this.state.showSettingsMenu}
-            container={this.canvasFrame}
-            onHide={() => this.setState({ showSettingsMenu: false })}
-            rootClose={true}
-          >
-            <SettingsMenu>
-              <SettingsMenuItem label="Loop" value={this.state.loop} onChange={() => this.toggleLoop()} />
-              <SettingsMenuItem label="Volume" type="slider" value={this.state.volume} onChange={(v) => this.setVolume(v)} />
-              <SettingsMenuItem label="Layer 1" value={this.state.showLayers[1]} onChange={() => this.toggleLayer(1)} />
-              <SettingsMenuItem label="Layer 2" value={this.state.showLayers[2]} onChange={() => this.toggleLayer(2)} />
-              <SettingsMenuItem label="Smooth Scaling" value={this.state.smoothScaling} onChange={() => this.toggleSmooth()} />
-            </SettingsMenu>
-          </Overlay>
+          <SettingsMenu show={this.state.showSettingsMenu} container={this.canvasFrame} onHide={() => this.setState({ showSettingsMenu: false })}>
+            <SettingsMenuItem label="Loop" value={this.state.loop} onChange={() => this.toggleLoop()} />
+            <SettingsMenuItem label="Volume" type="slider" value={this.state.volume} onChange={(v) => this.setVolume(v)} />
+            <SettingsMenuItem label="Layer 1" value={this.state.showLayers[1]} onChange={() => this.toggleLayer(1)} />
+            <SettingsMenuItem label="Layer 2" value={this.state.showLayers[2]} onChange={() => this.toggleLayer(2)} />
+            <SettingsMenuItem label="Smooth Scaling" value={this.state.smoothScaling} onChange={() => this.toggleSmooth()} />
+          </SettingsMenu>
           <FrameCounter visible={this.state.showFrameCounter} currentFrame={this.state.currentFrame} frameCount={this.state.frameCount}/>
           {/* webgl canvas is inserted here -- canvas has the "player__canvas" class*/}
         </div>
         <div class="player__progress">
           <Slider
+            className="player__progressSlider"
             min={0}
             max={this.state.frameCount}
             value={this.state.currentFrame}
@@ -178,22 +170,24 @@ export default class player extends Component {
     this.setState({showSettingsMenu: !this.state.showSettingsMenu});
   }
 
-  setVolume(level) {
-    this.memo.volume = level / 100;
-    this.setState({volume: level});
-  }
-
   toggleLayer(index) {
     var layers = this.state.showLayers;
     layers[index] = !layers[index];
-    this.memo.setLayerVisibilty(index,  layers[index]);
+    this.memo.canvas.setLayerVisibilty(index, layers[index] ? 1 : 0);
+    this.memo.canvas.refresh();
     this.setState({showLayers: layers});
   }
 
   toggleSmooth() {
     var smooth = !this.state.smoothScaling;
-    this.memo.setInterpolation(smooth ? "linear" : "nearest");
+    this.memo.canvas.setFilter(smooth ? "linear" : "nearest");
+    this.memo.canvas.refresh();
     this.setState({smoothScaling: smooth});
+  }
+
+  setVolume(level) {
+    this.memo.volume = level / 100;
+    this.setState({volume: level});
   }
 
   setFrame(index) {

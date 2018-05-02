@@ -14,14 +14,14 @@
   position: absolute;
   width: 100%;
   background-color: #fff;
-  height: 6px;
+  height: 5px;
   border-radius: 6px;
 }
 
 .rc-slider-track {
   position: absolute;
   left: 0;
-  height: 6px;
+  height: 5px;
   border-radius: 6px;
   background-color: $primary-color;
 }
@@ -53,7 +53,7 @@
 }
 
 .rc-slider:hover .rc-slider-handle,
-.rc-slider:focus .rc-slider-handle {
+.rc-slider.is-active .rc-slider-handle {
   display: block;
   visibility: visible;
   pointer-events: all;

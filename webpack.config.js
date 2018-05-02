@@ -52,13 +52,16 @@ module.exports = createConfig([
     ],
     alias: {
 			"react": "preact-compat",
-			"react-dom": "preact-compat"
+      "react-dom": "preact-compat",
+      "views": path.resolve(__dirname, "src/js/views/"),
+      "components": path.resolve(__dirname, "src/js/components/"),
 		}
   }),
   match("*.js", [
     babel({
       presets: [
-        ["env", {"modules": false}]
+        ["env", {"modules": false}],
+        ["stage-2"]
       ],
       plugins: [
         ["transform-react-jsx", { "pragma": "h" }],
