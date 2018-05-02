@@ -1,5 +1,5 @@
-# sample flipnote .ppms shouldn't be in source
-*.ppm
+# sample flipnote .ppms and thumbnails shouldn't be in source
+public/static/ppm/*
 
 # dependencies
 /node_modules

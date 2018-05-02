@@ -24,12 +24,8 @@
     "postcss-loader": "2.0.8",
     "preact": "^8.2.7",
     "preact-compat": "^3.18.0",
-    "prop-types": "^15.6.1",
     "rc-slider": "^8.6.1",
-    "react-addons-css-transition-group": "^15.6.2",
-    "react-addons-transition-group": "^15.6.2",
     "react-dev-utils": "^5.0.0",
-    "react-handle-event": "^0.1.0",
     "react-hotkeys": "^1.1.4",
     "react-overlays": "^0.8.3",
     "react-toggle-switch": "^3.0.4",
@@ -42,9 +38,11 @@
   },
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --progress",
-    "build": "cross-env NODE_ENV=production webpack --progress"
+    "build": "cross-env NODE_ENV=production webpack --progress",
+    "build:ppm": "python3 tools/processPPM.py ./public/static/ppm"
   },
   "devDependencies": {
-    "babel-plugin-component": "^1.1.0"
+    "babel-plugin-component": "^1.1.0",
+    "babel-preset-stage-2": "^6.24.1"
   }
 }
