@@ -27,6 +27,7 @@ const cssnano = require("cssnano");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
+const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
 // require("dotenv").config();
 
@@ -133,6 +134,25 @@ module.exports = createConfig([
         minifyCSS: true,
         minifyURLs: true,
       },
+    }),
+    new FaviconsWebpackPlugin({
+      logo: path.resolve(__dirname, "public/static/media/icon.svg"),
+      prefix: "static/media/icons_[hash]/",
+      statsFilename: "icon_stats_[hash].json",
+      background: "#efefef",
+      theme_color: "#efefef",
+      icons: {
+        android: true,
+        appleIcon: true,
+        appleStartup: true,
+        coast: false,
+        favicons: true,
+        firefox: true,
+        opengraph: false,
+        twitter: false,
+        yandex: false,
+        windows: true
+      }
     }),
   ]),
   setEnv({

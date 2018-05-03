@@ -22,7 +22,7 @@ $icons: (
 .icon {
   display: inline-block;
   background-repeat: no-repeat;
-  background-image: url("../assets/icon_spritesheet@4x.png");
+  background-image: url("../assets/spritesheet.png");
   background-position-x: 0;
   background-size: #{$spritesheet-width * $icon-scale-mobile} #{$spritesheet-height * $icon-scale-mobile};
   width: $icon-size-mobile;
