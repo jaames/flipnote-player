@@ -1,4 +1,4 @@
-import { h, Component, cloneElement } from "preact";
+import { h, cloneElement } from "preact";
 import Transition, { ENTERED, ENTERING, EXITING, EXITED } from "react-transition-group/Transition";
 
 const FADE_DURATION = 200;

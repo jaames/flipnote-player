@@ -13,7 +13,7 @@ export default class SettingsMenu extends Component {
         onHide={ props.onHide }
         rootClose={true}
       >
-        <div className={`settingsMenu ${props.className}`} style={{top: "auto", left: "auto"}}>  
+        <div className={`settingsMenu ${props.className}`}>  
           { props.children }
         </div>
       </Overlay>
@@ -23,7 +23,6 @@ export default class SettingsMenu extends Component {
 
 SettingsMenu.defaultProps = {
   show: false,
-  container: false,
   className: "",
   onHide: function(){},
 }

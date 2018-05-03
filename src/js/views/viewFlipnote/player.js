@@ -44,6 +44,7 @@ export default class player extends Component {
     this.memo.on("load", this._memoLoad);
     this._resizeHandler = (e) => { this.resizeCanvas() }
     window.addEventListener("resize", this._resizeHandler);
+    window.onblur = () => this.pause();
   }
 
   componentWillUnmount() {
@@ -52,6 +53,7 @@ export default class player extends Component {
     this.memo.off("playback:end", this._playbackEnd);
     this.memo.off("load", this._memoLoad);
     window.removeEventListener("resize", this._resizeHandler);
+    window.onblur = undefined;
   }
 
   render(props, state) {
@@ -83,14 +85,14 @@ export default class player extends Component {
         </div>
         <div class="player__controls controls">
           <div class="controlsGroup controlsGroup--left">
-            <i class={["icon", state.paused ? "icon--play" : "icon--pause"].join(" ")} onClick={(e) => this.handleClick("togglePlay", e)}></i>
-            <i class="icon icon--cog" onClick={(e) => this.handleClick("toggleSettings", e)}></i>
+            <i class={`icon ${state.paused ? "icon--play" : "icon--pause"}`} onClick={(e) => this.handleIcon("togglePlay", e)}></i>
+            <i class="icon icon--settings" onClick={(e) => this.handleIcon("toggleSettings", e)}></i>
           </div>
           <div class="controlsGroup controlsGroup--right">  
-            <i class="icon icon--firstFrame" onClick={(e) => this.handleClick("firstFrame", e)}></i>
-            <i class="icon icon--prevFrame" onClick={(e) => this.handleClick("prevFrame", e)}></i>
-            <i class="icon icon--nextFrame" onClick={(e) => this.handleClick("nextFrame", e)}></i>
-            <i class="icon icon--lastFrame" onClick={(e) => this.handleClick("lastFrame", e)}></i>
+            <i class={`icon icon--firstFrame ${state.paused ? "" : "icon--disabled"}`} onClick={(e) => this.handleIcon("firstFrame", e)}></i>
+            <i class={`icon icon--prevFrame ${state.paused ? "" : "icon--disabled"}`} onClick={(e) => this.handleIcon("prevFrame", e)}></i>
+            <i class={`icon icon--nextFrame ${state.paused ? "" : "icon--disabled"}`} onClick={(e) => this.handleIcon("nextFrame", e)}></i>
+            <i class={`icon icon--lastFrame ${state.paused ? "" : "icon--disabled"}`} onClick={(e) => this.handleIcon("lastFrame", e)}></i>
           </div>
         </div>
       </div>
@@ -98,7 +100,7 @@ export default class player extends Component {
     );
   }
 
-  handleClick(type, e) {
+  handleIcon(type, e) {
     if (type == "toggleSettings") e.stopPropagation();
     if ("function" === typeof this[type]) this[type](e);
   }

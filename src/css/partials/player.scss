@@ -115,6 +115,10 @@
   width: 80px;
   vertical-align: middle;
   display: inline-block;
+
+  .rc-slider-rail {
+    background-color: #bcc2c7;
+  }
 }
 
 .settingsItem__input {

@@ -16,7 +16,7 @@ $icons: (
   lastFrame,
   prevFrame,
   nextFrame,
-  cog,
+  settings,
 );
 
 .icon {
@@ -57,7 +57,10 @@ $index: 0;
     background-position-x: -$icon-size;
   }
   
-  .icon--disabled {
+  .icon--disabled,
+  .icon--disabled:hover {
+    cursor: default;
+    cursor: not-allowed;
     background-position-x: -$icon-size * 2;
   }
 

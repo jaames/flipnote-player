@@ -14,7 +14,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.flipnote.open("./static/ppm/pekira_beach.ppm");
+    this.flipnote.open("static/ppm/ekakiuta_en.ppm");
   }
 
   render(props, state) {

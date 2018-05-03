@@ -28,8 +28,11 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
+// require("dotenv").config();
 
 const IS_DEV_ENV = process.env.NODE_ENV === "development";
+
+var buildPath = "/projects/flipnote-player/";
 
 module.exports = createConfig([
   setContext(path.resolve(__dirname, "src")),
@@ -41,7 +44,7 @@ module.exports = createConfig([
   }),
   setOutput({
     path: path.resolve(__dirname, "build"),
-    publicPath: "/",
+    publicPath: buildPath,
     filename: "static/js/[name].js",
   }),
   resolve({
@@ -82,13 +85,15 @@ module.exports = createConfig([
   ]),
   match(["*.eot", "*.ttf", "*.woff", "*.woff2"], [
     file({
-      name: "static/fonts/[name].[ext]?[hash:8]"
+      name: "./static/fonts/[name].[ext]?[hash:8]",
+      publicPath: buildPath,
     })
   ]),
   match(["*.gif", "*.jpg", "*.jpeg", "*.png"], [
     url({
       limit: 8192,
-      name: "static/media/[name].[ext]?[hash:8]"
+      name: "./static/media/[name].[ext]?[hash:8]",
+      publicPath: buildPath,
     })
   ]),
   addPlugins([
@@ -135,7 +140,7 @@ module.exports = createConfig([
   		host: "0.0.0.0",
       hot: true,
       inline: true,
-      contentBase: path.join(__dirname, "./"),
+      contentBase: buildPath,
       open: false,
       compress: true,
       clientLogLevel: "none",
