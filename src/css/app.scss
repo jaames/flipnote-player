@@ -5,6 +5,7 @@
 @include foundation-typography;
 
 // import component files
+@import "partials/sudofont";
 @import "partials/icons";
 @import "partials/switch";
 @import "partials/slider";
@@ -31,13 +32,17 @@ div[tabindex="-1"]:focus {
     justify-content: center;
     align-content: center;
     // left and right padding
-    padding: 0 80px;
+    padding: 0 24px;
     // top and bottom padding
     &:after, &:before {
       content: '';
       display: block;
       flex: 1 1 80px;
     }
+  }
+
+  @include breakpoint(large) {
+    padding: 0 80px;
   }
 }
 
@@ -49,6 +54,10 @@ div[tabindex="-1"]:focus {
 
   &.wrap--wide {
     max-width: 980px;
+
+    @include breakpoint(xlarge) {
+      max-width: 1120px;
+    }
   }
 
   &.wrap--narrow {
@@ -85,25 +94,51 @@ div[tabindex="-1"]:focus {
 }
 
 .flipnoteView {
-  @include breakpoint(medium) {
+
+  @include breakpoint(medium only) {
+    width: 100%;
+    max-width: 480 + 48px;
+    margin: 0 auto;
+  }
+
+  @include breakpoint(large) {
     display: flex;
   }
 }
 
 .flipnoteView__main {
   background: #e2e5e8;
+  @include clearfix();
+
   @include breakpoint(medium) {
-    flex: 0 0 640px + 32px;
+    width: 480 + 48px;
     border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+  }
+
+  @include breakpoint(large) {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 640 + 48px;
+    border-top-right-radius: 0;
     border-bottom-left-radius: 6px;
+  }
+
+  @include breakpoint(xlarge) {
+    width: (256*3) + 48px;
   }
 }
 
 .flipnoteView__side {
   background: #fff;
   @include breakpoint(medium) {
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+  }
+
+  @include breakpoint(large) {
     flex: 1;
     border-top-right-radius: 6px;
-    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 0;
   }
 }

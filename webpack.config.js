@@ -31,8 +31,7 @@ const Dotenv = require("dotenv-webpack");
 // require("dotenv").config();
 
 const IS_DEV_ENV = process.env.NODE_ENV === "development";
-
-var buildPath = "/projects/flipnote-player/";
+const PUBLIC_PATH = IS_DEV_ENV ? "/" : "/projects/flipnote-player/";
 
 module.exports = createConfig([
   setContext(path.resolve(__dirname, "src")),
@@ -44,7 +43,7 @@ module.exports = createConfig([
   }),
   setOutput({
     path: path.resolve(__dirname, "build"),
-    publicPath: buildPath,
+    publicPath: PUBLIC_PATH,
     filename: "static/js/[name].js",
   }),
   resolve({
@@ -56,6 +55,7 @@ module.exports = createConfig([
     alias: {
 			"react": "preact-compat",
       "react-dom": "preact-compat",
+      "util": path.resolve(__dirname, "src/js/util/"),
       "views": path.resolve(__dirname, "src/js/views/"),
       "components": path.resolve(__dirname, "src/js/components/"),
 		}
@@ -83,17 +83,17 @@ module.exports = createConfig([
     sass(),
     extractText("static/css/[name].css")
   ]),
-  match(["*.eot", "*.ttf", "*.woff", "*.woff2"], [
+  match(["*.eot", "*.ttf", "*.woff", "*.woff2", "*.svg"], [
     file({
       name: "./static/fonts/[name].[ext]?[hash:8]",
-      publicPath: buildPath,
+      publicPath: PUBLIC_PATH,
     })
   ]),
   match(["*.gif", "*.jpg", "*.jpeg", "*.png"], [
     url({
       limit: 8192,
       name: "./static/media/[name].[ext]?[hash:8]",
-      publicPath: buildPath,
+      publicPath: PUBLIC_PATH,
     })
   ]),
   addPlugins([
@@ -104,7 +104,13 @@ module.exports = createConfig([
     }),
     new webpack.BannerPlugin({
       banner: [
-        // "Add a copyright message or something silly here",
+        "Flipnote Player",
+        "-- -- -- -- -- --",
+        "Web-based playback for animations created with the 2008 Nintendo DSiWare title 'Flipnote Studio'",
+        "Created by James Daniel | github.com/jaames | @rakujira on Twitter",
+        "Source code is on github: https://github.com/jaames/flipnote-player",
+        "Flipnote Studio is (c) Nintendo Co Ltd",
+        "-- -- -- -- -- --",
         "Version hash: [hash]",
         "Module hash: [chunkhash]",
       ].join("\n")
@@ -119,7 +125,6 @@ module.exports = createConfig([
       hash: true,
       template: path.resolve(__dirname, "public/index.html"),
       minify: {
-        removeComments: true,
         collapseWhitespace: true,
         removeRedundantAttributes: true,
         useShortDoctype: true,
@@ -140,7 +145,7 @@ module.exports = createConfig([
   		host: "0.0.0.0",
       hot: true,
       inline: true,
-      contentBase: buildPath,
+      contentBase: "./",
       open: false,
       compress: true,
       clientLogLevel: "none",
@@ -154,9 +159,10 @@ module.exports = createConfig([
     ]),
   ]),
   env("production", [
+    sourceMaps(),
     addPlugins([
       new CleanWebpackPlugin(["build"], {verbose: false}),
-      new webpack.optimize.UglifyJsPlugin()
+      new webpack.optimize.UglifyJsPlugin({sourceMap: true})
     ])
   ]),
 ]);

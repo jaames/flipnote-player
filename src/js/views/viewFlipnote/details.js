@@ -1,30 +1,6 @@
 import { h, Component } from "preact";
-
-function humanReadableByteCount(bytes) {
-  if (bytes == 0) return "null";
-  var k = 1000;
-  var sizes = ["B", "KB", "MB", "GB"];
-  var exp = Math.floor(Math.log(bytes) / Math.log(k));
-  return (bytes / Math.pow(k, exp)).toFixed(1) + " " + sizes[exp];
-}
-
-function getFsidRegion(fsid) {
-  switch (fsid.charAt(0)) {
-    case "0":
-    case "1":
-      return "Japan";
-      break;
-    case "5":
-      return "America";
-      break;
-    case "9":
-      return "Europe";
-      break;
-    default:
-      return "???";
-      break;
-  }
-}
+import format from "util/format";
+import flipnoteStudio from "util/flipnoteStudio";
 
 export default class Details extends Component {
   constructor(props) {
@@ -60,10 +36,10 @@ export default class Details extends Component {
     var author = meta.current.username;
     var details = {
       "Created": meta.timestamp.toLocaleDateString(),
-      "Region": getFsidRegion(meta.current.fsid),
+      "Region": flipnoteStudio.getFsidRegion(meta.current.fsid),
       "Frames": meta.frame_count,
       "Frame Speed": meta.frame_speed,
-      "File Size": humanReadableByteCount(this.memo.fileLength),
+      "File Size": format.byteCount(this.memo.fileLength),
     };
     this.setState({ details, author });
   }

@@ -1,4 +1,16 @@
 <!DOCTYPE html>
+<!-- 
+  Hey! 
+  Thanks for checking out my Flipnote Player!
+  If you're looking for source code it's all on github: 
+  https://github.com/jaames/flipnote-player
+  And you can follow me on Twitter for more neat stuff:
+  @rakujira
+
+  Special thanks:
+  - Austin (hosting, domain)
+  - Kaeru Team (testing help)
+-->
 <html lang="en">
   <head>
     <meta charset="utf-8">
@@ -18,16 +30,6 @@
     <meta name="twitter:card" content="summary">
     <meta name="twitter:creator" content="<%= process.env.META_CREATOR_TWITTER %>">
     <link rel="shortcut icon" href="/favicon.ico">
-    <% if(process.env.REACT_APP_GOOGLE_FONT_FAMILIES) { %>
-    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js"></script>
-    <script>
-      WebFont.load({
-        google: {
-          families: [<%= process.env.REACT_APP_GOOGLE_FONT_FAMILIES %>]
-        }
-      });
-    </script>
-    <% } %>
   </head>
   <body>
     <noscript>

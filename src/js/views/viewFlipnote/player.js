@@ -6,6 +6,8 @@ import SettingsMenu from "components/settingsMenu";
 import SettingsMenuItem from "components/settingsMenuItem";
 import FrameCounter from "components/frameCounter";
 
+import storage from "util/storage";
+
 const keyMap = {
   prevFrame: ["left", "a"],
   nextFrame: ["right", "d"],
@@ -42,9 +44,10 @@ export default class player extends Component {
     this.memo.on("frame:update", this._frameUpdate);
     this.memo.on("playback:end", this._playbackEnd);
     this.memo.on("load", this._memoLoad);
-    this._resizeHandler = (e) => { this.resizeCanvas() }
+    this._resizeHandler = (e) => { this.resizeCanvas(); }
     window.addEventListener("resize", this._resizeHandler);
     window.onblur = () => this.pause();
+    this.setVolume(storage.get("volume", 50));
   }
 
   componentWillUnmount() {
@@ -57,7 +60,6 @@ export default class player extends Component {
   }
 
   render(props, state) {
-
     return (
       <HotKeys keyMap={keyMap} handlers={this.keyHandlers}>
       <div class="player">
@@ -76,14 +78,14 @@ export default class player extends Component {
           <Slider
             className="player__progressSlider"
             min={0}
-            max={this.state.frameCount}
+            max={this.state.frameCount - 1}
             value={this.state.currentFrame}
             onChange={value => this.handleProgressBarEvent("change", value)}
             onBeforeChange={value => this.handleProgressBarEvent("inputStart", value)}
             onAfterChange={value => this.handleProgressBarEvent("inputEnd", value)}
           />
         </div>
-        <div class="player__controls controls">
+        <div class="player__controls">
           <div class="controlsGroup controlsGroup--left">
             <i class={`icon ${state.paused ? "icon--play" : "icon--pause"}`} onClick={(e) => this.handleIcon("togglePlay", e)}></i>
             <i class="icon icon--settings" onClick={(e) => this.handleIcon("toggleSettings", e)}></i>
@@ -189,6 +191,7 @@ export default class player extends Component {
 
   setVolume(level) {
     this.memo.volume = level / 100;
+    storage.set("volume", level);
     this.setState({volume: level});
   }
 
@@ -228,5 +231,6 @@ export default class player extends Component {
   resizeCanvas() {
     var rect = this.canvasFrame.getBoundingClientRect();
     this.memo.canvas.resize(rect.width, rect.width * 0.75);
+    if (rect.height > 0 && rect.width > 0) this.memo.canvas.refresh();
   }
 }

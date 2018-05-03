@@ -11,9 +11,18 @@ $foundation-palette: (
   alert: #cc4b37,
 );
 
+$breakpoints: (
+  small: 0,
+  medium: 640px,
+  large: 1120px,
+  xlarge: 1440px,
+  xxlarge: 1640px,
+);
+
 $black: #141414;
 $white: #fff;
-$body-font-family: -apple-system, BlinkMacSystemFont, 'avenir next', avenir, helvetica, 'helvetica neue', ubuntu, roboto, noto, 'segoe ui', arial, sans-serif;
+$sf-font-path: "../assets/fonts/";
+$body-font-family: sudofont, -apple-system, BlinkMacSystemFont, 'avenir next', avenir, helvetica, 'helvetica neue', ubuntu, roboto, noto, 'segoe ui', arial, sans-serif;
 $header-font-weight: bold;
 
 // Foundation SCSS framework: https://foundation.zurb.com/sites
