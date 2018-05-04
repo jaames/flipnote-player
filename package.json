@@ -25,6 +25,7 @@
     "postcss-loader": "2.0.8",
     "preact": "^8.2.7",
     "preact-compat": "^3.18.0",
+    "preact-router": "^2.6.0",
     "rc-slider": "^8.6.1",
     "react-dev-utils": "^5.0.0",
     "react-dropzone": "^4.2.9",

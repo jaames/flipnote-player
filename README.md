@@ -4,9 +4,7 @@ This app is built around my JavaScript-and-WebGL-based Flipnote PPM parser,  fli
 
 In addition, the following third-party tools and libraries were used:
 * [React](https://reactjs.org/) (actually [preact](); a lightweight react alternative with the same API)
-* [webpack](https://webpack.js.org/)
 * [Foundation](https://foundation.zurb.com/)
-* [element-react](https://eleme.github.io/element-react/#/en-US/quick-start)
 * [Sketch](https://sketchapp.com/) (for making icons)
 
 ### Development setup
@@ -26,4 +24,3 @@ In addition, the following third-party tools and libraries were used:
 ### Acknowledgments
 
 * Anyone who also contributed to reverse-engineering Flipnote Studio and the PPM format, including (but probably not limited to) [bricklife](http://ugomemo.g.hatena.ne.jp/bricklife/20090307/1236391313), [mirai-iro](http://mirai-iro.hatenablog.jp/entry/20090116/ugomemo_ppm), [harimau_tigris](http://ugomemo.g.hatena.ne.jp/harimau_tigris), [steven](http://www.dsibrew.org/wiki/User:Steven), [yellows8](https://twitter.com/ylws8), [PBSDS](https://github.com/pbsds), Midmad, [WDLMaster](https://hcs64.com/mboard/forum.php) and [jsa](https://github.com/thejsa). 
-* [sudofox](https://sudomemo.net/) from sudomemo for provind 
