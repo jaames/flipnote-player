@@ -23,7 +23,7 @@ export default class player extends Component {
       loop: false,
       currentFrame: 0,
       frameCount: 1,
-      showFrameCounter: false,
+      showFrameCounter: true,
       showSettingsMenu: false,
       showLayers: { 1: true, 2: true },
       smoothScaling: true,
@@ -64,22 +64,22 @@ export default class player extends Component {
       <HotKeys keyMap={keyMap} handlers={this.keyHandlers}>
       <div class="player">
         <div class="player__canvasFrame" ref={el => this.canvasFrame = el}>
-          <SettingsMenu show={this.state.showSettingsMenu} container={this.canvasFrame} onHide={() => this.setState({ showSettingsMenu: false })}>
-            <SettingsMenuItem label="Loop" value={this.state.loop} onChange={() => this.toggleLoop()} />
-            <SettingsMenuItem label="Volume" type="slider" value={this.state.volume} onChange={(v) => this.setVolume(v)} />
-            <SettingsMenuItem label="Layer 1" value={this.state.showLayers[1]} onChange={() => this.toggleLayer(1)} />
-            <SettingsMenuItem label="Layer 2" value={this.state.showLayers[2]} onChange={() => this.toggleLayer(2)} />
-            <SettingsMenuItem label="Smooth Scaling" value={this.state.smoothScaling} onChange={() => this.toggleSmooth()} />
+          <SettingsMenu show={state.showSettingsMenu} container={this.canvasFrame} onHide={() => this.setState({ showSettingsMenu: false })}>
+            <SettingsMenuItem label="Loop" value={state.loop} onChange={() => this.toggleLoop()} />
+            <SettingsMenuItem label="Volume" type="slider" value={state.volume} onChange={(v) => this.setVolume(v)} />
+            <SettingsMenuItem label="Layer 1" value={state.showLayers[1]} onChange={() => this.toggleLayer(1)} />
+            <SettingsMenuItem label="Layer 2" value={state.showLayers[2]} onChange={() => this.toggleLayer(2)} />
+            <SettingsMenuItem label="Smooth Scaling" value={state.smoothScaling} onChange={() => this.toggleSmooth()} />
           </SettingsMenu>
-          <FrameCounter visible={this.state.showFrameCounter} currentFrame={this.state.currentFrame} frameCount={this.state.frameCount}/>
+          <FrameCounter show={state.showFrameCounter} current={state.currentFrame + 1} total={state.frameCount}/>
           {/* webgl canvas is inserted here -- canvas has the "player__canvas" class*/}
         </div>
         <div class="player__progress">
           <Slider
             className="player__progressSlider"
             min={0}
-            max={this.state.frameCount - 1}
-            value={this.state.currentFrame}
+            max={state.frameCount - 1}
+            value={state.currentFrame}
             onChange={value => this.handleProgressBarEvent("change", value)}
             onBeforeChange={value => this.handleProgressBarEvent("inputStart", value)}
             onAfterChange={value => this.handleProgressBarEvent("inputEnd", value)}
@@ -144,14 +144,16 @@ export default class player extends Component {
   play() {
     this.memo.play(); 
     this.setState({
-      paused: this.memo.paused
+      paused: this.memo.paused,
+      showFrameCounter: false,
     });
   }
 
   pause() {
     this.memo.pause(); 
     this.setState({
-      paused: this.memo.paused
+      paused: this.memo.paused,
+      showFrameCounter: true,
     });
   }
 
