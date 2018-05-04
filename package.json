@@ -1,0 +1,50 @@
+{
+  "name": "flipnote-player",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "autoprefixer": "7.1.6",
+    "babel-core": "6.26.0",
+    "babel-loader": "7.1.2",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-env": "^1.6.1",
+    "babel-runtime": "6.26.0",
+    "clean-webpack-plugin": "^0.1.19",
+    "copy-webpack-plugin": "^4.5.1",
+    "cross-env": "^5.1.4",
+    "css-loader": "0.28.7",
+    "dotenv": "4.0.0",
+    "dotenv-webpack": "^1.5.5",
+    "extract-text-webpack-plugin": "3.0.2",
+    "favicons-webpack-plugin": "^0.0.9",
+    "file-loader": "1.1.5",
+    "flipnote.js": "^1.4.7",
+    "foundation-sites": "^6.4.4-rc1",
+    "html-webpack-plugin": "2.29.0",
+    "npm-run-all": "^4.1.2",
+    "postcss-loader": "2.0.8",
+    "preact": "^8.2.7",
+    "preact-compat": "^3.18.0",
+    "rc-slider": "^8.6.1",
+    "react-dev-utils": "^5.0.0",
+    "react-dropzone": "^4.2.9",
+    "react-hotkeys": "^1.1.4",
+    "react-overlays": "^0.8.3",
+    "react-toggle-switch": "^3.0.4",
+    "react-transition-group": "^2.3.1",
+    "style-loader": "0.19.0",
+    "url-loader": "0.6.2",
+    "webpack": "3.8.1",
+    "webpack-blocks": "^1.0.0-rc.2",
+    "webpack-dev-server": "2.9.4"
+  },
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --progress",
+    "build": "cross-env NODE_ENV=production webpack --progress",
+    "build:ppm": "python3 tools/processPPM.py ./public/static/ppm"
+  },
+  "devDependencies": {
+    "babel-plugin-component": "^1.1.0",
+    "babel-preset-stage-2": "^6.24.1"
+  }
+}

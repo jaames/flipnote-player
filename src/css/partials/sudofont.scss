@@ -1,0 +1,159 @@
+$sf-font-family: "sudofont" !default;
+$sf-font-name: "sudofont" !default;
+$sf-font-size-base: 24px !default;
+$sf-line-height-base: 1 !default;
+$sf-font-path: "../fonts/" !default;
+$sf-icon-sizes: (2, 3, 4, 5) !default;
+
+$sf-map: (
+  button-a: e000,
+  button-b: e001,
+  button-x: e002,
+  button-y: e003,
+  button-l: e004,
+  button-r: e005,
+  dpad: e006,
+  alarm: e007,
+  face-smile: e008,
+  face-frown: e009,
+  face-sad: e00a,
+  face-bored: e00b,
+  sun: e00c,
+  cloud: e00d,
+  umbrella: e00e,
+  snowman: e00f,
+  block-warning: e010,
+  block-question: e011,
+  envelope: e012,
+  device-phone: e013,
+  suit-spades: e015,
+  suit-diamonds: e016,
+  suit-hearts: e017,
+  suit-clubs: e018,
+  arrow-right: e019,
+  arrow-left: e01a,
+  arrow-up: e01b,
+  arrow-down: e01c,
+  x: e028,
+  play: e100,
+  pause: e101,
+  volume-off: e102,
+  volume-on: e103,
+  framemode: e104,
+  playmode: e105,
+  expand: e110,
+  close: e111,
+  chevron-left: e112,
+  chevron-right: e113,
+  chevron-up: e114,
+  chevron-down: e115,
+  play-loop: e116,
+  play-once: e117,
+  comment: e120,
+  comment-off: e121,
+  eye: e122,
+  eye-off: e123,
+  delete: e124,
+  delete-off: e125,
+  chat: e126,
+  star: e127,
+  star-o: e128,
+  heart: e129,
+  tag: e12a,
+  tags: e12b,
+  pencil: e12c,
+  edit: e12d,
+  cog: e12e,
+  warning: e12f,
+  calendar: e130,
+  music: e131,
+  cancel: e132,
+  flag: e133,
+  note: e134,
+  pin: e135,
+  plus: e136,
+  minus: e137,
+  th-large: e138,
+  th-list: e139,
+  th-menu: e13a,
+  th-small: e13b,
+  home: e150,
+  search: e151,
+  news: e152,
+  help: e153,
+  channels: e154,
+  globe: e155,
+  user: e156,
+  user-group: e157,
+  user-book: e158,
+  user-card: e159,
+  citizen: e15a,
+  citizen-off: e15b,
+  post: e15c,
+  download: e15d,
+  kaeru: e200,
+  wrench: e201,
+  lock: e202,
+  unlock: e203,
+  spinoff: e204,
+  ds: e205,
+);
+
+@font-face {
+  font-family: "#{$sf-font-family}";
+  src: url('#{$sf-font-path}#{$sf-font-name}.eot');
+  src: url('#{$sf-font-path}#{$sf-font-name}.eot?#iefix') format('eot'),
+    url('#{$sf-font-path}#{$sf-font-name}.woff2') format('woff2'),
+    url('#{$sf-font-path}#{$sf-font-name}.woff') format('woff'),
+    url('#{$sf-font-path}#{$sf-font-name}.ttf') format('truetype'),
+    url('#{$sf-font-path}#{$sf-font-name}.svg##{$sf-font-name}') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  unicode-range: U+E000-E013, U+E015-E01C, U+E028, U+E100-E105, U+E110-E117, U+E120-E13B, U+E150-E15D, U+E200-E205;
+}
+
+@function sf-get-icon($name){
+  @if map-has-key($sf-map, $name) {
+    $code: map-get($sf-map, $name);
+    @return #{"\"\\"}#{$code + "\""};
+  } @else {
+    @error "sudofont: invalid icon name: `#{$name}`.";
+  }
+}
+
+@mixin sf-icon() {
+  display: inline-block;
+  font: normal normal normal #{$sf-font-size-base}/#{$sf-line-height-base} "#{$sf-font-family}";
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+@mixin sf-classes() {
+  .sf {
+    @include sf-icon();
+  }
+
+  .sf--lg {
+    font-size: 1.3333333333333333em;
+    line-height: 0.75em;
+    vertical-align: -15%;
+  }
+  .sf--fw {
+    width: 1.2857142857142858em;
+    text-align: center;
+  }
+
+  @each $size in $sf-icon-sizes {
+    .sf--#{$size}x {
+      font-size: #{$size}em;
+    }
+  }
+
+  @each $iconName, $iconContent in $sf-map {
+    .sf--#{$iconName}:before {
+      content: sf-get-icon($iconName);
+    }
+  }
+}

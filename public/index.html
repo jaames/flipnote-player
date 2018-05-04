@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!-- 
+  Hey! 
+  Thanks for checking out my Flipnote Player!
+  If you're looking for source code it's all on github: 
+  https://github.com/jaames/flipnote-player
+  And you can follow me on Twitter for more neat stuff:
+  @rakujira
+
+  Special thanks:
+  - Austin (hosting, domain)
+  - Kaeru Team (testing help)
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title><%= process.env.META_NAME %></title>
+    <meta name="application-name" content="<%= process.env.META_NAME %>">
+    <meta name="description" content="<%= process.env.META_DESCRIPTION %>">
+    <meta property="og:url" content="<%= process.env.META_URL %>">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="<%= process.env.META_NAME %>">
+    <meta property="og:image" content="<%= process.env.META_SOCIAL_IMAGE_URL %>">
+    <meta property="og:image:width" content="<%= process.env.META_SOCIAL_IMAGE_WIDTH %>">
+    <meta property="og:image:height" content="<%= process.env.META_SOCIAL_IMAGE_HEIGHT %>">
+    <meta property="og:description" content="<%= process.env.META_DESCRIPTION %>">
+    <meta property="og:site_name" content="<%= process.env.META_SITE_NAME %>">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:creator" content="<%= process.env.META_CREATOR_TWITTER %>">
+    <link rel="shortcut icon" href="/favicon.ico">
+  </head>
+  <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="root"></div>
+  </body>
+</html>
