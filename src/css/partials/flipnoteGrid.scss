@@ -1,0 +1,44 @@
+.flipnoteGrid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  list-style-type: none;
+  margin: 0 -8px;
+  margin-bottom: -8px;
+}
+
+.flipnoteGrid__thumb {
+  flex-shrink: 0;
+  flex-grow: 0;
+  padding: 8px;
+  width: 50%;
+
+  @include breakpoint(medium) {
+    width: 33.333333%;
+  }
+
+  @include breakpoint(large) {
+    width: 25%;
+  }
+}
+
+.thumb__image {
+  cursor: pointer;  
+  background-repeat: no-repeat;
+  background-size: contain;
+  // preserve aspect ratio (4:3)
+  padding-bottom: 75%;
+  width: 100%;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+.thumb__author {
+  background: #fff;
+  color: #6f7275;
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  font-size: 0.85rem;
+  padding: 3px 6px;
+  margin-top: -1px;
+}

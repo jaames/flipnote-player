@@ -7,8 +7,11 @@
 // import component files
 @import "partials/sudofont";
 @import "partials/icons";
+@import "partials/button";
 @import "partials/switch";
 @import "partials/slider";
+@import "partials/dropzone";
+@import "partials/flipnoteGrid";
 @import "partials/player";
 @import "partials/detail";
 @import "partials/transitions";
@@ -93,8 +96,7 @@ div[tabindex="-1"]:focus {
   vertical-align: middle;
 }
 
-.flipnoteView {
-
+.modal {
   @include breakpoint(medium only) {
     width: 100%;
     max-width: 480 + 48px;
@@ -106,22 +108,67 @@ div[tabindex="-1"]:focus {
   }
 }
 
-.flipnoteView__main {
+.modal__region {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal__region--left {
+  @include breakpoint(medium) {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+  }
+
+  @include breakpoint(large) {
+    flex-shrink: 1;
+    flex-grow: 1;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 6px;
+  }
+}
+
+.modal__region--right {
+  @include breakpoint(medium) {
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+  }
+
+  @include breakpoint(large) {
+    flex-shrink: 1;
+    flex-grow: 1;
+    border-top-right-radius: 6px;
+    border-bottom-left-radius: 0;
+  }
+}
+
+.modal__region--gray {
   background: #e2e5e8;
+}
+
+.region__title {
+  flex: 0;
+  font-size: 1.025rem;
+  line-height: 2.5em;
+  border-bottom: 1px solid #bcc2c7;
+}
+
+.region__body {
+  flex: 1;
+  margin-top: 6px;
+}
+
+.flipnoteView__main {
   @include clearfix();
 
   @include breakpoint(medium) {
     width: 480 + 48px;
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
   }
 
   @include breakpoint(large) {
     flex-grow: 0;
     flex-shrink: 0;
     width: 640 + 48px;
-    border-top-right-radius: 0;
-    border-bottom-left-radius: 6px;
   }
 
   @include breakpoint(xlarge) {
@@ -130,15 +177,22 @@ div[tabindex="-1"]:focus {
 }
 
 .flipnoteView__side {
-  background: #fff;
-  @include breakpoint(medium) {
-    border-bottom-right-radius: 6px;
-    border-bottom-left-radius: 6px;
-  }
+}
+
+.fileSelect {
+}
+
+.fileSelect__main {
+  padding: 24px;
+  
+}
+
+.fileSelect__side {
+  padding: 24px;
 
   @include breakpoint(large) {
-    flex: 1;
-    border-top-right-radius: 6px;
-    border-bottom-left-radius: 0;
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 300px;
   }
 }
