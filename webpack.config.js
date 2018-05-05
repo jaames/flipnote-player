@@ -32,7 +32,6 @@ const Dotenv = require("dotenv-webpack");
 // require("dotenv").config();
 
 const IS_DEV_ENV = process.env.NODE_ENV === "development";
-const PUBLIC_PATH = IS_DEV_ENV ? "/" : "/projects/flipnote-player/";
 
 module.exports = createConfig([
   setContext(path.resolve(__dirname, "src")),
@@ -44,7 +43,7 @@ module.exports = createConfig([
   }),
   setOutput({
     path: path.resolve(__dirname, "build"),
-    publicPath: PUBLIC_PATH,
+    publicPath: "/",
     filename: "static/js/[name].js",
   }),
   resolve({
@@ -87,14 +86,12 @@ module.exports = createConfig([
   match(["*.eot", "*.ttf", "*.woff", "*.woff2", "*.svg"], [
     file({
       name: "./static/fonts/[name].[ext]?[hash:8]",
-      publicPath: PUBLIC_PATH,
     })
   ]),
   match(["*.gif", "*.jpg", "*.jpeg", "*.png"], [
     url({
       limit: 8192,
       name: "./static/media/[name].[ext]?[hash:8]",
-      publicPath: PUBLIC_PATH,
     })
   ]),
   addPlugins([

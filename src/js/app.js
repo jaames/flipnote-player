@@ -10,9 +10,10 @@ export default class App extends Component {
 
   constructor() {
     super();
-    this.flipnote = new flipnote.player(document.createElement("canvas"), 512, 384);
-    this.flipnote.canvas.setFilter("linear");
-    this.flipnote.canvas.el.className = "player__canvas";
+    this.state = {
+      src: null,
+      hasOpenedFlipnote: false,
+    };
     this.util = util;
     window.app = this;
   }
@@ -27,17 +28,36 @@ export default class App extends Component {
           </div>
         </div>
         <div class="wrap wrap--wide">
-          <Router>
-            <FileSelect path="/" default onFileSelect={ (source) => this.openFlipnote(source) }/>
-            <FlipnoteViewer path="/view" flipnote={this.flipnote}/>
+          <Router onChange={ (e) => this.handleRoute(e) }>
+            <FlipnoteViewer path="/view" src={ state.src }/>
+            <FileSelect path="/" default onFileSelect={ (src) => this.openFlipnote(src) }/>
           </Router>
         </div>
       </main>
     );
   }
 
-  openFlipnote(source) {
-    this.flipnote.open(source);
+  handleRoute(e) {
+    switch(e.url) {
+      case "/":
+        this.closeFlipnote();
+        break;
+      case "/view":
+        if (!this.state.hasOpenedFlipnote) route("/");
+        break;
+    }
+  }
+
+  openFlipnote(src) {
+    this.setState({
+      src,
+      hasOpenedFlipnote: true,
+    });
     route("/view");
+  }
+
+  closeFlipnote() {
+    route("/");
+    this.setState({src: null});
   }
 }
