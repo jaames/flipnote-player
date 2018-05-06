@@ -1,6 +1,6 @@
 # Flipnote-Player
 
-Web player for animations created with [Flipnote Studio]()https://www.nintendo.co.uk/Games/Nintendo-DSiWare/Flipnote-Studio-263126.html, a Nintendo DSiWare title from 2008.
+Web player for animations created with [Flipnote Studio](https://www.nintendo.co.uk/Games/Nintendo-DSiWare/Flipnote-Studio-263126.html), a Nintendo DSiWare title from 2008.
 
 This app is a GUI wrapper around my [flipnote.js](https://github.com/jaames/flipnote.js) library, you can find more technical details about the Flipnote format and the parser there.
 
@@ -12,6 +12,8 @@ This app is a GUI wrapper around my [flipnote.js](https://github.com/jaames/flip
 * [Sketch](https://sketchapp.com/) (for making graphics)
 
 ### Development Setup
+
+**Note: I'm still learning about react, so this codebase is likely to undergo some large changes as I refactor things. Please bear that in mind if you wish to contribute.**
 
 * Make sure you have NodeJS and NPM installed
 * Copy `.env.example` to `.env` (change the config variables if needed) 
