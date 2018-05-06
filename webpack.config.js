@@ -29,6 +29,8 @@ const CleanWebpackPlugin = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 const Dotenv = require("dotenv-webpack");
+
+const VERSION = require("./package.json").version;
 // require("dotenv").config();
 
 const IS_DEV_ENV = process.env.NODE_ENV === "development";
@@ -102,15 +104,11 @@ module.exports = createConfig([
     }),
     new webpack.BannerPlugin({
       banner: [
-        "Flipnote Player",
-        "-- -- -- -- -- --",
-        "Web-based playback for animations created with the 2008 Nintendo DSiWare title 'Flipnote Studio'",
-        "Created by James Daniel | github.com/jaames | @rakujira on Twitter",
-        "Source code is on github: https://github.com/jaames/flipnote-player",
-        "Flipnote Studio is (c) Nintendo Co Ltd",
-        "-- -- -- -- -- --",
-        "Version hash: [hash]",
-        "Module hash: [chunkhash]",
+        "flipnote-player v" + VERSION,
+        "Web player for animations created with Flipnote Studio, a Nintendo DSiWare title from 2008.",
+        "2018 James Daniel (github.com/jaames | @rakujira)",
+        "https://github.com/jaames/flipnote-player",
+        "[hash]:[chunkhash]",
       ].join("\n")
     }),
     new CopyWebpackPlugin([{
@@ -153,7 +151,8 @@ module.exports = createConfig([
     }),
   ]),
   setEnv({
-    NODE_ENV: process.env.NODE_ENV
+    NODE_ENV: process.env.NODE_ENV,
+    VERSION: VERSION
   }),
   env("development", [
     sourceMaps(),
