@@ -13,7 +13,7 @@
 .rc-slider-rail {
   position: absolute;
   width: 100%;
-  background-color: #fff;
+  background-color: $white;
   height: 5px;
   border-radius: 6px;
 }
@@ -47,7 +47,7 @@
   cursor: grab;
   border-radius: 50%;
   border: solid 2px $primary-color;
-  background-color: #fff;
+  background-color: $white;
   -ms-touch-action: pan-x;
   touch-action: pan-x;
 }

@@ -5,32 +5,17 @@ import FlipnoteGrid from "components/flipnoteGrid";
 import FlipnoteGridThumb from "components/flipnoteGridThumb";
 import ajax from "util/ajax";
 
-// TEMPORARY
-function getRandomSubarray(arr, size) {
-  var shuffled = arr.slice(0), i = arr.length, temp, index;
-  while (i--) {
-      index = Math.floor((i + 1) * Math.random());
-      temp = shuffled[index];
-      shuffled[index] = shuffled[i];
-      shuffled[i] = temp;
-  }
-  return shuffled.slice(0, size);
-}
-
-
 export default class fileSelect extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      gridItems: []
+      gridItems: new Array(12).fill({}).map(item => ({src: ""}))
     };
   }
 
   componentDidMount() {
-    ajax.getJson("static/ppm/manifest.json", (data) => {
-      this.setState({ gridItems: getRandomSubarray(data["items"], 12) })
-    });
+    this.loadSamples(); 
   }
 
   render(props, state) {
@@ -60,7 +45,7 @@ export default class fileSelect extends Component {
           <h4 class="region__title">Sample Flipnotes</h4>
           <FlipnoteGrid>
             { state.gridItems.map((item, index) => {
-              return (<FlipnoteGridThumb key={index} onSelect={(stem) => { this.onGridSelect(stem) }} filestem={item.filestem} imageUrl={item.thumb} author={item.author}/>); 
+              return (<FlipnoteGridThumb key={index} thumb={item.thumb} author={item.author} src={item.src} onSelect={src => this.loadFlipnote(src)}/>); 
             }) }
           </FlipnoteGrid>
         </div>
@@ -68,12 +53,15 @@ export default class fileSelect extends Component {
     );
   }
 
-  loadFlipnote(source) {
-    this.props.onFileSelect(source);
+  loadSamples() {
+    ajax.getJson("static/ppm/manifest.json", (data) => {
+      var items = data["items"].map(item => ({...item, src: `static/ppm/${item.filestem}.ppm`}));
+      this.setState({ gridItems: items });
+    });
   }
 
-  onGridSelect(stem) {
-    this.loadFlipnote(`static/ppm/${stem}.ppm`);
+  loadFlipnote(source) {
+    this.props.onFileSelect(source);
   }
 
   onDrop(accepted) {

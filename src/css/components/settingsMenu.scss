@@ -1,0 +1,54 @@
+.settingsMenu {
+  border-radius: 3px;
+  background: $white;
+  border: 2px solid $light-gray;
+  position: absolute;
+  // I hate using !important, but react-overlays kinda forces me to here :">
+  bottom: 12px !important;
+  left: 12px !important;
+  top: auto !important;
+  right: auto !important;
+}
+
+.settingsItem {
+  display: flex;
+  line-height: 2em;
+  padding: 4px 8px;
+  color: $text-color-light;
+  font-size: 0.9rem;
+
+  &:hover {
+    background: $light-gray;
+  }
+
+  &:first-of-type {
+    padding-top: 8px;
+  }
+
+  &:last-of-type {
+    padding-bottom: 8px;
+  }
+}
+
+.settingsItem__label {
+  flex: 1;
+  margin-right: auto;
+  padding: 0 12px;
+}
+
+.settingsItem__input {
+  flex: 0;
+  margin-left: auto;
+  padding: 0 12px;
+}
+
+.settingsItem__slider {
+  width: 80px;
+  vertical-align: middle;
+  display: inline-block;
+  padding: 5px 0;
+
+  .rc-slider-rail {
+    background: $dark-gray;
+  }
+}

@@ -16,7 +16,7 @@ const keyMap = {
   nextFrame: ["right", "d"],
 }
 
-class ViewFlipnote extends Component {
+export default class ViewFlipnote extends Component {
 
   constructor(props) {
     super(props);
@@ -50,9 +50,9 @@ class ViewFlipnote extends Component {
                 <SettingsMenu show={state.showSettingsMenu} container={this.canvasFrame} onHide={() => this.setState({ showSettingsMenu: false })}>
                   <SettingsMenuItem label="Loop" value={state.loop} onChange={() => this.toggleLoop()} />
                   <SettingsMenuItem label="Volume" type="slider" value={state.volume} onChange={(v) => this.setVolume(v)} />
-                  <SettingsMenuItem label="Layer 1" value={state.showLayers[1]} onChange={() => this.toggleLayer(1)} />
-                  <SettingsMenuItem label="Layer 2" value={state.showLayers[2]} onChange={() => this.toggleLayer(2)} />
-                  <SettingsMenuItem label="Smooth Scaling" value={state.smoothScaling} onChange={() => this.toggleSmooth()} />
+                  <SettingsMenuItem label="Show Layer 1" value={state.showLayers[1]} onChange={() => this.toggleLayer(1)} />
+                  <SettingsMenuItem label="Show Layer 2" value={state.showLayers[2]} onChange={() => this.toggleLayer(2)} />
+                  <SettingsMenuItem label="Smooth Display" value={state.smoothScaling} onChange={() => this.toggleSmoothing()} />
                 </SettingsMenu>
                 <FrameCounter show={state.showFrameCounter} current={state.currentFrame + 1} total={state.frameCount}/>
               </div>
@@ -135,6 +135,7 @@ class ViewFlipnote extends Component {
   _onLoad(flipnote) {
     this.flipnote = flipnote;
     this.setVolume(storage.get("volume", 50));
+    this.setSmoothing(storage.get("smoothing", true));
     this.setState({
       loop: flipnote.loop,
       currentFrame: flipnote.currentFrame,
@@ -193,11 +194,15 @@ class ViewFlipnote extends Component {
     this.setState({showLayers: layers});
   }
 
-  toggleSmooth() {
-    var smooth = !this.state.smoothScaling;
-    this.flipnote.canvas.setFilter(smooth ? "linear" : "nearest");
+  toggleSmoothing() {
+    this.setSmoothing(!this.state.smoothScaling);
+  }
+
+  setSmoothing(isSmooth) {
+    this.flipnote.canvas.setFilter(isSmooth ? "linear" : "nearest");
     this.flipnote.canvas.refresh();
-    this.setState({smoothScaling: smooth});
+    storage.set("smoothing", isSmooth);
+    this.setState({smoothScaling: isSmooth});
   }
 
   setVolume(level) {
@@ -239,5 +244,3 @@ class ViewFlipnote extends Component {
     }
   }
 }
-
-export default ViewFlipnote;

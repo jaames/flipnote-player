@@ -1,0 +1,17 @@
+.fileSelect {
+}
+
+.fileSelect__main {
+  padding: 24px;
+  
+}
+
+.fileSelect__side {
+  padding: 24px;
+
+  @include breakpoint(large) {
+    flex-grow: 0;
+    flex-shrink: 0;
+    width: 300px;
+  }
+}

@@ -1,0 +1,55 @@
+.modal {
+  @include breakpoint(large) {
+    display: flex;
+  }
+}
+
+.modal__region {
+  background: $white;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal__region--left {
+  @include breakpoint(medium) {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+  }
+
+  @include breakpoint(large) {
+    flex-shrink: 1;
+    flex-grow: 1;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 6px;
+  }
+}
+
+.modal__region--right {
+  @include breakpoint(medium) {
+    border-bottom-right-radius: 6px;
+    border-bottom-left-radius: 6px;
+  }
+
+  @include breakpoint(large) {
+    flex-shrink: 1;
+    flex-grow: 1;
+    border-top-right-radius: 6px;
+    border-bottom-left-radius: 0;
+  }
+}
+
+.modal__region--gray {
+  background: $medium-gray;
+}
+
+.region__title {
+  flex: 0;
+  font-size: 1.025rem;
+  line-height: 2.5em;
+  border-bottom: 1px solid $dark-gray;
+}
+
+.region__body {
+  flex: 1;
+  margin-top: 6px;
+}

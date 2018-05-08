@@ -1,0 +1,19 @@
+.about {
+  margin: auto;
+  // max-width: 600px;
+  font-size: 0.9rem;
+}
+
+.about__main {
+  flex: 1;
+  padding: 24px;
+  border-radius: 6px;
+}
+
+.about p:last-of-type {
+  margin-bottom: 0;
+}
+
+.about ul {
+  margin-bottom: 0;
+}

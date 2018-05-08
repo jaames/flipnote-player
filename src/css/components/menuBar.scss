@@ -1,0 +1,72 @@
+.menuBar {
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 0 24px;
+  flex-direction: row;
+  flex: 0 0 80px;
+  height: 80px;
+  display: flex;
+
+  @include breakpoint(medium) {
+    flex-basis: 80px;
+    padding: 0;
+  }
+}
+
+.menuBar--upper {
+
+}
+
+.menuBar--lower {
+  display: none;
+  @include breakpoint(medium) {
+    display: block;
+  }
+}
+
+.menuBar__group {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+}
+
+.menuBar__group--left {
+  margin-right: auto;
+}
+
+.menuBar__group--right {
+  margin-left: auto;
+  justify-content: flex-end;
+}
+
+.menuBar__logo {
+  height: 64px;
+  width: 40px;
+  margin-right: 6px;
+  display: none;
+
+  @include breakpoint(medium) {
+    display: block;
+  }
+}
+
+.menuBar__title {
+  color: $text-color-light;
+  font-size: 1rem;
+  line-height: 1em;
+
+  h1, h2 {
+    font-size: inherit;
+    margin: 0;
+    font-weight: normal;
+  }
+}
+
+.menuBar__subTitle {
+  font-size: 0.8rem !important;
+}
+
+.menuBar a {
+  display: inline-block;
+}
