@@ -77,11 +77,13 @@ class ppmImage(ppmParser.ppmParser):
 ppmDirectory = Path(argv[1])
 manifest = {"items": []}
 
-for path in ppmDirectory.iterdir(): 
-  if path.suffix == ".ppm":
+with Path.open(ppmDirectory / "list.txt", mode="r") as listfile:
+  lst = [path.strip() for path in listfile.readlines() if not path[0] == "#"]
+  for i, path in enumerate(lst):
+    path = ppmDirectory / path
     ppm = ppmImage(Path.open(path, mode="rb"))
 
-    print("Decoding thumbnail frame from", path, "...")
+    print("({0}/{1})".format(i+1, len(lst)), "Decoding thumbnail frame from", path)
 
     # extract thumbnail image + write to file
     img = ppm.getFrameImage(ppm.thumbFrameIndex)
@@ -98,5 +100,5 @@ for path in ppmDirectory.iterdir():
     })
 
 # write manifest to file
-print("Writing manifest file to", ppmDirectory / "manifest.json", "...")
 json.dump(manifest, Path.open(ppmDirectory / "manifest.json", mode="w"))
+print("Manifest file written to", ppmDirectory / "manifest.json")

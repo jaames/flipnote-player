@@ -1,5 +1,7 @@
 # sample flipnote .ppms and thumbnails shouldn't be in source
 public/static/ppm/*
+!public/static/ppm/manifest.example.json
+!public/static/ppm/list.example.txt
 
 # dependencies
 /node_modules
