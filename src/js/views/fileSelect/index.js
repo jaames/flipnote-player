@@ -5,7 +5,6 @@ import Dropzone from "react-dropzone";
 
 import FlipnoteGrid from "components/flipnoteGrid";
 import FlipnoteGridThumb from "components/flipnoteGridThumb";
-import ajax from "util/ajax";
 
 function mapStateToProps(state) {
   return {
@@ -17,7 +16,6 @@ class FileSelect extends Component {
 
   constructor(props) {
     super(props);
-    this.loadSamples(); 
   }
 
   render(props, state) {
@@ -53,13 +51,6 @@ class FileSelect extends Component {
         </div>
       </div>
     );
-  }
-
-  loadSamples() {
-    ajax.getJson("static/ppm/manifest.json", (data) => {
-      var items = data["items"].map(item => ({...item, src: `static/ppm/${item.filestem}.ppm`}));
-      this.props.dispatch({ type: "LOAD_SAMPLE_MEMOS", data: items });
-    });
   }
 
   loadFlipnote(source) {

@@ -1,7 +1,6 @@
 import { h, Component } from "preact";
+import { connect } from "preact-redux";
 import Router, { route } from "preact-router";
-import Match, { Link } from "preact-router/match";
-import ReactGA from "react-ga";
 
 import FlipnoteViewer from "views/flipnoteViewer";
 import FileSelect from "views/fileSelect";
@@ -9,18 +8,20 @@ import FileSelect from "views/fileSelect";
 import flipnote from "flipnote.js";
 import util from "util";
 
+function mapStateToProps(state) {
+  return {
+    src: state.src
+  };
+}
 
-export default class App extends Component {
+class App extends Component {
 
   constructor() {
     super();
-    this.state = {
-      src: null,
-      hasOpenedFlipnote: false,
-    };
     this.util = util;
     window.app = this;
-    ReactGA.initialize(process.env.GA_TRACKING_ID);
+    util.ga.init(process.env.GA_TRACKING_ID);
+    this.loadSamples();
   }
 
   render(props, state) {
@@ -58,7 +59,16 @@ export default class App extends Component {
     );
   }
 
+  loadSamples() {
+    util.ajax.getJson("static/ppm/manifest.json", (data) => {
+      var items = data["items"].map(item => ({...item, src: `static/ppm/${item.filestem}.ppm`}));
+      this.props.dispatch({ type: "LOAD_SAMPLE_MEMOS", data: items });
+    });
+  }
+
   handleRoute(e) {
-    ReactGA.pageview(e.url);
+    util.ga.pageview(e.url);
   }
 }
+
+export default connect(mapStateToProps)(App);
