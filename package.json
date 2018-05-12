@@ -7,13 +7,15 @@
     "foundation-sites": "^6.4.4-rc1",
     "preact": "^8.2.7",
     "preact-compat": "^3.18.0",
+    "preact-redux": "^2.0.3",
     "preact-router": "^2.6.0",
     "rc-slider": "^8.6.1",
     "react-dropzone": "^4.2.9",
     "react-ga": "^2.5.0",
     "react-hotkeys": "^1.1.4",
     "react-toggle-switch": "^3.0.4",
-    "react-transition-group": "^2.3.1"
+    "react-transition-group": "^2.3.1",
+    "redux": "^4.0.0"
   },
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --progress",

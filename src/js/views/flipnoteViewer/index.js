@@ -1,4 +1,5 @@
 import { h, Component } from "preact";
+import { connect } from "preact-redux";
 import { HotKeys } from "react-hotkeys";
 
 import Slider from "components/slider";
@@ -16,7 +17,13 @@ const keyMap = {
   nextFrame: ["right", "d"],
 }
 
-export default class ViewFlipnote extends Component {
+function mapStateToProps(state) {
+  return {
+    src: state.src
+  };
+}
+
+class ViewFlipnote extends Component {
 
   constructor(props) {
     super(props);
@@ -95,6 +102,7 @@ export default class ViewFlipnote extends Component {
                 );
               })
             }
+            { props.test }
           </div>
         </div>
       </div>
@@ -244,3 +252,5 @@ export default class ViewFlipnote extends Component {
     }
   }
 }
+
+export default connect(mapStateToProps)(ViewFlipnote);

@@ -1,11 +1,19 @@
 import { h, Component } from "preact";
+import { connect } from "preact-redux";
+import { route } from "preact-router";
 import Dropzone from "react-dropzone";
 
 import FlipnoteGrid from "components/flipnoteGrid";
 import FlipnoteGridThumb from "components/flipnoteGridThumb";
 import ajax from "util/ajax";
 
-export default class fileSelect extends Component {
+function mapStateToProps(state) {
+  return {
+    src: state.src
+  };
+}
+
+class FileSelect extends Component {
 
   constructor(props) {
     super(props);
@@ -61,7 +69,8 @@ export default class fileSelect extends Component {
   }
 
   loadFlipnote(source) {
-    this.props.onFileSelect(source);
+    this.props.dispatch({ type: "LOAD_FLIPNOTE", src: source });
+    route("/view");
   }
 
   onDrop(accepted) {
@@ -73,3 +82,5 @@ export default class fileSelect extends Component {
     reader.readAsArrayBuffer(file);
   }
 }
+
+export default connect(mapStateToProps)(FileSelect);

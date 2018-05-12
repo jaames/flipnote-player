@@ -14,12 +14,6 @@ export default class FlipnoteCanvas extends Component {
     this.renderer = renderer;
   }
 
-  componentWillReceiveProps(nextProps) {
-    if ((nextProps.src) && (nextProps.src !== this.props.src)) {
-      this.open(nextProps.src);
-    }
-  }
-
   componentDidMount() {
     this.resizeCanvas();
     this._resizeHandler = (e) => { this.resizeCanvas(); }
@@ -30,6 +24,7 @@ export default class FlipnoteCanvas extends Component {
     }
     window.flipnote = this.renderer;
     this._wrapper.appendChild(this.renderer.canvas.el);
+    this.open(this.props.src);
   }
 
   componentWillUnmount() {

@@ -9,6 +9,7 @@ import FileSelect from "views/fileSelect";
 import flipnote from "flipnote.js";
 import util from "util";
 
+
 export default class App extends Component {
 
   constructor() {
@@ -47,8 +48,8 @@ export default class App extends Component {
         </div>
         <div class="wrap wrap--wide">
           <Router onChange={ (e) => this.handleRoute(e) }>
-            <FileSelect path="/" onFileSelect={ (src) => this.openFlipnote(src) }/>
-            <FlipnoteViewer path="/view" src={ state.src }/>
+            <FileSelect path="/"/>
+            <FlipnoteViewer path="/view"/>
           </Router>
         </div>
         <div class="menuBar menuBar--lower wrap wrap--wide">
@@ -59,26 +60,5 @@ export default class App extends Component {
 
   handleRoute(e) {
     ReactGA.pageview(e.url);
-    switch(e.url) {
-      case "/":
-        this.closeFlipnote();
-        break;
-      case "/view":
-        if (!this.state.hasOpenedFlipnote) route("/");
-        break;
-    }
-  }
-
-  openFlipnote(src) {
-    this.setState({
-      src,
-      hasOpenedFlipnote: true,
-    });
-    route("/view");
-  }
-
-  closeFlipnote() {
-    route("/");
-    this.setState({src: null});
   }
 }
