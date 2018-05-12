@@ -9,7 +9,7 @@ import ajax from "util/ajax";
 
 function mapStateToProps(state) {
   return {
-    src: state.src
+    sampleMemos: state.sampleMemos
   };
 }
 
@@ -17,12 +17,6 @@ class FileSelect extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      gridItems: new Array(12).fill({}).map(item => ({src: ""}))
-    };
-  }
-
-  componentDidMount() {
     this.loadSamples(); 
   }
 
@@ -52,7 +46,7 @@ class FileSelect extends Component {
         <div class="fileSelect__main modal__region modal__region--right modal__region--gray">
           <h4 class="region__title">Sample Flipnotes</h4>
           <FlipnoteGrid>
-            { state.gridItems.map((item, index) => {
+            { props.sampleMemos.map((item, index) => {
               return (<FlipnoteGridThumb key={index} thumb={item.thumb} author={item.author} src={item.src} onSelect={src => this.loadFlipnote(src)}/>); 
             }) }
           </FlipnoteGrid>
@@ -64,7 +58,7 @@ class FileSelect extends Component {
   loadSamples() {
     ajax.getJson("static/ppm/manifest.json", (data) => {
       var items = data["items"].map(item => ({...item, src: `static/ppm/${item.filestem}.ppm`}));
-      this.setState({ gridItems: items });
+      this.props.dispatch({ type: "LOAD_SAMPLE_MEMOS", data: items });
     });
   }
 
