@@ -1,7 +1,6 @@
 import { h, Component } from "preact";
+import { connect } from "preact-redux";
 import Router, { route } from "preact-router";
-import Match, { Link } from "preact-router/match";
-import ReactGA from "react-ga";
 
 import FlipnoteViewer from "views/flipnoteViewer";
 import FileSelect from "views/fileSelect";
@@ -9,22 +8,26 @@ import FileSelect from "views/fileSelect";
 import flipnote from "flipnote.js";
 import util from "util";
 
-export default class App extends Component {
+function mapStateToProps(state) {
+  return {
+    src: state.src,
+    darkMode: state.darkMode
+  };
+}
+
+class App extends Component {
 
   constructor() {
     super();
-    this.state = {
-      src: null,
-      hasOpenedFlipnote: false,
-    };
     this.util = util;
     window.app = this;
-    ReactGA.initialize(process.env.GA_TRACKING_ID);
+    util.ga.init(process.env.GA_TRACKING_ID);
+    this.loadSamples();
   }
 
   render(props, state) {
     return (
-      <main class="app">
+      <main class={`app ${props.darkMode ? "is-darkMode" : ""}`}>
         <div class="menuBar menuBar--upper wrap wrap--wide">
           <div class="menuBar__group menuBar__group--left">
             <svg class="menuBar__logo" width="380" height="380" viewBox="0 0 380 380">
@@ -47,8 +50,8 @@ export default class App extends Component {
         </div>
         <div class="wrap wrap--wide">
           <Router onChange={ (e) => this.handleRoute(e) }>
-            <FileSelect path="/" onFileSelect={ (src) => this.openFlipnote(src) }/>
-            <FlipnoteViewer path="/view" src={ state.src }/>
+            <FileSelect path="/"/>
+            <FlipnoteViewer path="/view"/>
           </Router>
         </div>
         <div class="menuBar menuBar--lower wrap wrap--wide">
@@ -57,28 +60,16 @@ export default class App extends Component {
     );
   }
 
-  handleRoute(e) {
-    ReactGA.pageview(e.url);
-    switch(e.url) {
-      case "/":
-        this.closeFlipnote();
-        break;
-      case "/view":
-        if (!this.state.hasOpenedFlipnote) route("/");
-        break;
-    }
-  }
-
-  openFlipnote(src) {
-    this.setState({
-      src,
-      hasOpenedFlipnote: true,
+  loadSamples() {
+    util.ajax.getJson("static/ppm/manifest.json", (data) => {
+      var items = data["items"].map(item => ({...item, src: `static/ppm/${item.filestem}.ppm`}));
+      this.props.dispatch({ type: "LOAD_SAMPLE_MEMOS", data: items });
     });
-    route("/view");
   }
 
-  closeFlipnote() {
-    route("/");
-    this.setState({src: null});
+  handleRoute(e) {
+    util.ga.pageview(e.url);
   }
 }
+
+export default connect(mapStateToProps)(App);

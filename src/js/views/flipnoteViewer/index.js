@@ -1,4 +1,6 @@
 import { h, Component } from "preact";
+import { connect } from "preact-redux";
+import { route } from "preact-router";
 import { HotKeys } from "react-hotkeys";
 
 import Slider from "components/slider";
@@ -16,7 +18,14 @@ const keyMap = {
   nextFrame: ["right", "d"],
 }
 
-export default class ViewFlipnote extends Component {
+function mapStateToProps(state) {
+  return {
+    src: state.src,
+    meta: state.meta,
+  };
+}
+
+class ViewFlipnote extends Component {
 
   constructor(props) {
     super(props);
@@ -39,7 +48,12 @@ export default class ViewFlipnote extends Component {
     }
   }
 
+  componentDidMount() {
+    if (!this.props.src) route("/", true);
+  }
+
   render(props, state) {
+    var meta = this.props.meta;
     return (
       <div class="flipnoteView modal">
         <div class="flipnoteView__main modal__region modal__region--left modal__region--gray">
@@ -85,15 +99,23 @@ export default class ViewFlipnote extends Component {
         <div class="flipnoteView__side modal__region modal__region--right">
           <div class="detail">
             <h4 class="detail__title">Flipnote By {state.authorName}</h4>
-            { 
-              Object.keys(state.details).map((key, index) => {
-                return (
-                  <div class="detail__stat" key={ key }>
-                    <span class="stat__title">{ key }</span>
-                    <span class="stat__value">{ state.details[key] }</span>
-                  </div>
-                );
-              })
+            { Object.keys(state.details).map((key, index) => (
+              <div class="detail__stat" key={ index }>
+                <span class="stat__title">{ key }</span>
+                <span class="stat__value">{ state.details[key] }</span>
+              </div>
+            ))}
+            { meta.links && 
+              <div class="detail__stat detail__stat--links">
+                <span class="stat__title">Creator's Links</span>
+                <ul class="stat__value"> 
+                { Object.keys(meta.links || {}).map((linkTitle, index) => (
+                  <li class="link" key={ index }>
+                    <a href={ meta.links[linkTitle] }>{ linkTitle }</a>
+                  </li>
+                 ))}
+                </ul>
+              </div>
             }
           </div>
         </div>
@@ -244,3 +266,5 @@ export default class ViewFlipnote extends Component {
     }
   }
 }
+
+export default connect(mapStateToProps)(ViewFlipnote);
