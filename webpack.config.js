@@ -131,6 +131,7 @@ module.exports = createConfig([
       },
     }),
     new FaviconsWebpackPlugin({
+      title: "Flipnote Player",
       logo: path.resolve(__dirname, "public/static/media/icon.svg"),
       prefix: "static/media/icons_[hash]/",
       statsFilename: "icon_stats_[hash].json",
