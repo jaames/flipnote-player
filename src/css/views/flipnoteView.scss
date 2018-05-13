@@ -40,7 +40,8 @@
   width: 100%;
   margin-top: 4px;
   border-bottom: 1px dashed $dark-gray;
-  line-height: 2.5em;
+  // line-height: 2.5em;
+  padding: 6px 0 8px 0;
 }
 
 .stat__title {
@@ -52,4 +53,16 @@
   text-align: right;
   flex: 1;
   margin-left: auto;
+}
+
+.detail__stat.detail__stat--links {
+
+  & .stat__value {
+    margin: 0;
+    list-style-type: none;
+  }
+
+  & .link {
+    display: block;
+  }
 }

@@ -10,7 +10,8 @@ import util from "util";
 
 function mapStateToProps(state) {
   return {
-    src: state.src
+    src: state.src,
+    darkMode: state.darkMode
   };
 }
 
@@ -26,7 +27,7 @@ class App extends Component {
 
   render(props, state) {
     return (
-      <main class="app">
+      <main class={`app ${props.darkMode ? "is-darkMode" : ""}`}>
         <div class="menuBar menuBar--upper wrap wrap--wide">
           <div class="menuBar__group menuBar__group--left">
             <svg class="menuBar__logo" width="380" height="380" viewBox="0 0 380 380">

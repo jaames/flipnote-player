@@ -5,6 +5,7 @@ import Dropzone from "react-dropzone";
 
 import FlipnoteGrid from "components/flipnoteGrid";
 import FlipnoteGridThumb from "components/flipnoteGridThumb";
+import { type } from "os";
 
 function mapStateToProps(state) {
   return {
@@ -13,10 +14,6 @@ function mapStateToProps(state) {
 }
 
 class FileSelect extends Component {
-
-  constructor(props) {
-    super(props);
-  }
 
   render(props, state) {
     return (
@@ -45,7 +42,7 @@ class FileSelect extends Component {
           <h4 class="region__title">Sample Flipnotes</h4>
           <FlipnoteGrid>
             { props.sampleMemos.map((item, index) => {
-              return (<FlipnoteGridThumb key={index} thumb={item.thumb} author={item.author} src={item.src} onSelect={src => this.loadFlipnote(src)}/>); 
+              return (<FlipnoteGridThumb key={index} thumb={item.thumb} author={item.author} src={item.src} onSelect={src => this.loadFlipnote(src, true)}/>); 
             }) }
           </FlipnoteGrid>
         </div>
@@ -53,8 +50,10 @@ class FileSelect extends Component {
     );
   }
 
-  loadFlipnote(source) {
-    this.props.dispatch({ type: "LOAD_FLIPNOTE", src: source });
+  loadFlipnote(src, isSampleFlipnote=false) {
+    var meta = {};
+    if (isSampleFlipnote) meta = this.props.sampleMemos.filter(item => (item.src === src))[0];
+    this.props.dispatch({ type: "LOAD_FLIPNOTE", src, meta });
     route("/view");
   }
 
