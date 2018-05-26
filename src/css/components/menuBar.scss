@@ -1,7 +1,4 @@
 .menuBar {
-  top: 0;
-  left: 0;
-  right: 0;
   padding: 0 24px;
   flex-direction: row;
   flex: 0 0 80px;
@@ -21,7 +18,9 @@
 .menuBar--lower {
   display: none;
   @include breakpoint(medium) {
-    display: block;
+    display: flex;
+    margin-bottom: 0px;
+    flex-basis: 48px;
   }
 }
 
@@ -52,7 +51,7 @@
 }
 
 .menuBar__title {
-  color: $text-color-light;
+  @include theme("color", "text-main");
   font-size: 1rem;
   line-height: 1em;
 
@@ -69,4 +68,9 @@
 
 .menuBar a {
   display: inline-block;
+}
+
+.menuBar--lower a {
+  @include theme("color", "text-alt");
+  font-size: 0.85rem;
 }

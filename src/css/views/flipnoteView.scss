@@ -34,7 +34,7 @@
 }
 
 .detail__stat {
-  color: $text-color-light;
+  @include theme("color", "text-alt");
   font-size: 0.9rem;
   display: flex;
   width: 100%;

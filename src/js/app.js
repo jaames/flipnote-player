@@ -27,7 +27,7 @@ class App extends Component {
 
   render(props, state) {
     return (
-      <main class={`app ${props.darkMode ? "is-darkMode" : ""}`}>
+      <main class={`app ${props.darkMode ? "is-darkmode" : ""}`}>
         <div class="menuBar menuBar--upper wrap wrap--wide">
           <div class="menuBar__group menuBar__group--left">
             <svg class="menuBar__logo" width="380" height="380" viewBox="0 0 380 380">
@@ -45,7 +45,7 @@ class App extends Component {
             </div>
           </div>
           <div class="menuBar__group menuBar__group--right">
-            <a native href="https://github.com/jaames/flipnote-player">View on GitHub</a>
+            <a onClick={ e => this.toggleDarkmode() }>{ props.darkMode ? "Light Mode" : "Dark Mode" }</a>
           </div>
         </div>
         <div class="wrap wrap--wide">
@@ -55,6 +55,9 @@ class App extends Component {
           </Router>
         </div>
         <div class="menuBar menuBar--lower wrap wrap--wide">
+          <div class="menuBar__group menuBar__group--right">
+            <a native href="https://github.com/jaames/flipnote-player">View on GitHub</a>
+          </div>
         </div>
       </main>
     );
@@ -65,6 +68,10 @@ class App extends Component {
       var items = data["items"].map(item => ({...item, src: `static/ppm/${item.filestem}.ppm`}));
       this.props.dispatch({ type: "LOAD_SAMPLE_MEMOS", data: items });
     });
+  }
+
+  toggleDarkmode() {
+    this.props.dispatch({ type: "TOGGLE_DARK_MODE" });
   }
 
   handleRoute(e) {
