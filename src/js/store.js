@@ -1,10 +1,11 @@
 import { createStore } from "redux";
+import storage from "util/storage";
 
 const INITIAL = {
   src: null,
   meta: {},
   sampleMemos: new Array(12).fill({}).map(item => ({src: ""})),
-  darkMode: false
+  darkMode: storage.get("isDarkMode", false)
 };
 
 export default createStore((state=INITIAL, action) => {
@@ -21,9 +22,11 @@ export default createStore((state=INITIAL, action) => {
         sampleMemos: action.data
       };
     case "TOGGLE_DARK_MODE":
+      let isDarkMode = !state.darkMode;
+      storage.set("isDarkMode", isDarkMode);
       return {
         ...state,
-        darkMode: !state.darkMode
+        darkMode: isDarkMode
       };
     default:
       return state;

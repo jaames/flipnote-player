@@ -36,7 +36,7 @@
 }
 
 .thumb__loader {
-  background-color: $dark-gray;
+  @include theme("background", "gray-0");
   position: absolute;
   top: 0;
   left: 0;

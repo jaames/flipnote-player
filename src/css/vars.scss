@@ -1,8 +1,34 @@
+$light-theme: (
+  white: #fff,
+  text: #141414,
+  text-alt: #6f7275,
+  gray-0: #fff,
+  gray-1: #efefef,
+  gray-2: #e2e5e8,
+  gray-3: #bcc2c7,
+);
+
+$dark-theme: (
+  white: black,
+  text-main: #fff,
+  text-alt: #cdd5e0,
+  gray-0: #1d2131,
+  gray-1: #252a3c,
+  gray-2: #10121d,
+  gray-3: #bcc2c7,
+);
+
+@mixin theme($prop, $color) {
+  #{$prop}: map-get($light-theme, $color);
+
+  .is-darkmode & {
+    #{$prop}: map-get($dark-theme, $color);
+  }
+}
+
 $light-gray: #efefef;
 $medium-gray: #e2e5e8;
 $dark-gray: #bcc2c7;
-
-$body-background: $light-gray;
 
 $foundation-palette: (
   primary: #FE7F7E,
