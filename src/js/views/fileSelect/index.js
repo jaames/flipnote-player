@@ -26,13 +26,13 @@ class FileSelect extends Component {
               activeClassName="dropzone--active"
               acceptClassName="dropzone--accept"
               rejectClassName="dropzone--reject"
-              accept=".ppm"
+              accept=".ppm, .kwz"
               multiple={false}
               onDrop={ (accepted) => this.onDrop(accepted) }
               style={{}}
             >
               <div class="dropzone__content">
-                <p>Drag &amp; drop a Flipnote .PPM file here</p>
+                <p>Drag &amp; drop a Flipnote .PPM or .KWZ file here</p>
                 <div class="button button--inline">Browse Files</div>
               </div>
             </Dropzone>
