@@ -32,11 +32,12 @@ class ViewFlipnote extends Component {
     this.state = {
       paused: true,
       loop: false,
+      type: null,
       currentFrame: 0,
       frameCount: 1,
       showFrameCounter: true,
       showSettingsMenu: false,
-      showLayers: { 1: true, 2: true },
+      showLayers: { 1: true, 2: true, 3: true },
       smoothScaling: true,
       volume: 100,
       details: {},
@@ -54,6 +55,8 @@ class ViewFlipnote extends Component {
 
   render(props, state) {
     var meta = this.props.meta;
+    var isPPM = this.state.type == "PPM";
+    console.log(this.state.type);
     return (
       <div class="flipnoteView modal">
         <div class="flipnoteView__main modal__region modal__region--left modal__region--gray">
@@ -63,11 +66,20 @@ class ViewFlipnote extends Component {
                 <FlipnoteCanvas src={props.src} onLoad={(note) => this._onLoad(note)} onFrameUpdate={(i) => this._frameUpdate(i)} onPlaybackEnd={() => this._playbackEnd()}/>
                 <SettingsMenu show={state.showSettingsMenu} container={this.canvasFrame} onHide={() => this.setState({ showSettingsMenu: false })}>
                   <SettingsMenuItem label="Loop" value={state.loop} onChange={() => this.toggleLoop()} />
-                  <SettingsMenuItem label="Volume" type="slider" value={state.volume} onChange={(v) => this.setVolume(v)} />
+                  {
+                    isPPM &&
+                    <SettingsMenuItem label="Volume" type="slider" value={state.volume} onChange={(v) => this.setVolume(v)} />
+                  }
                   <SettingsMenuItem label="Show Layer 1" value={state.showLayers[1]} onChange={() => this.toggleLayer(1)} />
                   <SettingsMenuItem label="Show Layer 2" value={state.showLayers[2]} onChange={() => this.toggleLayer(2)} />
-                  <SettingsMenuItem label="Smooth Display" value={state.smoothScaling} onChange={() => this.toggleSmoothing()} />
-                </SettingsMenu>
+                  { !isPPM && 
+                    <SettingsMenuItem label="Show Layer 3" value={state.showLayers[3]} onChange={() => this.toggleLayer(3)} />
+                  }
+                  {
+                    isPPM &&
+                    <SettingsMenuItem label="Smooth Display" value={state.smoothScaling} onChange={() => this.toggleSmoothing()} />
+                  }
+                   </SettingsMenu>
                 <FrameCounter show={state.showFrameCounter} current={state.currentFrame + 1} total={state.frameCount}/>
               </div>
               <div class="player__progress">
@@ -159,6 +171,7 @@ class ViewFlipnote extends Component {
     this.setVolume(storage.get("volume", 50));
     this.setSmoothing(storage.get("smoothing", true));
     this.setState({
+      type: flipnote.type,
       loop: flipnote.loop,
       currentFrame: flipnote.currentFrame,
       frameCount: flipnote.frameCount,
@@ -211,8 +224,7 @@ class ViewFlipnote extends Component {
   toggleLayer(index) {
     var layers = this.state.showLayers;
     layers[index] = !layers[index];
-    this.flipnote.canvas.setLayerVisibilty(index, layers[index] ? 1 : 0);
-    this.flipnote.canvas.refresh();
+    this.flipnote.setLayerVisibility(index, layers[index]);
     this.setState({showLayers: layers});
   }
 
@@ -221,9 +233,7 @@ class ViewFlipnote extends Component {
   }
 
   setSmoothing(isSmooth) {
-    this.flipnote.canvas.setFilter(isSmooth ? "linear" : "nearest");
-    this.flipnote.canvas.refresh();
-    storage.set("smoothing", isSmooth);
+    this.flipnote.setSmoothRendering(isSmooth);
     this.setState({smoothScaling: isSmooth});
   }
 

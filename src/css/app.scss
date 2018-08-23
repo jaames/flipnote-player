@@ -16,11 +16,11 @@ div[tabindex="-1"]:focus {
 .app {
   width: 100vw;
   min-height: 100vh;
-  color: map-get($light-theme, "text-main");
+  color: map-get($light-theme, "text");
   background: map-get($light-theme, "gray-1");
 
   &.is-darkmode {
-    color: map-get($dark-theme, "text-main");
+    color: map-get($dark-theme, "text");
     background: map-get($dark-theme, "gray-1");
   }
 

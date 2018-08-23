@@ -8,4 +8,8 @@ export default class format {
     return (bytes / Math.pow(k, exp)).toFixed(1) + " " + sizes[exp];
   }
 
+  static kwzFsid(hex) {
+    return "";
+  }
+
 }

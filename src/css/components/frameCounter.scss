@@ -5,7 +5,7 @@
   right: 12px;
   border: 2px solid black;
   @include theme("border-color", "gray-1");
-  @include theme("color", "text-alt");
+  @include theme("color", "text-invert");
   @include theme("background", "gray-0");
   padding: 6px 12px;
   border-radius: 3px;

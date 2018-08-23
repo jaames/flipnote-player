@@ -1,7 +1,7 @@
 $light-theme: (
-  white: #fff,
+  background: #fff,
   text: #141414,
-  text-alt: #6f7275,
+  text-invert: #6f7275,
   gray-0: #fff,
   gray-1: #efefef,
   gray-2: #e2e5e8,
@@ -9,9 +9,9 @@ $light-theme: (
 );
 
 $dark-theme: (
-  white: black,
-  text-main: #fff,
-  text-alt: #cdd5e0,
+  background: black,
+  text: #fff,
+  text-invert: #cdd5e0,
   gray-0: #1d2131,
   gray-1: #252a3c,
   gray-2: #10121d,
@@ -25,10 +25,6 @@ $dark-theme: (
     #{$prop}: map-get($dark-theme, $color);
   }
 }
-
-$light-gray: #efefef;
-$medium-gray: #e2e5e8;
-$dark-gray: #bcc2c7;
 
 $foundation-palette: (
   primary: #FE7F7E,

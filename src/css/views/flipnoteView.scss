@@ -34,7 +34,7 @@
 }
 
 .detail__stat {
-  @include theme("color", "text-alt");
+  @include theme("color", "text-invert");
   font-size: 0.9rem;
   display: flex;
   width: 100%;

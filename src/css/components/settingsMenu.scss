@@ -16,7 +16,7 @@
   line-height: 2em;
   padding: 4px 8px;
   font-size: 0.9rem;
-  @include theme("color", "text-alt");
+  @include theme("color", "text-invert");
 
   &:hover {
     @include theme("background", "gray-1");
