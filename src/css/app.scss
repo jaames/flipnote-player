@@ -17,11 +17,11 @@ div[tabindex="-1"]:focus {
   width: 100vw;
   min-height: 100vh;
   color: map-get($light-theme, "text");
-  background: map-get($light-theme, "gray-1");
+  background: map-get($light-theme, "background");
 
   &.is-darkmode {
     color: map-get($dark-theme, "text");
-    background: map-get($dark-theme, "gray-1");
+    background: map-get($dark-theme, "background");
   }
 
   @include breakpoint(medium) {

@@ -1,15 +1,15 @@
 $light-theme: (
-  background: #fff,
+  background: #f3f6f8,
   text: #141414,
   text-invert: #6f7275,
   gray-0: #fff,
   gray-1: #efefef,
-  gray-2: #e2e5e8,
+  gray-2: #d9dfe8,
   gray-3: #bcc2c7,
 );
 
 $dark-theme: (
-  background: black,
+  background: #171F30,
   text: #fff,
   text-invert: #cdd5e0,
   gray-0: #1d2131,
@@ -27,7 +27,7 @@ $dark-theme: (
 }
 
 $foundation-palette: (
-  primary: #FE7F7E,
+  primary: rgb(252, 134, 87),
   secondary: #767676,
   success: #3adb76,
   warning: #ffae00,
@@ -46,8 +46,11 @@ $black: #141414;
 $white: #fff;
 $text-color: $black;
 $text-color-light: #6f7275;
-$body-font-family: sudofont, -apple-system, BlinkMacSystemFont, 'avenir next', avenir, helvetica, 'helvetica neue', ubuntu, roboto, noto, 'segoe ui', arial, sans-serif;
-$header-font-weight: bold;
+$body-font-family: 'M PLUS 1p', sudofont, -apple-system, BlinkMacSystemFont, 'avenir next', avenir, helvetica, 'helvetica neue', ubuntu, roboto, noto, 'segoe ui', arial, sans-serif;
+$header-font-weight: 700;
+$global-lineheight: 1.6;
+$global-weight-normal: 500;
+$global-weight-bold: 700;
 
 $sf-font-path: "../assets/fonts/";
 

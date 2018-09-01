@@ -1,74 +1,17 @@
-$spritesheet-icon-size: 48px;
-$spritesheet-width: 144px;
-$spritesheet-height: 490px;
-
-$icon-size: 32px;
-$icon-scale: $icon-size / $spritesheet-icon-size;
-$icon-size-mobile: 28px;
-$icon-scale-mobile: $icon-size-mobile / $spritesheet-icon-size;
-// list of icons
-$icons: (
-  play,
-  pause,
-  loop,
-  noloop,
-  firstFrame,
-  lastFrame,
-  prevFrame,
-  nextFrame,
-  settings,
-);
-
 .icon {
   display: inline-block;
-  background-repeat: no-repeat;
-  background-image: url("../assets/spritesheet.png");
-  background-position-x: 0;
-  background-size: #{$spritesheet-width * $icon-scale-mobile} #{$spritesheet-height * $icon-scale-mobile};
-  width: $icon-size-mobile;
-  height: $icon-size-mobile;
   cursor: pointer;
-}
+  fill: $primary-color;
 
-.icon:hover {
-  background-position-x: -$icon-size-mobile;
-}
-
-.icon--disabled {
-  background-position-x: -$icon-size-mobile * 2;
-}
-
-$index: 0;
-@each $name in $icons {
-  .icon.icon--#{$name} {
-    background-position-y: -#{$index * $icon-size-mobile};
-  }
-  $index: $index + 1;
-}
-
-@include breakpoint(medium) {
-  .icon {
-    background-size: #{$spritesheet-width * $icon-scale} #{$spritesheet-height * $icon-scale};
-    width: $icon-size;
-    height: $icon-size;
+  &:hover svg {
+    fill: darken($primary-color, 6);
   }
 
-  .icon:hover {
-    background-position-x: -$icon-size;
-  }
-  
-  .icon--disabled,
-  .icon--disabled:hover {
-    cursor: default;
-    cursor: not-allowed;
-    background-position-x: -$icon-size * 2;
+  &.icon--disabled svg {
+    fill: #BCC2C7;
   }
 
-  $index: 0;
-  @each $name in $icons {
-    .icon.icon--#{$name} {
-      background-position-y: -#{$index * $icon-size};
-    }
-    $index: $index + 1;
+  svg {
+    pointer-events: none;
   }
 }

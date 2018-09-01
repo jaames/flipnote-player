@@ -8,6 +8,7 @@ import SettingsMenu from "components/settingsMenu";
 import SettingsMenuItem from "components/settingsMenuItem";
 import FrameCounter from "components/frameCounter";
 import FlipnoteCanvas from "components/flipnoteCanvas";
+import Icon from "components/icon";
 
 import storage from "util/storage";
 import format from "util/format";
@@ -56,7 +57,6 @@ class ViewFlipnote extends Component {
   render(props, state) {
     var meta = this.props.meta;
     var isPPM = this.state.type == "PPM";
-    console.log(this.state.type);
     return (
       <div class="flipnoteView modal">
         <div class="flipnoteView__main modal__region modal__region--left modal__region--gray">
@@ -95,14 +95,14 @@ class ViewFlipnote extends Component {
               </div>
               <div class="player__controls">
                 <div class="controlsGroup controlsGroup--left">
-                  <i class={`icon ${state.paused ? "icon--play" : "icon--pause"}`} onClick={(e) => this.handleIcon("togglePlay", e)}></i>
-                  <i class="icon icon--settings" onClick={(e) => this.handleIcon("toggleSettings", e)}></i>
+                  <Icon icon={state.paused ? "play" : "pause"} width="32" height="32" onClick={(e) => this.togglePlay(e)}/>
+                  <Icon icon="settings" width="32" height="32" onClick={(e) => this.toggleSettings(e)}/>
                 </div>
-                <div class="controlsGroup controlsGroup--right">  
-                  <i class={`icon icon--firstFrame ${state.paused ? "" : "icon--disabled"}`} onClick={(e) => this.handleIcon("firstFrame", e)}></i>
-                  <i class={`icon icon--prevFrame ${state.paused ? "" : "icon--disabled"}`} onClick={(e) => this.handleIcon("prevFrame", e)}></i>
-                  <i class={`icon icon--nextFrame ${state.paused ? "" : "icon--disabled"}`} onClick={(e) => this.handleIcon("nextFrame", e)}></i>
-                  <i class={`icon icon--lastFrame ${state.paused ? "" : "icon--disabled"}`} onClick={(e) => this.handleIcon("lastFrame", e)}></i>
+                <div class="controlsGroup controlsGroup--right">
+                  <Icon icon="firstFrame" disabled={!state.paused} width="32" height="32" onClick={(e) => this.firstFrame(e)}/>
+                  <Icon icon="prevFrame" disabled={!state.paused} width="32" height="32" onClick={(e) => this.prevFrame(e)}/>
+                  <Icon icon="nextFrame" disabled={!state.paused} width="32" height="32" onClick={(e) => this.nextFrame(e)}/>
+                  <Icon icon="lastFrame" disabled={!state.paused} width="32" height="32" onClick={(e) => this.lastFrame(e)}/>
                 </div>
               </div>
             </div>
@@ -133,11 +133,6 @@ class ViewFlipnote extends Component {
         </div>
       </div>
     );
-  }
-
-  handleIcon(type, e) {
-    if (type == "toggleSettings") e.stopPropagation();
-    if ("function" === typeof this[type]) this[type](e);
   }
 
   handleProgressBarEvent(type, value) {
@@ -217,7 +212,8 @@ class ViewFlipnote extends Component {
     });
   }
 
-  toggleSettings() {
+  toggleSettings(e) {
+    e.stopPropagation();
     this.setState({showSettingsMenu: !this.state.showSettingsMenu});
   }
 

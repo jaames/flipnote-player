@@ -1,4 +1,10 @@
+$modal-border-radius: 8px !default;
+
 .modal {
+  @include breakpoint(medium) {
+    box-shadow: 0 10px 15px -5px rgba(64, 64, 128, 0.1);
+    border-radius: $modal-border-radius;
+  }
   @include breakpoint(large) {
     display: flex;
   }
@@ -12,28 +18,28 @@
 
 .modal__region--left {
   @include breakpoint(medium) {
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
+    border-top-left-radius: $modal-border-radius;
+    border-top-right-radius: $modal-border-radius;
   }
 
   @include breakpoint(large) {
     flex-shrink: 1;
     flex-grow: 1;
     border-top-right-radius: 0;
-    border-bottom-left-radius: 6px;
+    border-bottom-left-radius: $modal-border-radius;
   }
 }
 
 .modal__region--right {
   @include breakpoint(medium) {
-    border-bottom-right-radius: 6px;
-    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: $modal-border-radius;
+    border-bottom-left-radius: $modal-border-radius;
   }
 
   @include breakpoint(large) {
     flex-shrink: 1;
     flex-grow: 1;
-    border-top-right-radius: 6px;
+    border-top-right-radius: $modal-border-radius;
     border-bottom-left-radius: 0;
   }
 }
