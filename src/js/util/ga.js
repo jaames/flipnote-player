@@ -8,7 +8,11 @@ const IS_PROD = process.env.NODE_ENV == "production";
 export default class ga {
 
   static init(id) {
-    if (IS_PROD) ReactGA.initialize(id);
+    if (IS_PROD) {
+      ReactGA.initialize(id);
+      // gotta make sure not to collect user's IP addresses here, thanks to the well-considered nuances of the EU GDPR legislation
+      ReactGA.set({ anonymizeIp: true });
+    }
   }
 
   static pageview(url) {
