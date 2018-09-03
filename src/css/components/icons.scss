@@ -2,6 +2,8 @@
   display: inline-block;
   cursor: pointer;
   fill: $primary-color;
+  width: 32px;
+  height: 32px;
 
   &:hover svg {
     fill: darken($primary-color, 6);
@@ -10,6 +12,11 @@
   &.icon--disabled svg {
     fill: #BCC2C7;
   }
+
+  // &.icon--play, &.icon--pause {
+  //   width: 38px;
+  //   height: 38px;
+  // }
 
   svg {
     pointer-events: none;

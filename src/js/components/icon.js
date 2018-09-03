@@ -21,7 +21,7 @@ const ICON_LIST = {
 export default function Icon(props) {
   let {icon, disabled, ...propList} = props;
   return <InlineSVG 
-    className={`icon ${ disabled ? "icon--disabled" : "" }`}
+    className={`icon icon--${icon} ${ disabled ? "icon--disabled" : "" }`}
     classSuffix=""
     component="i"
     cleanup={true}

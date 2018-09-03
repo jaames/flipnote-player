@@ -75,11 +75,8 @@ class ViewFlipnote extends Component {
                   { !isPPM && 
                     <SettingsMenuItem label="Show Layer 3" value={state.showLayers[3]} onChange={() => this.toggleLayer(3)} />
                   }
-                  {
-                    isPPM &&
-                    <SettingsMenuItem label="Smooth Display" value={state.smoothScaling} onChange={() => this.toggleSmoothing()} />
-                  }
-                   </SettingsMenu>
+                  <SettingsMenuItem label="Smooth Display" value={state.smoothScaling} onChange={() => this.toggleSmoothing()} />
+                </SettingsMenu>
                 <FrameCounter show={state.showFrameCounter} current={state.currentFrame + 1} total={state.frameCount}/>
               </div>
               <div class="player__progress">
@@ -95,14 +92,14 @@ class ViewFlipnote extends Component {
               </div>
               <div class="player__controls">
                 <div class="controlsGroup controlsGroup--left">
-                  <Icon icon={state.paused ? "play" : "pause"} width="32" height="32" onClick={(e) => this.togglePlay(e)}/>
-                  <Icon icon="settings" width="32" height="32" onClick={(e) => this.toggleSettings(e)}/>
+                  <Icon icon={state.paused ? "play" : "pause"} onClick={(e) => this.togglePlay(e)}/>
+                  <Icon icon="settings" onClick={(e) => this.toggleSettings(e)}/>
                 </div>
                 <div class="controlsGroup controlsGroup--right">
-                  <Icon icon="firstFrame" disabled={!state.paused} width="32" height="32" onClick={(e) => this.firstFrame(e)}/>
-                  <Icon icon="prevFrame" disabled={!state.paused} width="32" height="32" onClick={(e) => this.prevFrame(e)}/>
-                  <Icon icon="nextFrame" disabled={!state.paused} width="32" height="32" onClick={(e) => this.nextFrame(e)}/>
-                  <Icon icon="lastFrame" disabled={!state.paused} width="32" height="32" onClick={(e) => this.lastFrame(e)}/>
+                  <Icon icon="firstFrame" disabled={!state.paused} onClick={(e) => this.firstFrame(e)}/>
+                  <Icon icon="prevFrame" disabled={!state.paused} onClick={(e) => this.prevFrame(e)}/>
+                  <Icon icon="nextFrame" disabled={!state.paused} onClick={(e) => this.nextFrame(e)}/>
+                  <Icon icon="lastFrame" disabled={!state.paused} onClick={(e) => this.lastFrame(e)}/>
                 </div>
               </div>
             </div>
@@ -229,7 +226,11 @@ class ViewFlipnote extends Component {
   }
 
   setSmoothing(isSmooth) {
-    this.flipnote.setSmoothRendering(isSmooth);
+    // i broke this oops
+    // this.flipnote.setSmoothRendering(isSmooth);
+
+    this.flipnote.canvas.setFilter(isSmooth ? "linear" : "nearest");
+    this.flipnote.forceUpdate();
     this.setState({smoothScaling: isSmooth});
   }
 
