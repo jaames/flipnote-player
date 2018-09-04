@@ -1,0 +1,6 @@
+[submodule "tools/kwz"]
+	path = tools/kwz
+	url = git@github.com:jaames/kwz-parser.git
+[submodule "tools/ppm"]
+	path = tools/ppm
+	url = git@github.com:jaames/flipnote-tools.git
