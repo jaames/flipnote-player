@@ -162,19 +162,22 @@ class ViewFlipnote extends Component {
     this.flipnote = flipnote;
     this.setVolume(storage.get("volume", 50));
     this.setSmoothing(storage.get("smoothing", true));
+    let details = {
+      "Created": flipnote.meta.timestamp.toLocaleDateString(),
+      "Frames": flipnote.meta.frame_count,
+      "Frame Speed": flipnote.meta.frame_speed,
+      "File Size": format.byteCount(flipnote.fileLength),
+    };
+    if (flipnote.type == "PPM") {
+      details["Region"] = flipnoteStudio.getFsidRegion(flipnote.meta.current.fsid);
+    }
     this.setState({
       type: flipnote.type,
       loop: flipnote.loop,
       currentFrame: flipnote.currentFrame,
       frameCount: flipnote.frameCount,
       authorName: flipnote.meta.current.username,
-      details: {
-        "Created": flipnote.meta.timestamp.toLocaleDateString(),
-        "Region": flipnoteStudio.getFsidRegion(flipnote.meta.current.fsid),
-        "Frames": flipnote.meta.frame_count,
-        "Frame Speed": flipnote.meta.frame_speed,
-        "File Size": format.byteCount(flipnote.fileLength),
-      }
+      details: details
     });
   }
 
@@ -226,11 +229,7 @@ class ViewFlipnote extends Component {
   }
 
   setSmoothing(isSmooth) {
-    // i broke this oops
-    // this.flipnote.setSmoothRendering(isSmooth);
-
-    this.flipnote.canvas.setFilter(isSmooth ? "linear" : "nearest");
-    this.flipnote.forceUpdate();
+    this.flipnote.setSmoothRendering(isSmooth);
     this.setState({smoothScaling: isSmooth});
   }
 

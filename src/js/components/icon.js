@@ -7,6 +7,10 @@ import prevFrame from "assets/prevFrame.svg";
 import firstFrame from "assets/firstFrame.svg";
 import lastFrame from "assets/lastFrame.svg";
 import settings from "assets/settings.svg";
+import chevronLeft from "assets/chevronLeft.svg";
+import chevronRight from "assets/chevronRight.svg";
+import darkmodeOn from "assets/darkmodeOn.svg";
+import darkmodeOff from "assets/darkmodeOff.svg";
 
 const ICON_LIST = {
   play,
@@ -15,7 +19,11 @@ const ICON_LIST = {
   prevFrame,
   firstFrame,
   lastFrame,
-  settings
+  settings,
+  chevronLeft,
+  chevronRight,
+  darkmodeOn,
+  darkmodeOff,
 };
 
 export default function Icon(props) {

@@ -7,8 +7,11 @@ export default function flipnoteGridThumb(props) {
         {!props.src &&
           <div class="thumb__loader"></div>
         }
+        <span class="thumb__type">{ props.ext == "ppm" ? "DSi" : "3DS" }</span>
       </div>
-      <div class="thumb__author">{ props.author }</div>
+      <div class="thumb__info">
+        <span class="thumb__author">{ props.author }</span>
+      </div>
     </li>
   );
 };

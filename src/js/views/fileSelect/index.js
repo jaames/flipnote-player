@@ -4,8 +4,7 @@ import { route } from "preact-router";
 import Dropzone from "react-dropzone";
 
 import FlipnoteGrid from "components/flipnoteGrid";
-import FlipnoteGridThumb from "components/flipnoteGridThumb";
-import { type } from "os";
+import Pagination from "components/pagination";
 
 function mapStateToProps(state) {
   return {
@@ -14,6 +13,13 @@ function mapStateToProps(state) {
 }
 
 class FileSelect extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+      gridPage: 0
+    };
+  }
 
   render(props, state) {
     return (
@@ -39,15 +45,26 @@ class FileSelect extends Component {
           </div>
         </div>
         <div class="fileSelect__main modal__region modal__region--right modal__region--gray">
-          <h4 class="region__title">Sample Flipnotes</h4>
-          <FlipnoteGrid>
-            { props.sampleMemos.map((item, index) => {
-              return (<FlipnoteGridThumb key={index} thumb={item.thumb} author={item.author} src={item.src} onSelect={src => this.loadFlipnote(src, true)}/>); 
-            }) }
-          </FlipnoteGrid>
+          <h4 class="region__title">
+            Sample Flipnotes 
+            <Pagination 
+              current={state.page}
+              itemCount={props.sampleMemos.length} 
+              itemsPerPage={12} onChange={newPage => this.setPage(newPage) }
+            />
+          </h4>
+          <FlipnoteGrid 
+            items={props.sampleMemos}
+            page={state.page}
+            onSelect={src => this.loadFlipnote(src, true)}
+          />
         </div>
       </div>
     );
+  }
+
+  setPage(newPage) {
+    this.setState({page: newPage});
   }
 
   loadFlipnote(src, isSampleFlipnote=false) {
