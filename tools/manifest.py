@@ -99,18 +99,20 @@ with Path.open(assetRoot / "meta.json", mode="r") as metafile:
       authorName = ppm.getAuthorName()
       img = ppm.getFrameImage(ppm.thumbFrameIndex)
       img.save(path.with_suffix(".png"))
-      imgBuffer = BytesIO()
-      img.save(imgBuffer, format="PNG")
-      imgData = imgBuffer.getvalue()
 
     elif ext == "kwz":
       kwz = KWZParser(Path.open(path, mode="rb"))
       authorName = kwz.meta["current"]["username"]
       img = get_kwz_thumb(kwz)
-      img.save(path.with_suffix(".png"))
-      imgBuffer = BytesIO()
-      img.save(imgBuffer, format="PNG")
-      imgData = imgBuffer.getvalue()
+      
+    # img.save(path.with_suffix(".png"))
+    img = img.convert("RGB")
+    width, height = img.size
+    img.thumbnail((width // 2, height // 2))
+    img = img.convert("P", palette=Image.ADAPTIVE)
+    imgBuffer = BytesIO()
+    img.save(imgBuffer, format="png")
+    imgData = imgBuffer.getvalue()
 
     del item["filename"]
     # create manifest entry
