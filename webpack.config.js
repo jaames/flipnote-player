@@ -117,7 +117,7 @@ module.exports = createConfig([
     new webpack.BannerPlugin({
       banner: [
         "flipnote-player v" + VERSION,
-        "Web player for animations created with Flipnote Studio, a Nintendo DSiWare title from 2008.",
+        "Web player for animations created with Flipnote Studio and Flipnote Studio 3D.",
         "2018 James Daniel (github.com/jaames | @rakujira)",
         "https://github.com/jaames/flipnote-player",
         "[hash]:[chunkhash]",
