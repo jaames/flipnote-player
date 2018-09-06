@@ -1,7 +1,10 @@
-# sample flipnote .ppms and thumbnails shouldn't be in source
+# sample flipnote .ppms/.kwzs and thumbnails shouldn't be in source
 public/static/ppm/*
-!public/static/ppm/manifest.example.json
-!public/static/ppm/meta.example.json
+public/static/kwz/*
+manifest.json
+meta.json
+!manifest.example.json
+!meta.example.json
 
 # dependencies
 /node_modules

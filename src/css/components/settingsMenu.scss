@@ -1,8 +1,11 @@
 .settingsMenu {
   border-radius: 3px;
-  border: 2px solid #000;
-  @include theme("border-color", "gray-1");
-  @include theme("background", "gray-0");
+  border-width: 2px;
+  border-style: solid;
+  @include theme((
+    border-color: "background",
+    background: "background-light",
+  ));
   position: absolute;
   // I hate using !important, but react-overlays kinda forces me to here :">
   bottom: 12px !important;
@@ -16,10 +19,14 @@
   line-height: 2em;
   padding: 4px 8px;
   font-size: 0.9rem;
-  @include theme("color", "text-alt");
+  @include theme((
+    color: "text-invert",
+  ));
 
   &:hover {
-    @include theme("background", "gray-1");
+    @include theme((
+      background: "background",
+    ));
   }
 
   &:first-of-type {
@@ -48,8 +55,4 @@
   vertical-align: middle;
   display: inline-block;
   padding: 5px 0;
-
-  .rc-slider-rail {
-    @include theme("background", "gray-3");
-  }
 }

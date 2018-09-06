@@ -1,5 +1,5 @@
 .menuBar {
-  padding: 0 24px;
+  padding: 0 12px;
   flex-direction: row;
   flex: 0 0 80px;
   height: 80px;
@@ -40,7 +40,7 @@
 }
 
 .menuBar__logo {
-  height: 64px;
+  height: 40px;
   width: 40px;
   margin-right: 6px;
   display: none;
@@ -50,8 +50,15 @@
   }
 }
 
+.menuBar__logo__svg {
+  height: 40px;
+  width: 40px;
+}
+
 .menuBar__title {
-  @include theme("color", "text-main");
+  @include theme((
+    color: "text",
+  ));
   font-size: 1rem;
   line-height: 1em;
 
@@ -63,14 +70,27 @@
 }
 
 .menuBar__subTitle {
-  font-size: 0.8rem !important;
+  font-size: 0.75rem !important;
 }
 
 .menuBar a {
-  display: inline-block;
+  color: inherit !important;
 }
 
-.menuBar--lower a {
-  @include theme("color", "text-alt");
-  font-size: 0.85rem;
+i.icon {
+  @include breakpoint(medium) {
+    margin: 0 6px;
+  }
+}
+
+.menuBar--lower {
+  @include theme((
+    color: "text-invert",
+  ));
+  opacity: 0.7;
+  font-size: 0.75rem;
+
+  a {
+    border-bottom: 1px solid currentColor;
+  }
 }

@@ -10,15 +10,16 @@ const states = {
   [EXITED]: 'exited',
 };
 
-
 export default function FrameCounter(props) {
-  var current = props.current.toString(),
-      total = props.total.toString();
+  var current = props.current.toString().padStart(3, "0"),
+      total = props.total.toString().padStart(3, "0");
 
   return (
     <Transition in={props.show} timeout={DURATION}>
       {(status) => (
-        <span className={`frameCounter fade ${states[status]}`}>{current.padStart(3, "0")} / {total.padStart(3, "0")}</span>
+        <span className={`frameCounter fade ${states[status]}`}>
+          { current } / { total }
+        </span>
       )}
     </Transition>
   );

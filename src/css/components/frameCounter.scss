@@ -3,11 +3,14 @@
   position: absolute;
   bottom: 12px;
   right: 12px;
-  border: 2px solid black;
-  @include theme("border-color", "gray-1");
-  @include theme("color", "text-alt");
-  @include theme("background", "gray-0");
-  padding: 6px 12px;
   border-radius: 3px;
+  border-width: 2px;
+  border-style: solid;
+  @include theme((
+    border-color: "background",
+    color: "text-invert",
+    background: "background-light",
+  ));
+  padding: 6px 12px;
   font-size: 0.9rem;
 }

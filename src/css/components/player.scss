@@ -19,21 +19,33 @@
 .player__controls {
   display: flex;
   flex-direction: row;
+  height: 64px;
+  padding-bottom: 8px;
   margin: 0 12px;
-  padding-bottom: 16px;
 
   @include breakpoint(medium) {
     margin: 0 24px;
   }
 
-  i {
+  i.icon {
     margin: 0px 6px;
+  }
+
+  .icon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .icon--play, .icon--pause {
+    width: 34px;
+    height: 34px;
   }
 }
 
 .controlsGroup {
   flex: 0;
   display: flex;
+  align-items: center;
   flex-direction: row;
 
   &.controlsGroup--left {
@@ -44,12 +56,12 @@
     margin-left: auto;
   }
 
-  i {
+  i.icon {
     flex: 0;
-    flex-basis: 28px;
+    // flex-basis: 28px;
 
     @include breakpoint(medium) {
-      flex-basis: 32px;
+      // flex-basis: 32px;
     }
   }
 }
@@ -70,5 +82,5 @@
 }
 
 .player__progressSlider {
-  padding: 12px 0;
+  padding-top: 16px;
 }

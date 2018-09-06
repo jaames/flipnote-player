@@ -1,0 +1,8 @@
+{"items": [
+  {
+    "author": "flipnote author",
+    "thumb": "base64 thumbnail",
+    "ext": "file extention -- ppm or kwz",
+    "filestem": "flipnote filename without extention"
+  }
+]}

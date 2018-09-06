@@ -4,8 +4,10 @@
   border: 2px dashed $medium-gray;
   display: flex;
   flex-direction: column;
-  padding: 16px;
-  @include theme("color", "text-alt");
+  padding: 32px;
+  @include theme((
+    color: "text-alt"
+  ));
   font-size: 0.9em;
   text-align: center;
 }

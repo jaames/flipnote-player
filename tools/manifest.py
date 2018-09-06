@@ -1,19 +1,11 @@
-# 
-# Quick tool to extract thumbnails and author names from a bunch of flipnote PPMs
-# Also compiles them into a single manifest file which is used for the file select screen
-# 
-# Requires ppmTools: 
-#   pip install git+git://github.com/jaames/flipnote-tools.git&subdirectory=scripts/dsi/ppmTools
-#   (install might be a bit finicky tbh, I couldn't figure out how to properly package it as a module...)
-# 
-# Usage: python3 processPPM.py <ppm directory path>
-
-from pathlib import Path
-from sys import argv
-from ppmTools import ppmParser
+# TODO: refactor ppm parser stuff because it's a f-cking mess
+from ppm.scripts.dsi.ppmTools.ppmTools import ppmParser
+from kwz.kwz import KWZParser, PALETTE
 from PIL import Image
 from io import BytesIO
 import json
+from pathlib import Path
+from sys import argv
 from base64 import b64encode
 
 class ppmImage(ppmParser.ppmParser):
@@ -74,33 +66,64 @@ class ppmImage(ppmParser.ppmParser):
         img.putpalette(palette)
         return img
 
-ppmDirectory = Path(argv[1])
+def get_kwz_thumb(parser):
+  index = parser.thumb_index
+  frame = parser.get_frame_image(index)
+  colors = parser.get_frame_palette(index)
+  img = Image.fromarray(frame, "P")
+  img.putpalette([
+    *PALETTE[colors[0]], 
+    *PALETTE[colors[1]], 
+    *PALETTE[colors[2]], 
+    *PALETTE[colors[3]], 
+    *PALETTE[colors[4]], 
+    *PALETTE[colors[5]], 
+    *PALETTE[colors[6]], 
+  ])
+  return img
+
+assetRoot = Path(argv[1])
 manifest = {"items": []}
 
-with Path.open(ppmDirectory / "meta.json", mode="r") as metafile:
-  meta = json.loads(metafile.read())
-  for index, item in enumerate(meta["items"]):
-    path = ppmDirectory / item["filename"]
-    ppm = ppmImage(Path.open(path, mode="rb"))
+with Path.open(assetRoot / "meta.json", mode="r") as metafile:
+  assetMeta = json.loads(metafile.read())
 
-    print("({0}/{1})".format(index + 1, len(meta["items"])), "Decoding thumbnail frame from", path)
+  for index, item in enumerate(assetMeta["items"]):
+    path = assetRoot / item["filename"]
+    ext = path.suffix[1:]
 
-    # extract thumbnail image + write to file
-    img = ppm.getFrameImage(ppm.thumbFrameIndex)
-    img.save(path.with_suffix(".png"))
-    # also write image to a buffer so we can embed it in the manifest
+    print("({0}/{1})".format(index + 1, len(assetMeta["items"])), "Decoding thumbnail frame from", path)
+
+    if ext == "ppm":
+      ppm = ppmImage(Path.open(path, mode="rb"))
+      authorName = ppm.getAuthorName()
+      img = ppm.getFrameImage(ppm.thumbFrameIndex)
+      img.save(path.with_suffix(".png"))
+
+    elif ext == "kwz":
+      kwz = KWZParser(Path.open(path, mode="rb"))
+      authorName = kwz.meta["current"]["username"]
+      img = get_kwz_thumb(kwz)
+      
+    # img.save(path.with_suffix(".png"))
+    img = img.convert("RGB")
+    width, height = img.size
+    img.thumbnail((width // 2, height // 2))
+    img = img.convert("P", palette=Image.ADAPTIVE)
     imgBuffer = BytesIO()
-    img.save(imgBuffer, format="PNG")
+    img.save(imgBuffer, format="png")
+    imgData = imgBuffer.getvalue()
 
     del item["filename"]
     # create manifest entry
     manifest["items"].append({
       **item,
-      "author": ppm.getAuthorName(),
+      "author": authorName,
+      "ext": ext,
       "filestem": path.stem,
-      "thumb": "data:image/png;base64," + b64encode(imgBuffer.getvalue()).decode()
+      "thumb": "data:image/png;base64," + b64encode(imgData).decode()
     })
-
+  
 # write manifest to file
-json.dump(manifest, Path.open(ppmDirectory / "manifest.json", mode="w"))
-print("Manifest file written to", ppmDirectory / "manifest.json")
+json.dump(manifest, Path.open(assetRoot / "manifest.json", mode="w"))
+print("Manifest file written to", assetRoot / "manifest.json")

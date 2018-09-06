@@ -5,13 +5,12 @@ export default class FlipnoteCanvas extends Component {
   
   constructor(props) {
     super(props);
-    var renderer = new flipnote.player(document.createElement("canvas"), 512, 384);
-    renderer.canvas.setFilter("linear");
-    renderer.canvas.el.className = "player__canvas";
-    renderer.on("frame:update", (index) => { this.props.onFrameUpdate(index) });
-    renderer.on("playback:end", () => { this.props.onPlaybackEnd() });
-    renderer.on("load", () => { this.props.onLoad(renderer) });
-    this.renderer = renderer;
+    var player = new flipnote.player(document.createElement("canvas"), 512, 384);
+    player.canvas.el.className = "player__canvas";
+    player.on("frame:update", (index) => { this.props.onFrameUpdate(index) });
+    player.on("playback:end", () => { this.props.onPlaybackEnd() });
+    player.on("load", () => { this.props.onLoad(player) });
+    this.player = player;
   }
 
   componentDidMount() {
@@ -20,20 +19,20 @@ export default class FlipnoteCanvas extends Component {
     window.addEventListener("resize", this._resizeHandler);
     window.onblur = () => {
       this.props.onPlaybackEnd();
-      this.renderer.pause();
+      this.player.pause();
     }
-    window.flipnote = this.renderer;
-    this._wrapper.appendChild(this.renderer.canvas.el);
+    window.flipnote = this.player;
+    this._wrapper.appendChild(this.player.canvas.el);
     this.open(this.props.src);
   }
 
   componentWillUnmount() {
-    this.renderer.close();
-    this.renderer.destroy();
+    this.player.close();
+    this.player.destroy();
     window.removeEventListener("resize", this._resizeHandler);
     window.onblur = undefined;
-    this._wrapper.removeChild(this.renderer.canvas.el);
-    this.renderer = null;
+    this._wrapper.removeChild(this.player.canvas.el);
+    this.player = null;
   }
 
   render(props, state) {
@@ -41,12 +40,12 @@ export default class FlipnoteCanvas extends Component {
   }
 
   open(src) {
-    if (src) this.renderer.open(src);
+    if (src) this.player.open(src);
   }
 
   resizeCanvas() {
     var rect = this._wrapper.getBoundingClientRect();
-    this.renderer.canvas.resize(rect.width, rect.width * 0.75);
-    if (rect.height > 0 && rect.width > 0) this.renderer.canvas.refresh();
+    this.player.resize(rect.width, rect.width * 0.75);
+    // if (rect.height > 0 && rect.width > 0) this.player.canvas.refresh();
   }
 }

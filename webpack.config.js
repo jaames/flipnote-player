@@ -17,6 +17,7 @@ const {
   env,
   resolve,
   setContext,
+  customConfig,
   setOutput,
   sourceMaps
 } = require("webpack-blocks");
@@ -57,6 +58,7 @@ module.exports = createConfig([
     alias: {
 			"react": "preact-compat",
       "react-dom": "preact-compat",
+      "assets": path.resolve(__dirname, "src/assets"),
       "util": path.resolve(__dirname, "src/js/util/"),
       "views": path.resolve(__dirname, "src/js/views/"),
       "components": path.resolve(__dirname, "src/js/components/"),
@@ -85,7 +87,7 @@ module.exports = createConfig([
     sass(),
     extractText("static/css/[name].css")
   ]),
-  match(["*.eot", "*.ttf", "*.woff", "*.woff2", "*.svg"], [
+  match(["*.eot", "*.ttf", "*.woff", "*.woff2"], [
     file({
       name: "./static/fonts/[name].[ext]?[hash:8]",
     })
@@ -96,6 +98,16 @@ module.exports = createConfig([
       name: "./static/media/[name].[ext]?[hash:8]",
     })
   ]),
+  customConfig({
+    module: {
+      rules: [
+        {
+          test: /\.svg$/,
+          loader: "raw-loader"
+        }
+      ]
+    }
+  }),
   addPlugins([
     new Dotenv({
       path: ".env",
@@ -105,7 +117,7 @@ module.exports = createConfig([
     new webpack.BannerPlugin({
       banner: [
         "flipnote-player v" + VERSION,
-        "Web player for animations created with Flipnote Studio, a Nintendo DSiWare title from 2008.",
+        "Web player for animations created with Flipnote Studio and Flipnote Studio 3D.",
         "2018 James Daniel (github.com/jaames | @rakujira)",
         "https://github.com/jaames/flipnote-player",
         "[hash]:[chunkhash]",
