@@ -32,14 +32,16 @@ class App extends Component {
       <main class={`app ${props.darkMode ? "is-darkmode" : ""}`}>
         <div class="menuBar menuBar--upper wrap wrap--wide">
           <div class="menuBar__group menuBar__group--left">
-            <Logo className="menuBar__logo"/>
-            <div class="menuBar__title">
+            <a href="/">
+              <Logo className="menuBar__logo"/>
+            </a>
+            <a href="/" class="menuBar__title">
               <h1>Flipnote Player</h1>
               <h2 class="menuBar__subTitle">Version {process.env.VERSION}</h2>
-            </div>
+            </a>
           </div>
           <div class="menuBar__group menuBar__group--right">
-            <Icon icon={ props.darkMode ? "darkmodeOff" : "darkmodeOn" } onClick={ e => this.toggleDarkmode() }/>
+            <Icon icon={ props.darkMode ? "darkmodeOn" : "darkmodeOff" } onClick={ e => this.toggleDarkmode() }/>
           </div>
         </div>
         <div class="wrap wrap--wide">
@@ -50,8 +52,9 @@ class App extends Component {
         </div>
         <div class="menuBar menuBar--lower wrap wrap--wide">
           <div class="menuBar__group menuBar__group--right">
-            by James Daniel (<a native href="https://twitter.com/rakujira">@rakujira</a>)
-            <a native href="https://github.com/jaames/flipnote-player">View on GitHub</a>
+            <div>
+              Built by <a native href="https://twitter.com/rakujira">James Daniel</a> (Source code on <a native href="https://github.com/jaames/flipnote-player">GitHub</a>)
+            </div>
           </div>
         </div>
       </main>

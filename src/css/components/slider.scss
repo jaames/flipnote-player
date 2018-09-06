@@ -13,7 +13,7 @@
 .rc-slider-rail {
   position: absolute;
   width: 100%;
-  background-color: $white;
+  background: rgba($dark-gray, .5);
   height: 5px;
   border-radius: 6px;
 }

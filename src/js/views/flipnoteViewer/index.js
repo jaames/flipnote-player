@@ -66,8 +66,7 @@ class ViewFlipnote extends Component {
                 <FlipnoteCanvas src={props.src} onLoad={(note) => this._onLoad(note)} onFrameUpdate={(i) => this._frameUpdate(i)} onPlaybackEnd={() => this._playbackEnd()}/>
                 <SettingsMenu show={state.showSettingsMenu} container={this.canvasFrame} onHide={() => this.setState({ showSettingsMenu: false })}>
                   <SettingsMenuItem label="Loop" value={state.loop} onChange={() => this.toggleLoop()} />
-                  {
-                    isPPM &&
+                  { isPPM &&
                     <SettingsMenuItem label="Volume" type="slider" value={state.volume} onChange={(v) => this.setVolume(v)} />
                   }
                   <SettingsMenuItem label="Show Layer 1" value={state.showLayers[1]} onChange={() => this.toggleLayer(1)} />
@@ -106,8 +105,10 @@ class ViewFlipnote extends Component {
           </HotKeys>
         </div>
         <div class="flipnoteView__side modal__region modal__region--right">
-          <div class="detail">
-            <h4 class="detail__title">Flipnote By {state.authorName}</h4>
+          <div class="region__title">
+            <h4 class="title">Flipnote By {state.authorName}</h4>
+          </div>
+          <div class="region__body detail">
             { Object.keys(state.details).map((key, index) => (
               <div class="detail__stat" key={ index }>
                 <span class="stat__title">{ key }</span>
@@ -122,7 +123,7 @@ class ViewFlipnote extends Component {
                   <li class="link" key={ index }>
                     <a href={ meta.links[linkTitle] }>{ linkTitle }</a>
                   </li>
-                 ))}
+                ))}
                 </ul>
               </div>
             }

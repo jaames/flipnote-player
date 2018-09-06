@@ -25,7 +25,9 @@ class FileSelect extends Component {
     return (
       <div class="fileSelect modal">
         <div class="fileSelect__side modal__region modal__region--left">
-          <h4 class="region__title">Upload Flipnote</h4>
+          <div class="region__title">
+            <h4 class="title">Upload Flipnote</h4>
+          </div>
           <div class="region__body">
             <Dropzone 
               className="dropzone"
@@ -45,19 +47,21 @@ class FileSelect extends Component {
           </div>
         </div>
         <div class="fileSelect__main modal__region modal__region--right modal__region--gray">
-          <h4 class="region__title">
-            Sample Flipnotes 
+          <div class="region__title">
+            <h4 class="title">Sample Flipnotes</h4>
             <Pagination 
               current={state.page}
               itemCount={props.sampleMemos.length} 
               itemsPerPage={12} onChange={newPage => this.setPage(newPage) }
             />
-          </h4>
-          <FlipnoteGrid 
-            items={props.sampleMemos}
-            page={state.page}
-            onSelect={src => this.loadFlipnote(src, true)}
-          />
+          </div>
+          <div class="region__body">
+            <FlipnoteGrid 
+              items={props.sampleMemos}
+              page={state.page}
+              onSelect={src => this.loadFlipnote(src, true)}
+            />
+          </div>
         </div>
       </div>
     );

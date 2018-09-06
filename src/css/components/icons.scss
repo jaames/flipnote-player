@@ -1,24 +1,21 @@
 .icon {
   display: inline-block;
+  user-select: none;
   cursor: pointer;
-  fill: $primary-color;
   width: 32px;
   height: 32px;
+
+  svg.icon {
+    fill: $primary-color;
+    pointer-events: none;
+  }
 
   &:hover svg {
     fill: darken($primary-color, 6);
   }
 
   &.icon--disabled svg {
-    fill: #BCC2C7;
+    fill: rgba($dark-gray, .5);
   }
-
-  // &.icon--play, &.icon--pause {
-  //   width: 38px;
-  //   height: 38px;
-  // }
-
-  svg {
-    pointer-events: none;
-  }
+  
 }

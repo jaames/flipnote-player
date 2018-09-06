@@ -2,8 +2,9 @@ $modal-border-radius: 8px !default;
 
 .modal {
   @include breakpoint(medium) {
-    box-shadow: 0 10px 15px -5px rgba(64, 64, 128, 0.1);
+    box-shadow: 0 8px 5px -5px rgba(64, 64, 128, 0.1);
     border-radius: $modal-border-radius;
+    border-bottom: 1px solid rgba(64, 64, 128, 0.2);
   }
   @include breakpoint(large) {
     display: flex;
@@ -11,7 +12,9 @@ $modal-border-radius: 8px !default;
 }
 
 .modal__region {
-  @include theme("background", "gray-0");
+  @include theme((
+    background: "background-light",
+  ));
   display: flex;
   flex-direction: column;
 }
@@ -45,17 +48,42 @@ $modal-border-radius: 8px !default;
 }
 
 .modal__region--gray {
-  @include theme("background", "gray-2");
+  @include theme((
+    background: "background-dark",
+  ));
 }
 
 .region__title {
-  flex: 0;
-  font-size: 1.025rem;
-  line-height: 2.5em;
-  border-bottom: 1px solid $dark-gray;
+  display: flex;
+  border-bottom: 1px solid rgba($dark-gray, .5);
+  margin: 12px;
+  margin-top: 8px;
+  margin-bottom: 0;
+
+  @include breakpoint(medium) {
+    margin: 24px;
+    margin-top: 12px;
+    margin-bottom: 0;
+  }
+
+  .title {
+    font-size: 1.025rem;
+    line-height: 2.5em;
+    margin-bottom: 0.25em;
+  }
+
+  .title__right {
+    margin-left: auto;
+  }
 }
 
 .region__body {
   flex: 1;
-  margin-top: 6px;
+  margin: 12px;
+  margin-top: 8px;
+
+  @include breakpoint(medium) {
+    margin: 24px;
+    margin-top: 16px;
+  }
 }

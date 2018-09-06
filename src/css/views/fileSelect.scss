@@ -2,13 +2,18 @@
 }
 
 .fileSelect__main {
-  padding: 24px;
-  
+
+  .region__title {
+
+    .pagination {
+      margin-left: auto;
+      align-self: center;
+    }
+  }
+
 }
 
 .fileSelect__side {
-  padding: 24px;
-
   @include breakpoint(large) {
     flex-grow: 0;
     flex-shrink: 0;

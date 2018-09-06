@@ -3,8 +3,8 @@
   flex-direction: row;
   flex-wrap: wrap;
   list-style-type: none;
-  margin: 0 -8px;
-  margin-bottom: -8px;
+  margin: -8px;
+  // margin-top: 0;
 }
 
 .flipnoteGrid__thumb {
@@ -12,6 +12,7 @@
   flex-grow: 0;
   padding: 8px;
   width: 50%;
+  position: relative;
 
   @include breakpoint(medium) {
     width: 33.333333%;
@@ -36,17 +37,30 @@
 }
 
 .thumb__loader {
-  @include theme("background", "gray-0");
+  background: $white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 28px;
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+
+  .icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .icon svg.icon {
+    animation: spin 1s linear infinite;
+    fill: rgba($dark-gray, .5);
+  }
 }
 
-.thumb__author {
+.thumb__info {
   background: $white;
-  color: $primary-color;
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
   font-size: 0.85rem;
@@ -55,4 +69,26 @@
   overflow: hidden;
   padding: 6px 8px 3px 8px;
   margin-top: -1px;
+}
+
+.thumb__author {
+  color: $primary-color;
+}
+
+.thumb__type {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  display: inline-block;
+  background: #efefef;
+  color: #000;
+  border-radius: 2px;
+  padding: 0 6px;
+  font-size: 0.7rem;
+}
+
+@keyframes spin { 
+  100% {
+    transform:rotate(360deg);
+  } 
 }

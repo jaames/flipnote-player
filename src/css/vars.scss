@@ -1,33 +1,33 @@
 $light-theme: (
   background: #f3f6f8,
+  background-light: #fff,
+  background-dark: #dee2e8,
   text: #141414,
   text-invert: #6f7275,
-  gray-0: #fff,
-  gray-1: #efefef,
-  gray-2: #d9dfe8,
-  gray-3: #bcc2c7,
 );
 
 $dark-theme: (
-  background: #171F30,
+  background: #10121d,
+  background-light: #303544,
+  background-dark: #252938,
   text: #fff,
   text-invert: #cdd5e0,
-  gray-0: #1d2131,
-  gray-1: #252a3c,
-  gray-2: #10121d,
-  gray-3: #bcc2c7,
 );
 
-@mixin theme($prop, $color) {
-  #{$prop}: map-get($light-theme, $color);
-
+@mixin theme($rules) {
+  @each $prop, $value in $rules {
+    #{$prop}: map-get($light-theme, $value);
+  }
+  
   .is-darkmode & {
-    #{$prop}: map-get($dark-theme, $color);
+    @each $prop, $value in $rules {
+      #{$prop}: map-get($dark-theme, $value);
+    }
   }
 }
 
 $foundation-palette: (
-  primary: rgb(252, 134, 87),
+  primary: #FC8657,
   secondary: #767676,
   success: #3adb76,
   warning: #ffae00,
@@ -44,6 +44,7 @@ $breakpoints: (
 
 $black: #141414;
 $white: #fff;
+$dark-gray: rgb(93, 106, 114);
 $text-color: $black;
 $text-color-light: #6f7275;
 $body-font-family: 'M PLUS 1p', sudofont, -apple-system, BlinkMacSystemFont, 'avenir next', avenir, helvetica, 'helvetica neue', ubuntu, roboto, noto, 'segoe ui', arial, sans-serif;

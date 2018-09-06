@@ -11,7 +11,7 @@ export default class pagination extends Component {
       <div class="pagination">
         <Icon icon="chevronLeft" disabled={current <= 0} onClick={e => this.prevPage()}/>
         <span class="pagination__current">
-        { props.current }
+          { current + 1 }
         </span>
         <Icon icon="chevronRight" disabled={current >= limit} onClick={e => this.nextPage()}/>
       </div>

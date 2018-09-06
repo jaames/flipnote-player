@@ -11,6 +11,7 @@ import chevronLeft from "assets/chevronLeft.svg";
 import chevronRight from "assets/chevronRight.svg";
 import darkmodeOn from "assets/darkmodeOn.svg";
 import darkmodeOff from "assets/darkmodeOff.svg";
+import loader from "assets/loader.svg";
 
 const ICON_LIST = {
   play,
@@ -24,12 +25,13 @@ const ICON_LIST = {
   chevronRight,
   darkmodeOn,
   darkmodeOff,
+  loader,
 };
 
 export default function Icon(props) {
   let {icon, disabled, ...propList} = props;
   return <InlineSVG 
-    className={`icon icon--${icon} ${ disabled ? "icon--disabled" : "" }`}
+    className={`icon icon--${icon}${ disabled ? " icon--disabled" : "" }`}
     classSuffix=""
     component="i"
     cleanup={true}
