@@ -142,7 +142,9 @@ module.exports = createConfig([
         minifyURLs: true,
       },
     }),
-    new FaviconsWebpackPlugin({
+    // only use this in prod mode because it's slow as hell
+    // -- seriously though, using phantomjs to render svg???
+    !IS_DEV_ENV ? new FaviconsWebpackPlugin({
       title: "Flipnote Player",
       logo: path.resolve(__dirname, "public/static/media/icon.svg"),
       prefix: "static/media/icons_[hash]/",
@@ -161,8 +163,8 @@ module.exports = createConfig([
         yandex: false,
         windows: true
       }
-    }),
-  ]),
+    }) : false,
+  ].filter(Boolean)),
   setEnv({
     NODE_ENV: process.env.NODE_ENV,
     VERSION: VERSION
