@@ -3,7 +3,7 @@
   "version": "2.0.1",
   "private": true,
   "dependencies": {
-    "flipnote.js": "^2.1.2",
+    "flipnote.js": "^2.1.3",
     "foundation-sites": "^6.4.4-rc1",
     "preact": "^8.2.7",
     "preact-compat": "^3.18.0",
