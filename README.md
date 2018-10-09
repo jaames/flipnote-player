@@ -4,6 +4,12 @@ Released in 2009, *Flipnote Studio* is an application for the Nintendo DSi which
 
 This web app can play both of the propritary animation formats used by the both Flipnote Studio and Flipnote Studio 3D -- provided that you have a relatively modern web browser \ o /
 
+### Issues
+
+Please report any issues related to Flipnote playback on the [flipnote.js](https://github.com/jaames/flipnote.js) repo. Only problems with the user interface, etc should be reported here. Thanks!
+
+Also, audio isn't currently supported for 3DS Flipnotes. You can find more information about that [here](https://github.com/jaames/kwz-parser/issues/4).
+
 ### Built With
 
 * [flipnote.js](https://github.com/jaames/flipnote.js) (my Flipnote parsing library, you can find more technical info about how the Flipnote formats and parser work there)
