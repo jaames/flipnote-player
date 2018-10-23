@@ -2,7 +2,7 @@
 
 Released in 2009, *Flipnote Studio* is an application for the Nintendo DSi which allows users to create animations with the console's touch screen, cameras and microphone. In 2013 it recieved a sequel on the Nintendo 3DS called *Flipnote Studio 3D*, which expanded upon the original's feature set and added the ability to use 3D depth.
 
-This web app can play both of the propritary animation formats used by the both Flipnote Studio and Flipnote Studio 3D -- provided that you have a relatively modern web browser \ o /
+This web app can play both of the propritary animation formats used by the both Flipnote Studio and Flipnote Studio 3D, provided that you have a relatively modern web browser.
 
 ### Issues
 
@@ -24,17 +24,25 @@ Also, audio isn't currently supported for 3DS Flipnotes. You can find more infor
 * [Foundation](https://foundation.zurb.com/)
 * [Sketch](https://sketchapp.com/) (for making graphics)
 
-### Development Setup
+### Building
 
-* Make sure you have NodeJS and NPM installed
-* Copy `.env.example` to `.env` (change the config variables if needed) 
-* Install dependencies with `npm install`
-* Use `npm run dev` to spin up a local dev server for testing
-* Use `npm run build` to produce minified, production-ready assets in the `/build` directory.
+Install dependencies:
 
-Note: I'm still learning about react, so this codebase is likely to undergo some large changes as I refactor things. Please bear that in mind if you wish to contribute!
+```
+npm install
+```
+Build production-ready assets in the `/build` directory:
 
-### Special Thanks
+```
+npm run build
+```
+Run development server:
+
+```
+npm run dev
+```
+
+### Acknowledgments
 
 * Everyone acknowledged in the [flipnote.js readme](https://github.com/jaames/flipnote.js#Acknowledgments)
 * [Kaeru Team](https://github.com/KaeruTeam) for providing helpful feedback and for their assistance with testing. 
