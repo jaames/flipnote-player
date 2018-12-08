@@ -1,0 +1,11 @@
+{
+  "items": [
+    {
+      "filename": " flipnote filepath ",
+      "links": {
+        "Link 1 Title": "https://www.example.com",
+        "Link 2 Title": "https://www.example.com"
+      }
+    }
+  ]
+}
