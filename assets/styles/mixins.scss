@@ -1,0 +1,15 @@
+
+// helper for setting certain rules based on the current color theme
+@mixin theme($rules) {
+  @each $prop, $value in $rules {
+    #{$prop}: map-get($light-theme, $value);
+  }
+  
+  @at-root {
+    .is-darkmode & {
+      @each $prop, $value in $rules {
+        #{$prop}: map-get($dark-theme, $value);
+      }
+    }
+  }
+}

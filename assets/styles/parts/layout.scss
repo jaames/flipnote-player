@@ -1,0 +1,22 @@
+.wrap {
+  flex: 0;
+  width: 100%;
+  max-width: 640px;
+  margin: auto;
+
+  &.wrap--wide {
+    max-width: 980px;
+
+    @include breakpoint(medium only) {
+      max-width: 528px;
+    }
+
+    @include breakpoint(xlarge) {
+      max-width: 1120px;
+    }
+  }
+
+  &.wrap--narrow {
+    max-width: 320px;
+  }
+}

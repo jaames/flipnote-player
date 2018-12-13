@@ -1,0 +1,60 @@
+
+.view {
+  @include breakpoint(large) {
+    display: flex;
+  }
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+}
+
+.section--main {
+  @include breakpoint(large) {
+    flex-shrink: 1;
+    flex-grow: 1;
+  }
+}
+
+.section--side {
+  @include breakpoint(large) {
+    flex-shrink: 1;
+    flex-grow: 1;
+  }
+}
+
+.section__title {
+  display: flex;
+  border-bottom: 1px solid rgba($dark-gray, .5);
+  margin: 12px;
+  margin-top: 8px;
+  margin-bottom: 0;
+
+  @include breakpoint(medium) {
+    margin: 24px;
+    margin-top: 12px;
+    margin-bottom: 0;
+  }
+
+  .title {
+    font-size: 1.025rem;
+    line-height: 2.5em;
+    margin-bottom: 0.25em;
+  }
+
+  .title__right {
+    margin-left: auto;
+  }
+}
+
+.section__body {
+  flex: 1;
+  margin: 12px;
+  margin-top: 8px;
+
+  @include breakpoint(medium) {
+    margin: 24px;
+    margin-top: 16px;
+  }
+}

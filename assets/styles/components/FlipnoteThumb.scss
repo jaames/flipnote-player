@@ -1,0 +1,73 @@
+@import "../config.scss";
+
+@keyframes spin { 
+  100% {
+    transform:rotate(360deg);
+  } 
+}
+
+.FlipnoteThumb {
+}
+
+.FlipnoteThumb__image {
+  position: relative;
+  cursor: pointer;  
+  background-repeat: no-repeat;
+  background-size: 100%;
+  // preserve aspect ratio (4:3)
+  padding-bottom: 75%;
+  overflow: hidden;
+  width: 100%;
+  border-radius: 4px;
+}
+
+.FlipnoteThumb__loader {
+  background: $white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 28px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  .icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .icon svg.icon {
+    animation: spin 1s linear infinite;
+    fill: rgba($dark-gray, .5);
+  }
+}
+
+.FlipnoteThumb__info {
+  // background: $white;
+  // border-bottom-left-radius: 3px;
+  // border-bottom-right-radius: 3px;
+  font-size: 0.85rem;
+  line-height: 1rem;
+  height: 28px;
+  overflow: hidden;
+  padding: 6px 0 3px 0;
+  margin-top: -2px;
+}
+
+.FlipnoteThumb__author {
+  color: $primary-color;
+}
+
+.FlipnoteThumb__type {
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  display: inline-block;
+  background: #efefef;
+  color: #000;
+  border-radius: 2px;
+  padding: 0 6px;
+  font-size: 0.7rem;
+}

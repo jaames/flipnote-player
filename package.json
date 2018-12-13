@@ -12,7 +12,8 @@
     "next": "^7.0.2",
     "node-sass": "^4.10.0",
     "react": "^16.6.3",
-    "react-dom": "^16.6.3"
+    "react-dom": "^16.6.3",
+    "react-dropzone": "^4.2.9"
   },
   "scripts": {
     "dev": "next",

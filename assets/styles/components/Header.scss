@@ -1,0 +1,67 @@
+@import '../config.scss';
+
+.Header {
+  padding: 0 12px;
+  flex-direction: row;
+  flex: 0 0 80px;
+  height: 80px;
+  display: flex;
+  
+  @include breakpoint(medium) {
+    flex-basis: 80px;
+    padding: 0;
+  }
+}
+
+.Header__group {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+}
+
+.Header__group--left {
+  margin-right: auto;
+}
+
+.Header__group--right {
+  margin-left: auto;
+  justify-content: flex-end;
+}
+
+.Header__logo {
+  height: 40px;
+  width: 40px;
+  margin-right: 6px;
+  display: none;
+
+  @include breakpoint(medium) {
+    display: block;
+  }
+}
+
+.Header__logo__svg {
+  height: 40px;
+  width: 40px;
+}
+
+.Header__title {
+  @include theme((
+    color: "text",
+  ));
+  font-size: 1rem;
+  line-height: 1em;
+
+  h1, h2 {
+    font-size: inherit;
+    margin: 0;
+    font-weight: normal;
+  }
+}
+
+.Header__subtitle {
+  font-size: 0.75rem !important;
+}
+
+.Header a {
+  color: inherit !important;
+}
