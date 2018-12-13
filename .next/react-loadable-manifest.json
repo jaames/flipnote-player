@@ -7,10 +7,10 @@
       "publicPath": "static/chunks/0.js"
     }
   ],
-  "../static/styles/main.scss": [
+  "../assets/styles/main.scss": [
     {
-      "id": "./static/styles/main.scss",
-      "name": "./static/styles/main.scss",
+      "id": "./assets/styles/main.scss",
+      "name": "./assets/styles/main.scss",
       "file": "static/chunks/styles.js",
       "publicPath": "static/chunks/styles.js"
     }
@@ -19,6 +19,62 @@
     {
       "id": 4,
       "name": null,
+      "file": "static/chunks/styles.js",
+      "publicPath": "static/chunks/styles.js"
+    },
+    {
+      "id": 5,
+      "name": null,
+      "file": "static/chunks/styles.js",
+      "publicPath": "static/chunks/styles.js"
+    },
+    {
+      "id": 6,
+      "name": null,
+      "file": "static/chunks/styles.js",
+      "publicPath": "static/chunks/styles.js"
+    },
+    {
+      "id": 7,
+      "name": null,
+      "file": "static/chunks/styles.js",
+      "publicPath": "static/chunks/styles.js"
+    },
+    {
+      "id": 8,
+      "name": null,
+      "file": "static/chunks/styles.js",
+      "publicPath": "static/chunks/styles.js"
+    }
+  ],
+  "../assets/styles/components/Header.scss": [
+    {
+      "id": "./assets/styles/components/Header.scss",
+      "name": "./assets/styles/components/Header.scss",
+      "file": "static/chunks/styles.js",
+      "publicPath": "static/chunks/styles.js"
+    }
+  ],
+  "../assets/styles/components/Footer.scss": [
+    {
+      "id": "./assets/styles/components/Footer.scss",
+      "name": "./assets/styles/components/Footer.scss",
+      "file": "static/chunks/styles.js",
+      "publicPath": "static/chunks/styles.js"
+    }
+  ],
+  "../assets/styles/components/FlipnoteGrid.scss": [
+    {
+      "id": "./assets/styles/components/FlipnoteGrid.scss",
+      "name": "./assets/styles/components/FlipnoteGrid.scss",
+      "file": "static/chunks/styles.js",
+      "publicPath": "static/chunks/styles.js"
+    }
+  ],
+  "../assets/styles/components/FlipnoteThumb.scss": [
+    {
+      "id": "./assets/styles/components/FlipnoteThumb.scss",
+      "name": "./assets/styles/components/FlipnoteThumb.scss",
       "file": "static/chunks/styles.js",
       "publicPath": "static/chunks/styles.js"
     }

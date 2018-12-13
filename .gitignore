@@ -13,6 +13,7 @@ meta.json
 /coverage
 
 # production
+.next/*
 /build
 
 # misc

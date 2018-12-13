@@ -93,6 +93,61 @@ module.exports =
 /************************************************************************/
 /******/ ({
 
+/***/ "./assets/styles/components/FlipnoteGrid.scss":
+/*!****************************************************!*\
+  !*** ./assets/styles/components/FlipnoteGrid.scss ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+
+/***/ }),
+
+/***/ "./assets/styles/components/FlipnoteThumb.scss":
+/*!*****************************************************!*\
+  !*** ./assets/styles/components/FlipnoteThumb.scss ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+
+/***/ }),
+
+/***/ "./assets/styles/components/Footer.scss":
+/*!**********************************************!*\
+  !*** ./assets/styles/components/Footer.scss ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+
+/***/ }),
+
+/***/ "./assets/styles/components/Header.scss":
+/*!**********************************************!*\
+  !*** ./assets/styles/components/Header.scss ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+
+/***/ }),
+
+/***/ "./assets/styles/main.scss":
+/*!*********************************!*\
+  !*** ./assets/styles/main.scss ***!
+  \*********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
+
+/***/ }),
+
 /***/ "./components/FlipnoteGrid.jsx":
 /*!*************************************!*\
   !*** ./components/FlipnoteGrid.jsx ***!
@@ -102,16 +157,16 @@ module.exports =
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var styled_jsx_style__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-jsx/style */ "styled-jsx/style");
-/* harmony import */ var styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(styled_jsx_style__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _assets_styles_components_FlipnoteGrid_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../assets/styles/components/FlipnoteGrid.scss */ "./assets/styles/components/FlipnoteGrid.scss");
+/* harmony import */ var _assets_styles_components_FlipnoteGrid_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_assets_styles_components_FlipnoteGrid_scss__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _FlipnoteThumb__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./FlipnoteThumb */ "./components/FlipnoteThumb.jsx");
 var _jsxFileName = "/Users/james/Documents/web/labs/flipnote-player/components/FlipnoteGrid.jsx";
 
 
-
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
 
 
 
@@ -120,30 +175,26 @@ var FlipnoteGrid = function FlipnoteGrid(props) {
       items = props.items,
       itemsPerPage = props.itemsPerPage;
   var startOffset = page * itemsPerPage;
-  var endOffset = startOffset + itemsPerPage; // const pageItems = items && items.slice(startOffset, endOffset);
-
-  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("ul", {
-    className: "jsx-3199712516" + " " + "FlipnoteGrid",
+  var endOffset = startOffset + itemsPerPage;
+  var pageItems = items && items.slice(startOffset, endOffset);
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
+    className: "FlipnoteGrid",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 10
+      lineNumber: 12
     },
     __self: this
-  }, items && items.length && items.map(function (item, index) {
-    return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_FlipnoteThumb__WEBPACK_IMPORTED_MODULE_2__["default"], _extends({
+  }, pageItems && pageItems.length && pageItems.map(function (item, index) {
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FlipnoteThumb__WEBPACK_IMPORTED_MODULE_2__["default"], _extends({
       key: index
     }, item, {
       onSelect: props.onSelect,
       __source: {
         fileName: _jsxFileName,
-        lineNumber: 12
+        lineNumber: 14
       },
       __self: this
     }));
-  }), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default.a, {
-    styleId: "3199712516",
-    css: ".FlipnoteGrid.jsx-3199712516{list-style-type:none;display:grid;grid-template-columns:1fr 1fr 1fr;grid-gap:24px;}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9qYW1lcy9Eb2N1bWVudHMvd2ViL2xhYnMvZmxpcG5vdGUtcGxheWVyL2NvbXBvbmVudHMvRmxpcG5vdGVHcmlkLmpzeCJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFha0IsQUFHZ0MscUJBQ1IsYUFDcUIsa0NBQ3BCLGNBQ2hCIiwiZmlsZSI6Ii9Vc2Vycy9qYW1lcy9Eb2N1bWVudHMvd2ViL2xhYnMvZmxpcG5vdGUtcGxheWVyL2NvbXBvbmVudHMvRmxpcG5vdGVHcmlkLmpzeCIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCBGbGlwbm90ZVRodW1iIGZyb20gJy4vRmxpcG5vdGVUaHVtYic7XG5cbmNvbnN0IEZsaXBub3RlR3JpZCA9IChwcm9wcykgPT4ge1xuICBjb25zdCB7IHBhZ2UsIGl0ZW1zLCBpdGVtc1BlclBhZ2UgfSA9IHByb3BzO1xuICBjb25zdCBzdGFydE9mZnNldCA9IHBhZ2UgKiBpdGVtc1BlclBhZ2U7XG4gIGNvbnN0IGVuZE9mZnNldCA9IHN0YXJ0T2Zmc2V0ICsgaXRlbXNQZXJQYWdlO1xuICAvLyBjb25zdCBwYWdlSXRlbXMgPSBpdGVtcyAmJiBpdGVtcy5zbGljZShzdGFydE9mZnNldCwgZW5kT2Zmc2V0KTtcblxuICByZXR1cm4gKFxuICAgIDx1bCBjbGFzc05hbWU9XCJGbGlwbm90ZUdyaWRcIj5cbiAgICAgIHsgKGl0ZW1zICYmIGl0ZW1zLmxlbmd0aCkgJiYgaXRlbXMubWFwKChpdGVtLCBpbmRleCkgPT4gKFxuICAgICAgICA8RmxpcG5vdGVUaHVtYiBrZXk9e2luZGV4fSB7Li4uaXRlbX0gb25TZWxlY3Q9e3Byb3BzLm9uU2VsZWN0fS8+XG4gICAgICApKX1cbiAgICAgIDxzdHlsZSBqc3g+e2BcbiAgICAgICAgLkZsaXBub3RlR3JpZCB7XG4gICAgICAgICAgbGlzdC1zdHlsZS10eXBlOiBub25lO1xuICAgICAgICAgIGRpc3BsYXk6IGdyaWQ7XG4gICAgICAgICAgZ3JpZC10ZW1wbGF0ZS1jb2x1bW5zOiAxZnIgMWZyIDFmcjtcbiAgICAgICAgICBncmlkLWdhcDogMjRweDtcbiAgICAgICAgfVxuICAgICAgYH08L3N0eWxlPlxuICAgIDwvdWw+XG4gICk7XG59XG5cbkZsaXBub3RlR3JpZC5kZWZhdWx0UHJvcHMgPSB7XG4gIG9uU2VsZWN0OiBmdW5jdGlvbigpe30sXG4gIGl0ZW1zOiBudWxsLFxuICBwYWdlOiAwLFxuICBpdGVtc1BlclBhZ2U6IDEyLFxufTtcblxuZXhwb3J0IGRlZmF1bHQgRmxpcG5vdGVHcmlkOyJdfQ== */\n/*@ sourceURL=/Users/james/Documents/web/labs/flipnote-player/components/FlipnoteGrid.jsx */",
-    __self: this
   }));
 };
 
@@ -166,68 +217,57 @@ FlipnoteGrid.defaultProps = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var styled_jsx_style__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-jsx/style */ "styled-jsx/style");
-/* harmony import */ var styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(styled_jsx_style__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _assets_styles_components_FlipnoteThumb_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../assets/styles/components/FlipnoteThumb.scss */ "./assets/styles/components/FlipnoteThumb.scss");
+/* harmony import */ var _assets_styles_components_FlipnoteThumb_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_assets_styles_components_FlipnoteThumb_scss__WEBPACK_IMPORTED_MODULE_1__);
 var _jsxFileName = "/Users/james/Documents/web/labs/flipnote-player/components/FlipnoteThumb.jsx";
 
 
 
 var FlipnoteThumb = function FlipnoteThumb(props) {
-  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("li", {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
+    className: "FlipnoteThumb",
     onClick: function onClick(e) {
       props.onSelect(props.src);
     },
-    className: "jsx-1551701140" + " " + "FlipnoteThumb",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 2
+      lineNumber: 4
     },
     __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "FlipnoteThumb__image",
     style: {
-      "background-image": "url(".concat(props.thumb, ")")
+      "backgroundImage": "url(".concat(props.thumb, ")")
     },
-    className: "jsx-1551701140" + " " + "FlipnoteThumb__image",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 3
-    },
-    __self: this
-  }, !props.src && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-    className: "jsx-1551701140" + " " + "FlipnoteThumb__loader",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 5
     },
     __self: this
-  }), props.ext && react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
-    className: "jsx-1551701140" + " " + "FlipnoteThumb__type",
+  }, props.ext && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "FlipnoteThumb__type",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 7
+    },
+    __self: this
+  }, props.ext == "ppm" ? "DSi" : "3DS")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "FlipnoteThumb__info",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 10
     },
     __self: this
-  }, props.ext == "ppm" ? "DSi" : "3DS")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-    className: "jsx-1551701140" + " " + "FlipnoteThumb__info",
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "FlipnoteThumb__author",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 13
+      lineNumber: 11
     },
     __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("span", {
-    className: "jsx-1551701140" + " " + "FlipnoteThumb__author",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 14
-    },
-    __self: this
-  }, props.author)), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(styled_jsx_style__WEBPACK_IMPORTED_MODULE_0___default.a, {
-    styleId: "1551701140",
-    css: ".FlipnoteThumb.jsx-1551701140{padding:8px;position:relative;}.FlipnoteThumb__image.jsx-1551701140{cursor:pointer;background-repeat:no-repeat;background-size:100%;padding-bottom:75%;overflow:hidden;width:100%;}\n/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9qYW1lcy9Eb2N1bWVudHMvd2ViL2xhYnMvZmxpcG5vdGUtcGxheWVyL2NvbXBvbmVudHMvRmxpcG5vdGVUaHVtYi5qc3giXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBZWdCLEFBR3FCLEFBS0csWUFKRyxHQUtVLGVBSjlCLGFBS3VCLHFCQUVGLG1CQUNILGdCQUNMLFdBQ2IiLCJmaWxlIjoiL1VzZXJzL2phbWVzL0RvY3VtZW50cy93ZWIvbGFicy9mbGlwbm90ZS1wbGF5ZXIvY29tcG9uZW50cy9GbGlwbm90ZVRodW1iLmpzeCIsInNvdXJjZXNDb250ZW50IjpbImNvbnN0IEZsaXBub3RlVGh1bWIgPSAocHJvcHMpID0+IChcbiAgPGxpIGNsYXNzTmFtZT1cIkZsaXBub3RlVGh1bWJcIiBvbkNsaWNrPXsoZSkgPT4geyBwcm9wcy5vblNlbGVjdChwcm9wcy5zcmMpIH19PlxuICAgIDxkaXYgY2xhc3NOYW1lPVwiRmxpcG5vdGVUaHVtYl9faW1hZ2VcIiBzdHlsZT17eyBcImJhY2tncm91bmQtaW1hZ2VcIjogYHVybCgkeyBwcm9wcy50aHVtYiB9KWAgfX0+XG4gICAgICB7IXByb3BzLnNyYyAmJlxuICAgICAgICA8ZGl2IGNsYXNzTmFtZT1cIkZsaXBub3RlVGh1bWJfX2xvYWRlclwiPlxuICAgICAgICAgIHsvKiA8SWNvbiBpY29uPVwibG9hZGVyXCIvPiAqL31cbiAgICAgICAgPC9kaXY+XG4gICAgICB9XG4gICAgICB7cHJvcHMuZXh0ICYmXG4gICAgICAgIDxzcGFuIGNsYXNzTmFtZT1cIkZsaXBub3RlVGh1bWJfX3R5cGVcIj57IHByb3BzLmV4dCA9PSBcInBwbVwiID8gXCJEU2lcIiA6IFwiM0RTXCIgfTwvc3Bhbj5cbiAgICAgIH1cbiAgICA8L2Rpdj5cbiAgICA8ZGl2IGNsYXNzTmFtZT1cIkZsaXBub3RlVGh1bWJfX2luZm9cIj5cbiAgICAgIDxzcGFuIGNsYXNzTmFtZT1cIkZsaXBub3RlVGh1bWJfX2F1dGhvclwiPnsgcHJvcHMuYXV0aG9yIH08L3NwYW4+XG4gICAgPC9kaXY+XG4gICAgPHN0eWxlIGpzeD57YFxuICAgICAgLkZsaXBub3RlVGh1bWIge1xuICAgICAgICBwYWRkaW5nOiA4cHg7XG4gICAgICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgICAgIH1cblxuICAgICAgLkZsaXBub3RlVGh1bWJfX2ltYWdlIHtcbiAgICAgICAgY3Vyc29yOiBwb2ludGVyOyAgXG4gICAgICAgIGJhY2tncm91bmQtcmVwZWF0OiBuby1yZXBlYXQ7XG4gICAgICAgIGJhY2tncm91bmQtc2l6ZTogMTAwJTtcbiAgICAgICAgLy8gcHJlc2VydmUgYXNwZWN0IHJhdGlvICg0OjMpXG4gICAgICAgIHBhZGRpbmctYm90dG9tOiA3NSU7XG4gICAgICAgIG92ZXJmbG93OiBoaWRkZW47XG4gICAgICAgIHdpZHRoOiAxMDAlO1xuICAgICAgfVxuICAgIGB9PC9zdHlsZT5cbiAgPC9saT5cbilcblxuRmxpcG5vdGVUaHVtYi5kZWZhdWx0UHJvcHMgPSB7XG4gIG9uU2VsZWN0OiBmdW5jdGlvbigpe30sXG4gIHNyYzogbnVsbCxcbiAgdGh1bWI6IFwiXCIsXG4gIGF1dGhvcjogXCJcIlxufVxuXG5leHBvcnQgZGVmYXVsdCBGbGlwbm90ZVRodW1iO1xuXG4iXX0= */\n/*@ sourceURL=/Users/james/Documents/web/labs/flipnote-player/components/FlipnoteThumb.jsx */",
-    __self: this
-  }));
+  }, props.author)));
 };
 
 FlipnoteThumb.defaultProps = {
@@ -237,6 +277,133 @@ FlipnoteThumb.defaultProps = {
   author: ""
 };
 /* harmony default export */ __webpack_exports__["default"] = (FlipnoteThumb);
+
+/***/ }),
+
+/***/ "./components/Footer.jsx":
+/*!*******************************!*\
+  !*** ./components/Footer.jsx ***!
+  \*******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _assets_styles_components_Footer_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../assets/styles/components/Footer.scss */ "./assets/styles/components/Footer.scss");
+/* harmony import */ var _assets_styles_components_Footer_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_assets_styles_components_Footer_scss__WEBPACK_IMPORTED_MODULE_1__);
+var _jsxFileName = "/Users/james/Documents/web/labs/flipnote-player/components/Footer.jsx";
+
+
+/* harmony default export */ __webpack_exports__["default"] = (function (props) {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("footer", {
+    className: "Footer wrap wrap--wide",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 4
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "Footer__group Footer__group--right",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 5
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 6
+    },
+    __self: this
+  }, "Created by ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: "https://github.com/jaames",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 7
+    },
+    __self: this
+  }, "James Daniel"), " (Source code on ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: "https://github.com/jaames/flipnote-player",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 7
+    },
+    __self: this
+  }, "GitHub"), ")")));
+});
+
+/***/ }),
+
+/***/ "./components/Header.jsx":
+/*!*******************************!*\
+  !*** ./components/Header.jsx ***!
+  \*******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _assets_styles_components_Header_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../assets/styles/components/Header.scss */ "./assets/styles/components/Header.scss");
+/* harmony import */ var _assets_styles_components_Header_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_assets_styles_components_Header_scss__WEBPACK_IMPORTED_MODULE_1__);
+var _jsxFileName = "/Users/james/Documents/web/labs/flipnote-player/components/Header.jsx";
+
+
+/* harmony default export */ __webpack_exports__["default"] = (function (props) {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("header", {
+    className: "Header wrap wrap--wide",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 4
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "Header__group Header__group--left",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 5
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: "/",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 6
+    },
+    __self: this
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: "/",
+    className: "Header__title",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 9
+    },
+    __self: this
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 10
+    },
+    __self: this
+  }, "Flipnote Player"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
+    className: "Header__subtitle",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 11
+    },
+    __self: this
+  }, "Version ", "2.0.1"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "Header__group Header__group--right",
+    __source: {
+      fileName: _jsxFileName,
+      lineNumber: 14
+    },
+    __self: this
+  }));
+});
 
 /***/ }),
 
@@ -251,110 +418,104 @@ FlipnoteThumb.defaultProps = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _static_styles_main_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../static/styles/main.scss */ "./static/styles/main.scss");
-/* harmony import */ var _static_styles_main_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_static_styles_main_scss__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _assets_styles_main_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../assets/styles/main.scss */ "./assets/styles/main.scss");
+/* harmony import */ var _assets_styles_main_scss__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_assets_styles_main_scss__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Header */ "./components/Header.jsx");
+/* harmony import */ var _Footer__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Footer */ "./components/Footer.jsx");
 var _jsxFileName = "/Users/james/Documents/web/labs/flipnote-player/components/Layout.jsx";
 
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = (function (props) {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("main", {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "app",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 4
-    },
-    __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "menuBar menuBar--upper wrap wrap--wide",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 5
-    },
-    __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "menuBar__group menuBar__group--left",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 6
-    },
-    __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    href: "/",
     __source: {
       fileName: _jsxFileName,
       lineNumber: 7
     },
     __self: this
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    href: "/",
-    className: "menuBar__title",
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Header__WEBPACK_IMPORTED_MODULE_2__["default"], {
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 10
+      lineNumber: 8
     },
     __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "wrap wrap--wide",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 11
+      lineNumber: 9
     },
     __self: this
-  }, "Flipnote Player"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", {
-    className: "menuBar__subTitle",
+  }, props.children), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Footer__WEBPACK_IMPORTED_MODULE_3__["default"], {
     __source: {
       fileName: _jsxFileName,
       lineNumber: 12
     },
     __self: this
-  }, "Version ", process.env.VERSION))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "menuBar__group menuBar__group--right",
+  }));
+});
+
+/***/ }),
+
+/***/ "./components/Pagination.jsx":
+/*!***********************************!*\
+  !*** ./components/Pagination.jsx ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+var _jsxFileName = "/Users/james/Documents/web/labs/flipnote-player/components/Pagination.jsx";
+
+// import '../assets/styles/components/Footer.scss';
+/* harmony default export */ __webpack_exports__["default"] = (function (_ref) {
+  var current = _ref.current,
+      itemCount = _ref.itemCount,
+      itemsPerPage = _ref.itemsPerPage,
+      onChange = _ref.onChange;
+  var limit = Math.ceil(itemCount / itemsPerPage) - 1;
+  var isMin = current <= 0;
+  var isMax = current >= limit;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    className: "Pagination",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 15
+      lineNumber: 9
     },
     __self: this
-  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "wrap wrap--wide",
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "Pagination__prev ".concat(isMin ? 'disabled' : ''),
+    onClick: function onClick(e) {
+      if (!isMin) onChange(current - 1);
+    },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 19
+      lineNumber: 10
     },
     __self: this
-  }, props.children), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "menuBar menuBar--lower wrap wrap--wide",
+  }, "prev"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "Pagination__current",
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 22
+      lineNumber: 17
     },
     __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "menuBar__group menuBar__group--right",
+  }, current + 1), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "Pagination__next ".concat(isMax ? 'disabled' : ''),
+    onClick: function onClick(e) {
+      if (!isMax) onChange(current + 1);
+    },
     __source: {
       fileName: _jsxFileName,
-      lineNumber: 23
+      lineNumber: 20
     },
     __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 24
-    },
-    __self: this
-  }, "Created by ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    href: "https://github.com/jaames",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 25
-    },
-    __self: this
-  }, "James Daniel"), " (Source code on ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
-    href: "https://github.com/jaames/flipnote-player",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 25
-    },
-    __self: this
-  }, "GitHub"), ")"))));
+  }, "next"));
 });
 
 /***/ }),
@@ -368,156 +529,255 @@ var _jsxFileName = "/Users/james/Documents/web/labs/flipnote-player/components/L
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Index; });
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "@babel/runtime/regenerator");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _components_Layout__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Layout */ "./components/Layout.jsx");
-/* harmony import */ var _components_FlipnoteGrid__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/FlipnoteGrid */ "./components/FlipnoteGrid.jsx");
-/* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! isomorphic-unfetch */ "isomorphic-unfetch");
-/* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! isomorphic-unfetch */ "isomorphic-unfetch");
+/* harmony import */ var isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_dropzone__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-dropzone */ "react-dropzone");
+/* harmony import */ var react_dropzone__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_dropzone__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _components_Layout__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../components/Layout */ "./components/Layout.jsx");
+/* harmony import */ var _components_FlipnoteGrid__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/FlipnoteGrid */ "./components/FlipnoteGrid.jsx");
+/* harmony import */ var _components_Pagination__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/Pagination */ "./components/Pagination.jsx");
 
 var _jsxFileName = "/Users/james/Documents/web/labs/flipnote-player/pages/index.jsx";
 
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 
 
 
-var Index = function Index(props) {
-  return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_Layout__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 6
-    },
-    __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-    className: "fileSelect modal",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 7
-    },
-    __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-    className: "fileSelect__side modal__region modal__region--left",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 8
-    },
-    __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-    className: "region__title",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 9
-    },
-    __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", {
-    className: "title",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 10
-    },
-    __self: this
-  }, "Upload Flipnote")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-    className: "region__body",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 12
-    },
-    __self: this
-  })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-    className: "fileSelect__main modal__region modal__region--right modal__region--gray",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 30
-    },
-    __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-    className: "region__title",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 31
-    },
-    __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", {
-    className: "title",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 32
-    },
-    __self: this
-  }, "Sample Flipnotes")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
-    className: "region__body",
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 39
-    },
-    __self: this
-  }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_FlipnoteGrid__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    items: props.memos // page={state.page}
-    // onSelect={src => this.loadFlipnote(src, true)}
-    ,
-    __source: {
-      fileName: _jsxFileName,
-      lineNumber: 40
-    },
-    __self: this
-  })))));
-};
 
-Index.getInitialProps =
+
+
+
+var Index =
 /*#__PURE__*/
-function () {
-  var _ref = _asyncToGenerator(
-  /*#__PURE__*/
-  _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(context) {
-    var res, data;
-    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            _context.next = 2;
-            return isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_4___default()("http://localhost:3000/static/manifest.json");
+function (_Component) {
+  _inherits(Index, _Component);
 
-          case 2:
-            res = _context.sent;
-            _context.next = 5;
-            return res.json();
+  function Index(props) {
+    var _this;
 
-          case 5:
-            data = _context.sent;
-            return _context.abrupt("return", {
-              memos: data['items']
-            });
+    _classCallCheck(this, Index);
 
-          case 7:
-          case "end":
-            return _context.stop();
-        }
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Index).call(this, props));
+    _this.state = {
+      page: 0
+    };
+    return _this;
+  }
+
+  _createClass(Index, [{
+    key: "setPage",
+    value: function setPage(newPage) {
+      this.setState({
+        page: newPage
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      var props = this.props,
+          state = this.state;
+      return react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_Layout__WEBPACK_IMPORTED_MODULE_4__["default"], {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 34
+        },
+        __self: this
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("main", {
+        className: "view",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 35
+        },
+        __self: this
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "section section--side",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 36
+        },
+        __self: this
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "section__title",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 37
+        },
+        __self: this
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", {
+        className: "title",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 38
+        },
+        __self: this
+      }, "Upload Flipnote")), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "section__body",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 40
+        },
+        __self: this
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_dropzone__WEBPACK_IMPORTED_MODULE_3___default.a, {
+        className: "Dropzone",
+        activeClassName: "Dropzone--active",
+        acceptClassName: "Dropzone--accept",
+        rejectClassName: "Dropzone--reject",
+        accept: ".ppm, .kwz",
+        multiple: false,
+        onDrop: function onDrop(accepted) {
+          return _this2.onDrop(accepted);
+        },
+        style: {},
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 41
+        },
+        __self: this
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "Dropzone__content",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 51
+        },
+        __self: this
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("p", {
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 52
+        },
+        __self: this
+      }, "Drag & drop a Flipnote .PPM or .KWZ file here"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "button button--inline",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 53
+        },
+        __self: this
+      }, "Browse Files"))))), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "section section--main",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 58
+        },
+        __self: this
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "section__title",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 59
+        },
+        __self: this
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("h4", {
+        className: "title",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 60
+        },
+        __self: this
+      }, "Sample Flipnotes"), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_Pagination__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        current: state.page,
+        itemCount: props.memos.length,
+        itemsPerPage: 12,
+        onChange: function onChange(newPage) {
+          return _this2.setPage(newPage);
+        },
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 61
+        },
+        __self: this
+      })), react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement("div", {
+        className: "section__body",
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 67
+        },
+        __self: this
+      }, react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_components_FlipnoteGrid__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        items: props.memos,
+        page: state.page,
+        onSelect: function onSelect(src) {
+          return _this2.loadFlipnote(src, true);
+        },
+        __source: {
+          fileName: _jsxFileName,
+          lineNumber: 68
+        },
+        __self: this
+      })))));
+    }
+  }], [{
+    key: "getInitialProps",
+    value: function () {
+      var _getInitialProps = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(context) {
+        var res, data;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return isomorphic_unfetch__WEBPACK_IMPORTED_MODULE_2___default()("http://localhost:3000/static/manifest.json");
+
+              case 2:
+                res = _context.sent;
+                _context.next = 5;
+                return res.json();
+
+              case 5:
+                data = _context.sent;
+                return _context.abrupt("return", {
+                  memos: data['items']
+                });
+
+              case 7:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function getInitialProps(_x) {
+        return _getInitialProps.apply(this, arguments);
       }
-    }, _callee, this);
-  }));
 
-  return function (_x) {
-    return _ref.apply(this, arguments);
-  };
-}();
+      return getInitialProps;
+    }()
+  }]);
 
-/* harmony default export */ __webpack_exports__["default"] = (Index);
-
-/***/ }),
-
-/***/ "./static/styles/main.scss":
-/*!*********************************!*\
-  !*** ./static/styles/main.scss ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
+  return Index;
+}(react__WEBPACK_IMPORTED_MODULE_1__["Component"]);
 
 
 
@@ -568,14 +828,14 @@ module.exports = require("react");
 
 /***/ }),
 
-/***/ "styled-jsx/style":
-/*!***********************************!*\
-  !*** external "styled-jsx/style" ***!
-  \***********************************/
+/***/ "react-dropzone":
+/*!*********************************!*\
+  !*** external "react-dropzone" ***!
+  \*********************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = require("styled-jsx/style");
+module.exports = require("react-dropzone");
 
 /***/ })
 
