@@ -2,8 +2,7 @@ import '../assets/styles/components/FlipnoteGrid.scss';
 
 import FlipnoteThumb from './FlipnoteThumb';
 
-const FlipnoteGrid = (props) => {
-  const { page, items, itemsPerPage } = props;
+const FlipnoteGrid = ({ page, items, itemsPerPage, onSelect }) => {
   const startOffset = page * itemsPerPage;
   const endOffset = startOffset + itemsPerPage;
   const pageItems = items && items.slice(startOffset, endOffset);
@@ -11,7 +10,7 @@ const FlipnoteGrid = (props) => {
   return (
     <ul className="FlipnoteGrid">
       { (pageItems && pageItems.length) && pageItems.map((item, index) => (
-        <FlipnoteThumb key={index} {...item} onSelect={props.onSelect}/>
+        <FlipnoteThumb key={index} {...item} onSelect={onSelect}/>
       ))}
     </ul>
   );

@@ -1,21 +1,22 @@
 import '../assets/styles/components/FlipnoteThumb.scss';
 
-const FlipnoteThumb = (props) => (
-  <li className="FlipnoteThumb" onClick={(e) => { props.onSelect(props.src) }}>
-    <div className="FlipnoteThumb__image" style={{ "backgroundImage": `url(${ props.thumb })` }}>
-      {props.ext &&
-        <span className="FlipnoteThumb__type">{ props.ext == "ppm" ? "DSi" : "3DS" }</span>
+const FlipnoteThumb = ({ filestem, ext, thumb, author, onSelect }) => (
+  <li className="FlipnoteThumb" onClick={(e) => { onSelect(`${ext}/${filestem}.${ext}`) }}>
+    <div className="FlipnoteThumb__image" style={{ "backgroundImage": `url(${ thumb })` }}>
+      {ext &&
+        <span className="FlipnoteThumb__type">{ ext == "ppm" ? "DSi" : "3DS" }</span>
       }
     </div>
     <div className="FlipnoteThumb__info">
-      <span className="FlipnoteThumb__author">{ props.author }</span>
+      <span className="FlipnoteThumb__author">{ author }</span>
     </div>
   </li>
 )
 
 FlipnoteThumb.defaultProps = {
   onSelect: function(){},
-  src: null,
+  filestem: null,
+  ext: "",
   thumb: "",
   author: ""
 }

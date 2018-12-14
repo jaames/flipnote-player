@@ -1,41 +1,32 @@
 
-.view {
+.Content {
   @include breakpoint(large) {
     display: flex;
   }
 }
 
-.section {
+.Section {
   display: flex;
   flex-direction: column;
 }
 
-.section--main {
+.Section--main {
   @include breakpoint(large) {
     flex-shrink: 1;
     flex-grow: 1;
   }
 }
 
-.section--side {
+.Section--side {
   @include breakpoint(large) {
     flex-shrink: 1;
     flex-grow: 1;
   }
 }
 
-.section__title {
+.Section__title {
   display: flex;
   border-bottom: 1px solid rgba($dark-gray, .5);
-  margin: 12px;
-  margin-top: 8px;
-  margin-bottom: 0;
-
-  @include breakpoint(medium) {
-    margin: 24px;
-    margin-top: 12px;
-    margin-bottom: 0;
-  }
 
   .title {
     font-size: 1.025rem;
@@ -48,13 +39,6 @@
   }
 }
 
-.section__body {
+.Section__body {
   flex: 1;
-  margin: 12px;
-  margin-top: 8px;
-
-  @include breakpoint(medium) {
-    margin: 24px;
-    margin-top: 16px;
-  }
 }

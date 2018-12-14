@@ -101,14 +101,14 @@ $sf-map: (
 
 @font-face {
   font-family: "#{$sf-font-family}";
-  src: url('#{$sf-font-path}#{$sf-font-name}.eot');
-  src: url('#{$sf-font-path}#{$sf-font-name}.eot?#iefix') format('eot'),
-    url('#{$sf-font-path}#{$sf-font-name}.woff2') format('woff2'),
-    url('#{$sf-font-path}#{$sf-font-name}.woff') format('woff'),
-    url('#{$sf-font-path}#{$sf-font-name}.ttf') format('truetype');
+  // src: url('#{$sf-font-path}#{$sf-font-name}.eot');
+  // src: url('#{$sf-font-path}#{$sf-font-name}.eot?#iefix') format('eot'),
+  //   url('#{$sf-font-path}#{$sf-font-name}.woff2') format('woff2'),
+  //   url('#{$sf-font-path}#{$sf-font-name}.woff') format('woff'),
+  //   url('#{$sf-font-path}#{$sf-font-name}.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
-  unicode-range: U+E000-E013, U+E015-E01C, U+E028, U+E100-E105, U+E110-E117, U+E120-E13B, U+E150-E15D, U+E200-E205;
+  unicode-range: U+E000-E013, U+E015-E01C, U+E028;
 }
 
 @function sf-get-icon($name){

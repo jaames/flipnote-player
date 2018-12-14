@@ -1,11 +1,15 @@
 import { Component } from 'react';
+import { connect } from "react-redux";
+import Router from 'next/router';
 import fetch from 'isomorphic-unfetch';
 import Dropzone from 'react-dropzone';
 import Layout from '../components/Layout';
 import FlipnoteGrid from '../components/FlipnoteGrid';
 import Pagination from '../components/Pagination';
 
-export default class Index extends Component {
+import '../assets/styles/pages/index.scss';
+
+class Index extends Component {
 
   constructor(props) {
     super(props);
@@ -14,67 +18,70 @@ export default class Index extends Component {
     };
   }
 
-  static async getInitialProps(context) {
+  static async getInitialProps({store, isServer, pathname, query}) {
+    store.dispatch({type: 'FOO', payload: 'foo'});
     const res = await fetch(process.env.BASE_URL + '/static/manifest.json');
     const data = await res.json();
-  
     return {
       memos: data['items']
     }
   }
 
+  loadFlipnote(type, src) {
+    Router.push('/view');
+  }
+
   setPage(newPage) {
     this.setState({page: newPage});
+    this.props.dispatch({type: 'FOO', payload: 'foo'});
   }
 
   render() {
     const {props, state} = this;
-
     return (
       <Layout>
-        <main className="view">
-          <div className="section section--side">
-            <div className="section__title">
-              <h4 className="title">Upload Flipnote</h4>
-            </div>
-            <div className="section__body">
-              <Dropzone 
-                className="Dropzone"
-                activeClassName="Dropzone--active"
-                acceptClassName="Dropzone--accept"
-                rejectClassName="Dropzone--reject"
-                accept=".ppm, .kwz"
-                multiple={false}
-                onDrop={ (accepted) => this.onDrop(accepted) }
-                style={{}}
-              >
-                <div className="Dropzone__content">
-                  <p>Drag &amp; drop a Flipnote .PPM or .KWZ file here</p>
-                  <div className="button button--inline">Browse Files</div>
-                </div>
-              </Dropzone>
-            </div>
+        <div className="Section Section--side">
+          <div className="Section__title">
+            <h4 className="title">{this.props.foo}</h4>
           </div>
-          <div className="section section--main">
-            <div className="section__title">
-              <h4 className="title">Sample Flipnotes</h4>
-              <Pagination 
-                current={state.page}
-                itemCount={props.memos.length} 
-                itemsPerPage={12} onChange={newPage => this.setPage(newPage) }
-              />
-            </div>
-            <div className="section__body">
-              <FlipnoteGrid 
-                items={props.memos}
-                page={state.page}
-                onSelect={src => this.loadFlipnote(src, true)}
-              />
-            </div>
+          <div className="Section__body">
+            <Dropzone 
+              className="Dropzone"
+              activeClassName="Dropzone--active"
+              acceptClassName="Dropzone--accept"
+              rejectClassName="Dropzone--reject"
+              accept=".ppm, .kwz"
+              multiple={false}
+              onDrop={ (accepted) => this.onDrop(accepted) }
+              style={{}}
+            >
+              <div className="Dropzone__content">
+                <p>Drag &amp; drop a Flipnote .PPM or .KWZ file here</p>
+                <div className="Button Button--inline">Browse Files</div>
+              </div>
+            </Dropzone>
           </div>
-        </main>
+        </div>
+        <div className="Section Section--main">
+          <div className="Section__title">
+            <h4 className="title">Sample Flipnotes</h4>
+            <Pagination 
+              current={state.page}
+              itemCount={props.memos.length} 
+              itemsPerPage={12} onChange={newPage => this.setPage(newPage) }
+            />
+          </div>
+          <div className="Section__body">
+            <FlipnoteGrid 
+              items={props.memos}
+              page={state.page}
+              onSelect={src => this.loadFlipnote('SAMPLE', src)}
+            />
+          </div>
+        </div>
       </Layout>
     );
   }
-
 }
+
+export default connect()(Index);

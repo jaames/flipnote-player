@@ -4,5 +4,8 @@ const env = require('./env.js');
 
 module.exports = {
   presets: ['next/babel'],
-  plugins: [['transform-define', env]]
+  plugins: [
+    'inline-react-svg',
+    ['transform-define', env],
+  ]
 }

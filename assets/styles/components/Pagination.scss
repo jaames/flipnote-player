@@ -1,0 +1,17 @@
+@import "../config.scss";
+
+.Pagination {
+  display: flex;
+  align-items: center;
+
+  .Pagination__current {
+    margin: 0 6px;
+    line-height: 30px;
+  }
+
+  .icon {
+    margin: 0;
+    width: 30px;
+    height: 30px;
+  }
+}

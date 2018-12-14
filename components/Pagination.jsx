@@ -1,4 +1,8 @@
-// import '../assets/styles/components/Footer.scss';
+import React from 'react'; 
+import ChevronRight from '../assets/svg/chevronRight.svg';
+import ChevronLeft from '../assets/svg/chevronLeft.svg';
+
+import '../assets/styles/components/Pagination.scss';
 
 export default ({current, itemCount, itemsPerPage, onChange}) => {
   const limit = Math.ceil(itemCount / itemsPerPage) - 1;
@@ -7,23 +11,17 @@ export default ({current, itemCount, itemsPerPage, onChange}) => {
   
   return (
     <div className="Pagination">
-      <span 
-        className={`Pagination__prev ${isMin ? 'disabled' : ''}`}
+      <ChevronLeft
+        className={`Pagination__prev Icon ${isMin ? 'Icon--disabled' : ''}`}
         onClick={e => { if (!isMin) onChange(current - 1) }}
-      >
-        prev
-      </span>
-      {/* <Icon icon="chevronLeft" disabled={current <= 0} onClick={e => this.prevPage()}/> */}
+      />
       <span className="Pagination__current">
         { current + 1 }
       </span>
-      <span
-        className={`Pagination__next ${isMax ? 'disabled' : ''}`}
+      <ChevronRight
+        className={`Pagination__next Icon ${isMax ? 'Icon--disabled' : ''}`}
         onClick={e => { if (!isMax) onChange(current + 1) }}
-      >
-        next
-      </span>
-      {/* <Icon icon="chevronRight" disabled={current >= limit} onClick={e => this.nextPage()}/> */}
+      />
     </div>
   );
 }

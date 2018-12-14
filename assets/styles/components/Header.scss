@@ -39,11 +39,6 @@
   }
 }
 
-.Header__logo__svg {
-  height: 40px;
-  width: 40px;
-}
-
 .Header__title {
   @include theme((
     color: "text",

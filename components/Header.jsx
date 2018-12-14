@@ -1,10 +1,16 @@
+// this react import is required to avoid a bug w/ babel-plugin-inline-react-svg or something
+// https://github.com/airbnb/babel-plugin-inline-react-svg/issues/50
+// https://github.com/zeit/next.js/pull/5693
+import React from 'react'; 
+import Logo from '../assets/svg/logo.svg';
+
 import '../assets/styles/components/Header.scss';
 
 export default (props) => (
-  <header className="Header wrap wrap--wide">
+  <header className="Header">
     <div className="Header__group Header__group--left">
       <a href="/">
-        {/* <Logo className="Header__logo"/> */}
+        <Logo className="Header__logo"/>
       </a>
       <a href="/" className="Header__title">
         <h1>Flipnote Player</h1>

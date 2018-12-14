@@ -4,16 +4,20 @@
   "private": true,
   "dependencies": {
     "@zeit/next-sass": "^1.0.1",
+    "babel-plugin-inline-react-svg": "^1.0.1",
     "babel-plugin-transform-define": "^1.3.0",
     "css-reset-and-normalize": "^1.0.1",
     "flipnote.js": "^2.1.3",
     "foundation-sites": "^6.5.1",
     "isomorphic-unfetch": "^3.0.0",
     "next": "^7.0.2",
+    "next-redux-wrapper": "^2.1.0",
     "node-sass": "^4.10.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
-    "react-dropzone": "^4.2.9"
+    "react-dropzone": "^4.2.9",
+    "react-redux": "^6.0.0",
+    "redux": "^4.0.1"
   },
   "scripts": {
     "dev": "next",
