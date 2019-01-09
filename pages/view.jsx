@@ -1,16 +1,19 @@
 import { Component } from 'react';
-import Layout from '../components/Layout';
+import { connect } from "react-redux";
+import Layout from '~/components/Layout';
 
-export default class View extends Component {
+class View extends Component {
 
   render() {
     const {props, state} = this;
+
+    console.log(props, state);
 
     return (
       <Layout>
         <div className="Section Section--main">
           <div className="Section__body">
-            player
+            player { props.name }
           </div>
         </div>
         <div className="Section Section--side">
@@ -26,3 +29,5 @@ export default class View extends Component {
   }
 
 }
+
+export default connect(state => state)(View);

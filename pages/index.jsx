@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 import Router from 'next/router';
 import fetch from 'isomorphic-unfetch';
 import Dropzone from 'react-dropzone';
-import Layout from '../components/Layout';
-import FlipnoteGrid from '../components/FlipnoteGrid';
-import Pagination from '../components/Pagination';
+import Layout from '~/components/Layout';
+import FlipnoteGrid from '~/components/FlipnoteGrid';
+import Pagination from '~/components/Pagination';
 
-import '../assets/styles/pages/index.scss';
+import '~/assets/styles/pages/index.scss';
 
 class Index extends Component {
 
@@ -19,25 +19,26 @@ class Index extends Component {
   }
 
   static async getInitialProps({store, isServer, pathname, query}) {
-    store.dispatch({type: 'FOO', payload: 'foo'});
     const res = await fetch(process.env.BASE_URL + '/static/manifest.json');
     const data = await res.json();
-    return {
-      memos: data['items']
-    }
+    return {memos: data['items']}
   }
 
   loadFlipnote(type, src) {
-    Router.push('/view');
+    Router.push('/view', {test: "aaaa"});
+    this.props.dispatch({type: 'CHANGE_NAME', name: 'James'})
   }
 
   setPage(newPage) {
     this.setState({page: newPage});
-    this.props.dispatch({type: 'FOO', payload: 'foo'});
   }
 
   render() {
     const {props, state} = this;
+
+    console.log(props);
+    
+
     return (
       <Layout>
         <div className="Section Section--side">
@@ -84,4 +85,4 @@ class Index extends Component {
   }
 }
 
-export default connect()(Index);
+export default connect(state=>state)(Index);
