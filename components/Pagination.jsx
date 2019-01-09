@@ -1,8 +1,8 @@
 import React from 'react'; 
-import ChevronRight from '../assets/svg/chevronRight.svg';
-import ChevronLeft from '../assets/svg/chevronLeft.svg';
+import ChevronRight from '~/assets/svg/chevronRight.svg';
+import ChevronLeft from '~/assets/svg/chevronLeft.svg';
 
-import '../assets/styles/components/Pagination.scss';
+import '~/assets/styles/components/Pagination.scss';
 
 export default ({current, itemCount, itemsPerPage, onChange}) => {
   const limit = Math.ceil(itemCount / itemsPerPage) - 1;

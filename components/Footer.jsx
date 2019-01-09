@@ -1,4 +1,4 @@
-import '../assets/styles/components/Footer.scss';
+import '~/assets/styles/components/Footer.scss';
 
 export default (props) => (
   <footer className="Footer">

@@ -1,4 +1,4 @@
-import '../assets/styles/components/FlipnoteThumb.scss';
+import '~/assets/styles/components/FlipnoteThumb.scss';
 
 const FlipnoteThumb = ({ filestem, ext, thumb, author, onSelect }) => (
   <li className="FlipnoteThumb" onClick={(e) => { onSelect(`${ext}/${filestem}.${ext}`) }}>

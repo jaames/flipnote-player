@@ -1,4 +1,4 @@
-import '../assets/styles/components/FlipnoteGrid.scss';
+import '~/assets/styles/components/FlipnoteGrid.scss';
 
 import FlipnoteThumb from './FlipnoteThumb';
 

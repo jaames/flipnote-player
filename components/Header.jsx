@@ -4,7 +4,7 @@
 import React from 'react'; 
 import Logo from '../assets/svg/logo.svg';
 
-import '../assets/styles/components/Header.scss';
+import '~/assets/styles/components/Header.scss';
 
 export default (props) => (
   <header className="Header">

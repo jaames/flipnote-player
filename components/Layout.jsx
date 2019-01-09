@@ -1,9 +1,9 @@
-import '../assets/styles/main.scss';
-
 import { connect } from "react-redux";
 import Head from 'next/head';
-import Header from './Header';
-import Footer from './Footer';
+import Header from '~/components/Header';
+import Footer from '~/components/Footer';
+
+import '~/assets/styles/main.scss';
 
 export default connect()((props) => (
   <div className="app">
