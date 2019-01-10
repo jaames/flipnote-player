@@ -1,8 +1,9 @@
 import { Component } from 'react';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import Router from 'next/router';
 import Layout from '~/components/Layout';
 import FlipnotePlayer from '~/components/FlipnotePlayer';
+import FlipnoteDetails from '~/components/FlipnoteDetails';
 
 import '~/assets/styles/pages/view.scss';
 
@@ -37,7 +38,8 @@ class View extends Component {
             <h4 className="title">Title</h4>
           </div>
           <div className="Section__body">
-            details
+            <FlipnoteDetails/>
+            { props.playerAuthor }
           </div>
         </div>
       </Layout>

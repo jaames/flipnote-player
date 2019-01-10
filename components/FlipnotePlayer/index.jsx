@@ -1,6 +1,7 @@
 import flipnote from 'flipnote.js';
 import { Component } from 'react';
 import { HotKeys } from 'react-hotkeys';
+import { connect } from 'react-redux';
 import Icon from '~/components/Icon';
 import Slider from './Slider';
 import FrameCounter from './FrameCounter';
@@ -102,6 +103,7 @@ class FlipnotePlayer extends Component {
               <Icon icon="lastFrame" disabled={!state.paused} onClick={(e) => this.player.lastFrame()}/>
             </div>
           </div>
+          { props.playerVolume }
         </div>
       </HotKeys>
     );
@@ -139,11 +141,21 @@ class FlipnotePlayer extends Component {
 
   onLoad() {
     const { player } = this;
+    const { meta, fileLength } = player;
     this.setState({
       type: player.type,
       loop: player.loop,
       currentFrame: player.currentFrame,
       frameCount: player.frameCount,
+    });
+    this.props.dispatch({
+      type: 'PLAYER_SET_META',
+      payload: {
+        meta: {
+          filesize: fileLength,
+          ...meta
+        }
+      }
     });
   }
 
@@ -152,11 +164,11 @@ class FlipnotePlayer extends Component {
       case 'change':
         this.player.setFrame(value);
         break;
-      case "inputStart":
+      case 'inputStart':
         this.wasPlaying = !this.state.paused;
         this.pause();
         break;
-      case "inputEnd":
+      case 'inputEnd':
         if (this.wasPlaying) {
           this.play();
           this.wasPlaying = null;
@@ -183,4 +195,4 @@ FlipnotePlayer.defaultProps = {
   src: '',
 };
 
-export default FlipnotePlayer;
+export default connect(state => state)(FlipnotePlayer);
