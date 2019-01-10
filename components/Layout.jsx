@@ -1,11 +1,10 @@
-import { connect } from "react-redux";
 import Head from 'next/head';
 import Header from '~/components/Header';
 import Footer from '~/components/Footer';
 
 import '~/assets/styles/main.scss';
 
-export default connect()((props) => (
+export default (props) => (
   <div className="app">
     <Head>
       <title>Flipnote Player</title>
@@ -33,4 +32,4 @@ export default connect()((props) => (
     </main>
     <Footer/>
   </div>
-));
+);

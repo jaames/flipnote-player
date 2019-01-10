@@ -8,11 +8,11 @@ const FlipnoteGrid = ({ page, items, itemsPerPage, onSelect }) => {
   const pageItems = items && items.slice(startOffset, endOffset);
 
   return (
-    <ul className="FlipnoteGrid">
+    <div className="FlipnoteGrid">
       { (pageItems && pageItems.length) && pageItems.map((item, index) => (
         <FlipnoteThumb key={index} {...item} onSelect={onSelect}/>
       ))}
-    </ul>
+    </div>
   );
 }
 

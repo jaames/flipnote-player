@@ -1,7 +1,5 @@
 .Section.Section--side {
-  flex-grow: 0;
-  flex-shrink: 0;
-  width: 380px;
+  flex-basis: 380px;
 }
 
 .Section.Section--main .Pagination {

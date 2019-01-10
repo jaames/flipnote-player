@@ -2,16 +2,20 @@
   display: inline-block;
   user-select: none;
   cursor: pointer;
-  width: 32px;
-  height: 32px;
-  fill: $primary-color !important;
 
-  &:hover {
-    fill: darken($primary-color, 6) !important;
-  }
+  svg {
+    width: 32px;
+    height: 32px;
+    display: block;
+    fill: $primary-color !important;
 
-  &.Icon--disabled {
-    fill: rgba($dark-gray, .5) !important;
+    &:hover {
+      fill: darken($primary-color, 6) !important;
+    }
+
+    &.Icon--disabled {
+      fill: rgba($dark-gray, .5) !important;
+    }
   }
   
 }

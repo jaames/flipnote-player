@@ -1,7 +1,4 @@
-import React from 'react'; 
-import ChevronRight from '~/assets/svg/chevronRight.svg';
-import ChevronLeft from '~/assets/svg/chevronLeft.svg';
-
+import Icon from './Icon';
 import '~/assets/styles/components/Pagination.scss';
 
 export default ({current, itemCount, itemsPerPage, onChange}) => {
@@ -11,15 +8,19 @@ export default ({current, itemCount, itemsPerPage, onChange}) => {
   
   return (
     <div className="Pagination">
-      <ChevronLeft
-        className={`Pagination__prev Icon ${isMin ? 'Icon--disabled' : ''}`}
+      <Icon 
+        className="Pagination__prev"
+        icon="chevronLeft"
+        disabled={isMin}
         onClick={e => { if (!isMin) onChange(current - 1) }}
       />
       <span className="Pagination__current">
         { current + 1 }
       </span>
-      <ChevronRight
-        className={`Pagination__next Icon ${isMax ? 'Icon--disabled' : ''}`}
+      <Icon
+        className="Pagination__next"
+        icon="chevronRight"
+        disabled={isMax}
         onClick={e => { if (!isMax) onChange(current + 1) }}
       />
     </div>

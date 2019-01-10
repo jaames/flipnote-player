@@ -21,12 +21,27 @@ class Index extends Component {
   static async getInitialProps({store, isServer, pathname, query}) {
     const res = await fetch(process.env.BASE_URL + '/static/manifest.json');
     const data = await res.json();
-    return {memos: data['items']}
+    const items = data['items'].map(item => ({
+      ...item, 
+      src: `static/${item.ext}/${item.filestem}.${item.ext}`
+    }));
+    store.dispatch({
+      type: 'LOAD_SAMPLE_FLIPNOTES', 
+      payload: {
+        sampleFlipnotes: items
+      }
+    });
+    return {};
   }
 
   loadFlipnote(type, src) {
-    Router.push('/view', {test: "aaaa"});
-    this.props.dispatch({type: 'CHANGE_NAME', name: 'James'})
+    this.props.dispatch({
+      type: 'PLAYER_LOAD_FLIPNOTE',
+      payload: {
+        src: src
+      }
+    });
+    Router.push('/view');
   }
 
   setPage(newPage) {
@@ -35,9 +50,6 @@ class Index extends Component {
 
   render() {
     const {props, state} = this;
-
-    console.log(props);
-    
 
     return (
       <Layout>
@@ -68,13 +80,13 @@ class Index extends Component {
             <h4 className="title">Sample Flipnotes</h4>
             <Pagination 
               current={state.page}
-              itemCount={props.memos.length} 
+              itemCount={props.sampleFlipnotes.length} 
               itemsPerPage={12} onChange={newPage => this.setPage(newPage) }
             />
           </div>
           <div className="Section__body">
             <FlipnoteGrid 
-              items={props.memos}
+              items={props.sampleFlipnotes}
               page={state.page}
               onSelect={src => this.loadFlipnote('SAMPLE', src)}
             />

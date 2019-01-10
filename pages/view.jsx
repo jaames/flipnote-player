@@ -1,19 +1,35 @@
 import { Component } from 'react';
 import { connect } from "react-redux";
+import Router from 'next/router';
 import Layout from '~/components/Layout';
+import FlipnotePlayer from '~/components/FlipnotePlayer';
+
+import '~/assets/styles/pages/view.scss';
 
 class View extends Component {
 
+  static async getInitialProps({ store, res}) {
+    const state = store.getState();
+    if (!state.playerSrc) {
+      if (res) {
+        res.writeHead(302, {
+          Location: '/'
+        });
+        res.end();
+      } else {
+        Router.push('/')
+      }
+    }
+    return {};
+  }
+
   render() {
     const {props, state} = this;
-
-    console.log(props, state);
-
     return (
       <Layout>
         <div className="Section Section--main">
           <div className="Section__body">
-            player { props.name }
+            <FlipnotePlayer src={props.playerSrc}/>
           </div>
         </div>
         <div className="Section Section--side">
