@@ -2,6 +2,8 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { format } from '~/utils'
 
+import '~/assets/styles/components/FlipnoteDetails.scss';
+
 class FlipnoteDetails extends Component {
   constructor(props) {
     super(props);
@@ -20,10 +22,22 @@ class FlipnoteDetails extends Component {
 
     return (
       <div className="FlipnoteDetails">
-        <div>Flipnote by { meta.current.username }</div>
-        <div>Created: { meta.timestamp.toLocaleDateString() }</div>
-        <div>Frame Speed: { meta.frame_speed }</div>
-        <div>Filesize: { format.byteCount(meta.filesize) }</div>
+        <div className="DetailItem">
+          <span className="DetailItem__title">Created:</span>
+          <span className="DetailItem__value">{ meta.timestamp.toLocaleDateString() }</span>
+        </div>
+        <div className="DetailItem">
+          <span className="DetailItem__title">Frames:</span>
+          <span className="DetailItem__value">{ meta.frame_count }</span>
+        </div>
+        <div className="DetailItem">
+          <span className="DetailItem__title">Frame Speed:</span>
+          <span className="DetailItem__value">{ meta.frame_speed }</span>
+        </div>
+        <div className="DetailItem">
+          <span className="DetailItem__title">Filesize:</span>
+          <span className="DetailItem__value">{ format.byteCount(meta.filesize) }</span>
+        </div>
       </div>
     );
   }

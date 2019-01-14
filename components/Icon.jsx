@@ -11,6 +11,8 @@ import loader from '~/assets/svg/loader.svg';
 import chevronLeft from '~/assets/svg/chevronLeft.svg';
 import chevronRight from '~/assets/svg/chevronRight.svg';
 
+import '~/assets/styles/components/Icon.scss';
+
 const svgs = {
   play,
   pause,

@@ -1,8 +1,14 @@
-.Section.Section--side {
-  flex-basis: 380px;
-}
+.Page.Page--index {
+  .Section.Section--side {
+    flex-basis: 380px;
+  }
 
-.Section.Section--main .Pagination {
-  margin-left: auto;
-  align-self: center;
+  .Section.Section--main {
+    flex-grow: 1;
+  }
+
+  .Section.Section--main .Pagination {
+    margin-left: auto;
+    align-self: center;
+  }
 }

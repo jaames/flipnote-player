@@ -1,11 +1,12 @@
 import Head from 'next/head';
 import Header from '~/components/Header';
 import Footer from '~/components/Footer';
+import { connect } from 'react-redux';
 
 import '~/assets/styles/main.scss';
 
-export default (props) => (
-  <div className="app">
+const Layout = (props) => (
+  <div className={`App theme--${props.theme}`}>
     <Head>
       <title>Flipnote Player</title>
       <meta charSet="utf-8"/>
@@ -25,11 +26,15 @@ export default (props) => (
       <meta name="twitter:creator" content={ process.env.META_CREATOR_TWITTER }/>
       <link rel="shortcut icon" href="/favicon.ico"/>
     </Head>
-    <Header/>
-    <main className="Content">
-      { props.foo }
-      { props.children }
-    </main>
-    <Footer/>
+    <div className="Wrap">
+      <Header/>
+      <main className={`Page Page--${props.page}`}>
+        { props.foo }
+        { props.children }
+      </main>
+      <Footer/>
+    </div>
   </div>
 );
+
+export default connect(state => state)(Layout);

@@ -3,8 +3,10 @@ import { Component } from 'react';
 import { HotKeys } from 'react-hotkeys';
 import { connect } from 'react-redux';
 import Icon from '~/components/Icon';
-import Slider from './Slider';
+import Slider from '~/components/Slider';
 import FrameCounter from './FrameCounter';
+import SettingsMenu from './SettingsMenu';
+import SettingsMenuItem from './SettingsMenuItem';
 
 import '~/assets/styles/components/FlipnotePlayer.scss';
 
@@ -41,8 +43,8 @@ class FlipnotePlayer extends Component {
   }
 
   componentDidMount() {
-    const { player, props } = this;
     if (process.browser) {
+      const { player, props } = this;
       this.resizeCanvas();
       this._resizeHandler = e => { this.resizeCanvas(); }
       window.addEventListener('resize', this._resizeHandler);
@@ -56,14 +58,14 @@ class FlipnotePlayer extends Component {
   }
 
   componentWillUnmount() {
-    const { player } = this;
     if (process.browser) {
+      const { player } = this;
       player.close();
       player.destroy();
       window.removeEventListener('resize', this._resizeHandler);
       window.onblur = undefined;
       this._canvasWrapper.removeChild(player.canvas.el);
-      player = null;
+      this.player = null;
     }
   }
 
@@ -79,6 +81,18 @@ class FlipnotePlayer extends Component {
               current={state.currentFrame + 1}
               total={state.frameCount}
             />
+            <SettingsMenu isVisible={state.showSettingsMenu} onHide={e => this.toggleSettings()}>
+              <SettingsMenuItem label="Loop" value={state.loop} onChange={() => this.toggleLoop()} />
+              { state.type === 'PPM' &&
+                <SettingsMenuItem label="Volume" type="slider" value={props.playerVolume} onChange={(v) => this.setVolume(v)} />
+              }
+              <SettingsMenuItem label="Show Layer 1" value={state.showLayers[1]} onChange={() => this.toggleLayer(1)} />
+              <SettingsMenuItem label="Show Layer 2" value={state.showLayers[2]} onChange={() => this.toggleLayer(2)} />
+              { state.type === 'KWZ' &&
+                <SettingsMenuItem label="Show Layer 3" value={state.showLayers[3]} onChange={() => this.toggleLayer(3)} />
+              }
+              <SettingsMenuItem label="Smooth Display" value={state.smoothScaling} onChange={() => this.toggleSmoothing()} />
+            </SettingsMenu>
           </div>
           <div className="Player__progress">
             <Slider
@@ -92,18 +106,17 @@ class FlipnotePlayer extends Component {
             />
           </div>
           <div className="Player__controls">
-            <div className="Player__controls__left">
+            <div className="ControlsGroup ControlsGroup--left">
               <Icon icon={state.paused ? 'play' : 'pause'} onClick={e => this.togglePlay()}></Icon>
               <Icon icon="settings" onClick={e => this.toggleSettings()}/>
             </div>
-            <div className="Player__controls__right">
+            <div className="ControlsGroup ControlsGroup--right">
               <Icon icon="firstFrame" disabled={!state.paused} onClick={e => this.player.firstFrame()}/>
               <Icon icon="prevFrame" disabled={!state.paused} onClick={e => this.player.prevFrame()}/>
               <Icon icon="nextFrame" disabled={!state.paused} onClick={e => this.player.nextFrame()}/>
               <Icon icon="lastFrame" disabled={!state.paused} onClick={(e) => this.player.lastFrame()}/>
             </div>
           </div>
-          { props.playerVolume }
         </div>
       </HotKeys>
     );
@@ -136,11 +149,40 @@ class FlipnotePlayer extends Component {
   }
 
   toggleSettings() {
+    this.setState({showSettingsMenu: !this.state.showSettingsMenu});
+  }
 
+  toggleLoop() {
+    const loop = !this.player.loop;
+    this.player.loop = loop;
+    this.setState({loop: loop})
+  }
+
+  toggleLayer(index) {
+    var layers = this.state.showLayers;
+    layers[index] = !layers[index];
+    this.player.setLayerVisibility(index, layers[index]);
+    this.setState({showLayers: layers});
+  }
+
+  toggleSmoothing() {
+    const smooth = !this.state.smoothScaling;
+    this.player.setSmoothRendering(smooth);
+    this.setState({smoothScaling: smooth});
+  }
+
+  setVolume(value) {
+    this.player.volume = value / 100;
+    this.props.dispatch({
+      type: 'PLAYER_SET_VOLUME',
+      payload: {
+        volume: value
+      }
+    });
   }
 
   onLoad() {
-    const { player } = this;
+    const player = this.player;
     const { meta, fileLength } = player;
     this.setState({
       type: player.type,

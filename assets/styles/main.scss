@@ -40,21 +40,15 @@ a {
   text-decoration: none;
 }
 
-.app {
-  flex: 0;
-  margin: auto;
-  width: 100%;
-  max-width: 980px;
+.App {
+  color: map-get($light-theme, "text");
+  background: map-get($light-theme, "background");
 
-  @include breakpoint(medium only) {
-    max-width: 528px;
-  }
-
-  @include breakpoint(xlarge) {
-    max-width: 1120px;
+  &.theme--dark {
+    color: map-get($dark-theme, "text");
+    background: map-get($dark-theme, "background");
   }
 }
 
-@import './parts/icons.scss';
 @import './parts/buttons.scss';
-@import './parts/content.scss';
+@import './parts/page.scss';

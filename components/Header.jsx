@@ -1,4 +1,5 @@
 import Logo from '../assets/svg/logo.svg';
+import ThemeToggle from './ThemeToggle';
 import '~/assets/styles/components/Header.scss';
 
 export default (props) => (
@@ -13,7 +14,7 @@ export default (props) => (
       </a>
     </div>
     <div className="Header__group Header__group--right">
-      {/* <Icon icon={ props.darkMode ? "darkmodeOn" : "darkmodeOff" } onClick={ e => this.toggleDarkmode() }/> */}
+      <ThemeToggle/>
     </div>
   </header>
 );

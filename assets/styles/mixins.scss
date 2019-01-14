@@ -6,7 +6,7 @@
   }
   
   @at-root {
-    .is-darkmode & {
+    .theme--dark & {
       @each $prop, $value in $rules {
         #{$prop}: map-get($dark-theme, $value);
       }

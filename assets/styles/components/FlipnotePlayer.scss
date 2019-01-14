@@ -30,21 +30,21 @@
   }
 }
 
-.controlsGroup {
+.ControlsGroup {
   flex: 0;
   display: flex;
   align-items: center;
   flex-direction: row;
 
-  &.controlsGroup--left {
+  &.ControlsGroup--left {
     margin-right: auto;
   }
 
-  &.controlsGroup--right {
+  &.ControlsGroup--right {
     margin-left: auto;
   }
 
-  i.icon {
+  .Icon {
     flex: 0;
     // flex-basis: 28px;
 

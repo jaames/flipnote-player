@@ -52,10 +52,10 @@ class Index extends Component {
     const {props, state} = this;
 
     return (
-      <Layout>
+      <Layout page="index">
         <div className="Section Section--side">
           <div className="Section__title">
-            <h4 className="title">{this.props.foo}</h4>
+            <h4 className="title">Upload Flipnote</h4>
           </div>
           <div className="Section__body">
             <Dropzone 

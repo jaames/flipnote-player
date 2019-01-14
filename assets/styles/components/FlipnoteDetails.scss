@@ -1,0 +1,42 @@
+@import "../config.scss";
+
+.FlipnoteDetails {
+  margin-top: 0;
+}
+
+.DetailItem {
+  @include theme((
+    color: "text-invert",
+  ));
+  font-size: 0.9rem;
+  display: flex;
+  width: 100%;
+  margin-top: 4px;
+  border-bottom: 1px dashed $dark-gray;
+  line-height: 2em;
+  padding: 6px 0 8px 0;
+}
+
+.DetailItem__title {
+  flex: 1;
+  margin-right: auto;
+}
+
+.DetailItem__value {
+  text-align: right;
+  flex: 1;
+  margin-left: auto;
+}
+
+.DetailItem.DetailItem--links {
+
+  & .DetailItem__value {
+    line-height: inherit;
+    margin: 0;
+    list-style-type: none;
+  }
+
+  & .Link {
+    display: block;
+  }
+}

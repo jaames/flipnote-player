@@ -27,7 +27,7 @@ class View extends Component {
   render() {
     const {props, state} = this;
     return (
-      <Layout>
+      <Layout page="view">
         <div className="Section Section--main">
           <div className="Section__body">
             <FlipnotePlayer src={props.playerSrc}/>
@@ -35,11 +35,10 @@ class View extends Component {
         </div>
         <div className="Section Section--side">
           <div className="Section__title">
-            <h4 className="title">Title</h4>
+            { props.playerAuthor && <h4 className="title">Flipnote By { props.playerAuthor }</h4> }
           </div>
           <div className="Section__body">
             <FlipnoteDetails/>
-            { props.playerAuthor }
           </div>
         </div>
       </Layout>

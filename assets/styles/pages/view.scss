@@ -1,6 +1,9 @@
-.Section.Section--side {
-}
+.Page.Page--view {
+  .Section.Section--side {
+    flex-grow: 1;
+  }
 
-.Section.Section--main {
-  flex-basis: 640px;
+  .Section.Section--main {
+    flex-basis: 640px;
+  }
 }

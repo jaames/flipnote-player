@@ -15,6 +15,7 @@ meta.json
 # production
 .next/*
 /build
+/out
 
 # misc
 .DS_Store

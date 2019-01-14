@@ -1,6 +1,6 @@
 {
   "name": "flipnote-player",
-  "version": "2.0.1",
+  "version": "3.0.0",
   "private": true,
   "dependencies": {
     "@mapbox/svg-react-transformer-loader": "^1.0.6",
@@ -18,14 +18,17 @@
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
     "react-dropzone": "^4.2.9",
+    "react-ga": "^2.5.6",
     "react-hotkeys": "^1.1.4",
     "react-redux": "^6.0.0",
+    "react-toggle-switch": "^3.0.4",
     "react-transition-group": "^2.5.2",
     "redux": "^4.0.1"
   },
   "scripts": {
     "dev": "next",
     "build": "next build",
+    "export": "next export",
     "start": "next start"
   },
   "devDependencies": {}
