@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import Header from '~/components/Header';
 import Footer from '~/components/Footer';
 import { connect } from 'react-redux';
@@ -6,8 +5,8 @@ import { connect } from 'react-redux';
 import '~/assets/styles/main.scss';
 
 const Layout = (props) => (
-  <div className={`App theme--${props.theme}`}>
-    <Head>
+  <div className={`View theme--${props.theme}`}>
+    {/* <Head>
       <title>Flipnote Player</title>
       <meta charSet="utf-8"/>
       <meta httpEquiv="x-ua-compatible" content="ie=edge"/>
@@ -25,7 +24,7 @@ const Layout = (props) => (
       <meta name="twitter:card" content="summary"/>
       <meta name="twitter:creator" content={ process.env.META_CREATOR_TWITTER }/>
       <link rel="shortcut icon" href="/favicon.ico"/>
-    </Head>
+    </Head> */}
     <div className="Wrap">
       <Header/>
       <main className={`Page Page--${props.page}`}>

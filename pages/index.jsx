@@ -1,7 +1,6 @@
 import { Component } from 'react';
 import { connect } from "react-redux";
-import Router from 'next/router';
-import fetch from 'isomorphic-unfetch';
+// import fetch from 'isomorphic-unfetch';
 import Dropzone from 'react-dropzone';
 import Layout from '~/components/Layout';
 import FlipnoteGrid from '~/components/FlipnoteGrid';
@@ -18,21 +17,21 @@ class Index extends Component {
     };
   }
 
-  static async getInitialProps({store, isServer, pathname, query}) {
-    const res = await fetch(process.env.BASE_URL + '/static/manifest.json');
-    const data = await res.json();
-    const items = data['items'].map(item => ({
-      ...item, 
-      src: `static/${item.ext}/${item.filestem}.${item.ext}`
-    }));
-    store.dispatch({
-      type: 'LOAD_SAMPLE_FLIPNOTES', 
-      payload: {
-        sampleFlipnotes: items
-      }
-    });
-    return {};
-  }
+  // static async getInitialProps({store, isServer, pathname, query}) {
+  //   const res = await fetch(process.env.BASE_URL + '/static/manifest.json');
+  //   const data = await res.json();
+  //   const items = data['items'].map(item => ({
+  //     ...item, 
+  //     src: `static/${item.ext}/${item.filestem}.${item.ext}`
+  //   }));
+  //   store.dispatch({
+  //     type: 'LOAD_SAMPLE_FLIPNOTES', 
+  //     payload: {
+  //       sampleFlipnotes: items
+  //     }
+  //   });
+  //   return {};
+  // }
 
   loadFlipnote(type, src) {
     this.props.dispatch({
@@ -41,7 +40,7 @@ class Index extends Component {
         src: src
       }
     });
-    Router.push('/view');
+    // Router.push('/view');
   }
 
   setPage(newPage) {
