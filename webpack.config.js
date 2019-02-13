@@ -144,26 +144,26 @@ module.exports = createConfig([
     }),
     // only use this in prod mode because it's slow as hell
     // -- seriously though, using phantomjs to render svg???
-    !IS_DEV_ENV ? new FaviconsWebpackPlugin({
-      title: "Flipnote Player",
-      logo: path.resolve(__dirname, "public/static/media/icon.svg"),
-      prefix: "static/media/icons_[hash]/",
-      statsFilename: "icon_stats_[hash].json",
-      background: "#efefef",
-      theme_color: "#efefef",
-      icons: {
-        android: true,
-        appleIcon: true,
-        appleStartup: true,
-        coast: false,
-        favicons: true,
-        firefox: true,
-        opengraph: false,
-        twitter: false,
-        yandex: false,
-        windows: true
-      }
-    }) : false,
+    // !IS_DEV_ENV ? new FaviconsWebpackPlugin({
+    //   title: "Flipnote Player",
+    //   logo: path.resolve(__dirname, "public/static/media/icon.svg"),
+    //   prefix: "static/media/icons_[hash]/",
+    //   statsFilename: "icon_stats_[hash].json",
+    //   background: "#efefef",
+    //   theme_color: "#efefef",
+    //   icons: {
+    //     android: true,
+    //     appleIcon: true,
+    //     appleStartup: true,
+    //     coast: false,
+    //     favicons: true,
+    //     firefox: true,
+    //     opengraph: false,
+    //     twitter: false,
+    //     yandex: false,
+    //     windows: true
+    //   }
+    // }) : false,
   ].filter(Boolean)),
   setEnv({
     NODE_ENV: process.env.NODE_ENV,
