@@ -66,9 +66,7 @@ class ViewFlipnote extends Component {
                 <FlipnoteCanvas src={props.src} onLoad={(note) => this._onLoad(note)} onFrameUpdate={(i) => this._frameUpdate(i)} onPlaybackEnd={() => this._playbackEnd()}/>
                 <SettingsMenu show={state.showSettingsMenu} container={this.canvasFrame} onHide={() => this.setState({ showSettingsMenu: false })}>
                   <SettingsMenuItem label="Loop" value={state.loop} onChange={() => this.toggleLoop()} />
-                  { isPPM &&
-                    <SettingsMenuItem label="Volume" type="slider" value={state.volume} onChange={(v) => this.setVolume(v)} />
-                  }
+                  <SettingsMenuItem label="Volume" type="slider" value={state.volume} onChange={(v) => this.setVolume(v)} />
                   <SettingsMenuItem label="Show Layer 1" value={state.showLayers[1]} onChange={() => this.toggleLayer(1)} />
                   <SettingsMenuItem label="Show Layer 2" value={state.showLayers[2]} onChange={() => this.toggleLayer(2)} />
                   { !isPPM && 
