@@ -1,6 +1,6 @@
 # sample flipnote .ppms/.kwzs and thumbnails shouldn't be in source
-static/ppm/*
-static/kwz/*
+public/static/ppm/*
+public/static/kwz/*
 manifest.json
 meta.json
 !manifest.example.json

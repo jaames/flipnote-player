@@ -5,6 +5,24 @@ import reducer from '~/store';
 
 const store = createStore(reducer);
 
+fetch('./static/manifest.json')
+  .then(res => res.json())
+  .then(data => {
+    let items = data['items'].map(item => ({
+      ...item, 
+      src: `./static/${item.ext}/${item.filestem}.${item.ext}`
+    }));
+
+    store.dispatch({
+      type: 'LOAD_SAMPLE_FLIPNOTES', 
+      payload: {
+        sampleFlipnotes: items
+      }
+    });
+
+  });
+
+
 import Index from './pages/index';
 import View from './pages/view';
 

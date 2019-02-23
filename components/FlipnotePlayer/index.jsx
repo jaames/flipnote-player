@@ -83,9 +83,7 @@ class FlipnotePlayer extends Component {
             />
             <SettingsMenu isVisible={state.showSettingsMenu} onHide={e => this.toggleSettings()}>
               <SettingsMenuItem label="Loop" value={state.loop} onChange={() => this.toggleLoop()} />
-              { state.type === 'PPM' &&
-                <SettingsMenuItem label="Volume" type="slider" value={props.playerVolume} onChange={(v) => this.setVolume(v)} />
-              }
+              <SettingsMenuItem label="Volume" type="slider" value={props.playerVolume} onChange={(v) => this.setVolume(v)} />
               <SettingsMenuItem label="Show Layer 1" value={state.showLayers[1]} onChange={() => this.toggleLayer(1)} />
               <SettingsMenuItem label="Show Layer 2" value={state.showLayers[2]} onChange={() => this.toggleLayer(2)} />
               { state.type === 'KWZ' &&

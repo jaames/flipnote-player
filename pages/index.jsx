@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { connect } from "react-redux";
+import { Router } from "react-router-dom";
 // import fetch from 'isomorphic-unfetch';
 import Dropzone from 'react-dropzone';
 import Layout from '~/components/Layout';
@@ -17,30 +18,14 @@ class Index extends Component {
     };
   }
 
-  // static async getInitialProps({store, isServer, pathname, query}) {
-  //   const res = await fetch(process.env.BASE_URL + '/static/manifest.json');
-  //   const data = await res.json();
-  //   const items = data['items'].map(item => ({
-  //     ...item, 
-  //     src: `static/${item.ext}/${item.filestem}.${item.ext}`
-  //   }));
-  //   store.dispatch({
-  //     type: 'LOAD_SAMPLE_FLIPNOTES', 
-  //     payload: {
-  //       sampleFlipnotes: items
-  //     }
-  //   });
-  //   return {};
-  // }
-
-  loadFlipnote(type, src) {
+  loadFlipnote(src) {
     this.props.dispatch({
       type: 'PLAYER_LOAD_FLIPNOTE',
       payload: {
         src: src
       }
     });
-    // Router.push('/view');
+    this.props.history.push('/view');
   }
 
   setPage(newPage) {
@@ -64,7 +49,7 @@ class Index extends Component {
               rejectClassName="Dropzone--reject"
               accept=".ppm, .kwz"
               multiple={false}
-              onDrop={ (accepted) => this.onDrop(accepted) }
+              onDrop={ (accepted) => this.loadFlipnote(accepted[0]) }
               style={{}}
             >
               <div className="Dropzone__content">
@@ -87,7 +72,7 @@ class Index extends Component {
             <FlipnoteGrid 
               items={props.sampleFlipnotes}
               page={state.page}
-              onSelect={src => this.loadFlipnote('SAMPLE', src)}
+              onSelect={src => this.loadFlipnote(src)}
             />
           </div>
         </div>
