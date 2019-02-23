@@ -9,15 +9,35 @@
     width: 32px;
     height: 32px;
     display: block;
-    fill: $primary-color !important;
+
+    & *[fill] {
+      fill: $primary-color;
+    }
+
+    & *[stroke] {
+      stroke: $primary-color;
+    }
 
     &:hover {
-      fill: darken($primary-color, 6) !important;
+      & *[fill] {  
+        fill: darken($primary-color, 6) !important;
+      }
+
+      & *[stroke] {  
+        stroke: darken($primary-color, 6) !important;
+      }
     }
   }
 
   &.Icon--disabled svg {
-    fill: rgba($dark-gray, .5) !important;
+    & *[fill] {  
+      fill: rgba($dark-gray, .5) !important;
+    }
+
+    & *[stroke] {  
+      stroke: rgba($dark-gray, .5) !important;
+    }
+    
   }
   
 }

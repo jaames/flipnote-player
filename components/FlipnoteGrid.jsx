@@ -5,13 +5,22 @@ import FlipnoteThumb from './FlipnoteThumb';
 const FlipnoteGrid = ({ page, items, itemsPerPage, onSelect }) => {
   const startOffset = page * itemsPerPage;
   const endOffset = startOffset + itemsPerPage;
-  const pageItems = items && items.slice(startOffset, endOffset);
+  const pageItems = items.length ? items.slice(startOffset, endOffset) : new Array(itemsPerPage).fill({});
+  const hasItems = items.length ? true : false;
 
   return (
     <div className="FlipnoteGrid">
-      { (pageItems && pageItems.length) && pageItems.map((item, index) => (
-        <FlipnoteThumb key={index} {...item} onSelect={onSelect}/>
-      ))}
+      { hasItems &&
+        pageItems.map((item, index) => (
+          <FlipnoteThumb key={index} {...item} onSelect={onSelect}/>
+        ))
+      }
+      { 
+        !hasItems &&
+        pageItems.map((_, index) => (
+          <FlipnoteThumb key={index} placeholder={true}/>
+        ))
+      }
     </div>
   );
 }

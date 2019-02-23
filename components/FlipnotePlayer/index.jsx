@@ -48,10 +48,6 @@ class FlipnotePlayer extends Component {
       this.resizeCanvas();
       this._resizeHandler = e => { this.resizeCanvas(); }
       window.addEventListener('resize', this._resizeHandler);
-      window.onblur = () => {
-        this.onPlaybackEnd();
-        player.pause();
-      };
       this._canvasWrapper.appendChild(player.canvas.el);
       player.open(props.src);
     }

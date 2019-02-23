@@ -4,7 +4,7 @@ const initialState = {
   theme: localstorage.get('theme', 'dark'),
   sampleFlipnotes: [],
   playerSrc: '',
-  playerVolume: localstorage.get('volume', 50),
+  playerVolume: localstorage.get('volume', 100),
   playerSmoothingEnabled: true,
   playerMeta: null,
   playerAuthor: ''
