@@ -10,7 +10,7 @@ export default (props) => (
       </a>
       <a href="/" className="Header__title">
         <h1>Flipnote Player</h1>
-        <h2 className="Header__subtitle">Version {process.env.VERSION}</h2>
+        <h2 className="Header__subtitle">Version {process.env.__VERSION__}</h2>
       </a>
     </div>
     <div className="Header__group Header__group--right">

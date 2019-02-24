@@ -8,20 +8,11 @@ import '~/assets/styles/pages/view.scss';
 
 class View extends Component {
 
-  // static async getInitialProps({ store, res}) {
-  //   const state = store.getState();
-  //   if (!state.playerSrc) {
-  //     if (res) {
-  //       res.writeHead(302, {
-  //         Location: '/'
-  //       });
-  //       res.end();
-  //     } else {
-  //       Router.push('/')
-  //     }
-  //   }
-  //   return {};
-  // }
+  componentDidMount() {
+    if (!this.props.playerSrc) {
+      this.props.history.push('/')
+    }
+  }
 
   render() {
     const {props, state} = this;

@@ -1,4 +1,9 @@
+var version = require('./package.json').version;
+
 module.exports = {
+  envs: {
+    __VERSION__: version
+  },
   chainWebpack(config) {
     // remove the old svg loader
     config.module.rules.delete('svg')
