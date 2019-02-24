@@ -1,13 +1,13 @@
 $light-theme: (
-  background: #efefef,
+  background: rgb(242, 242, 242),
   background-light: #fff,
-  background-dark: #e2e5e8,
+  background-dark: #E5E5E5,
   text: #141414,
   text-invert: #6f7275,
 );
 
 $dark-theme: (
-  background: #10121d,
+  background: #08080A,
   background-light: #303544,
   background-dark: #252938,
   text: #fff,
@@ -15,7 +15,7 @@ $dark-theme: (
 );
 
 $foundation-palette: (
-  primary: #fe7f7e,
+  primary: #fa8f52,
   secondary: #767676,
   success: #3adb76,
   warning: #ffae00,
@@ -36,9 +36,9 @@ $dark-gray: rgb(93, 106, 114);
 $text: $white;
 $text-light: #6f7275;
 $background: #000022;
-$font-family: 'M PLUS 1p', sudofont, -apple-system, BlinkMacSystemFont, 'avenir next', avenir, helvetica, 'helvetica neue', ubuntu, roboto, noto, 'segoe ui', arial, sans-serif;
+$font-family:  'sudofont', 'M PLUS 1p', -apple-system, BlinkMacSystemFont, 'avenir next', avenir, helvetica, 'helvetica neue', ubuntu, roboto, noto, 'segoe ui', arial, sans-serif;
 
-$sf-font-path: "../../static/fonts/";
+$sf-font-path: "../public/static/fonts/";
 
 @import './mixins.scss';
 // Foundation SCSS framework: https://foundation.zurb.com/sites

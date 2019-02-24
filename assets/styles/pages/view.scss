@@ -1,6 +1,10 @@
 .Page.Page--view {
   .Section.Section--side {
     flex-grow: 1;
+
+    .Section__title {
+      margin: 0;
+    }
   }
 
   .Section.Section--main {

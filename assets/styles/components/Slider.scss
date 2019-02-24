@@ -2,8 +2,6 @@
 
 .rc-slider {
   position: relative;
-  height: 14px;
-  padding: 5px 0;
   width: 100%;
   border-radius: 6px;
   -ms-touch-action: none;
@@ -48,8 +46,8 @@
   cursor: -webkit-grab;
   cursor: grab;
   border-radius: 50%;
-  border: solid 2px $primary-color;
-  background-color: $white;
+  border: solid 2px #fff;
+  background-color: $primary-color;
   -ms-touch-action: pan-x;
   touch-action: pan-x;
 }

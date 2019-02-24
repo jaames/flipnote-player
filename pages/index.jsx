@@ -1,11 +1,10 @@
 import { Component } from 'react';
 import { connect } from "react-redux";
 import { Router } from "react-router-dom";
-// import fetch from 'isomorphic-unfetch';
-import Dropzone from 'react-dropzone';
 import Layout from '~/components/Layout';
 import FlipnoteGrid from '~/components/FlipnoteGrid';
 import Pagination from '~/components/Pagination';
+import Dropzone from '~/components/Dropzone';
 
 import '~/assets/styles/pages/index.scss';
 
@@ -42,21 +41,7 @@ class Index extends Component {
             <h4 className="title">Upload Flipnote</h4>
           </div>
           <div className="Section__body">
-            <Dropzone 
-              className="Dropzone"
-              activeClassName="Dropzone--active"
-              acceptClassName="Dropzone--accept"
-              rejectClassName="Dropzone--reject"
-              accept=".ppm, .kwz"
-              multiple={false}
-              onDrop={ (accepted) => this.loadFlipnote(accepted[0]) }
-              style={{}}
-            >
-              <div className="Dropzone__content">
-                <p>Drag &amp; drop a Flipnote .PPM or .KWZ file here</p>
-                <div className="Button Button--inline">Browse Files</div>
-              </div>
-            </Dropzone>
+            <Dropzone onDrop={accepted => this.loadFlipnote(accepted[0])}/>
           </div>
         </div>
         <div className="Section Section--main">

@@ -45,6 +45,7 @@
   }
 
   .Icon {
+    margin: 6px;
     flex: 0;
     // flex-basis: 28px;
 
@@ -71,6 +72,7 @@
   }
 }
 
-.Player__progressSlider {
+.Player__progress {
   padding-top: 16px;
+  padding-bottom: 4px;
 }

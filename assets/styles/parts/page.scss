@@ -3,7 +3,7 @@
   margin: auto;
   width: 100%;
   min-height: 100vh;
-  max-width: 980px;
+  max-width: 960px;
 
   @include breakpoint(medium only) {
     max-width: 528px;
@@ -35,6 +35,7 @@
 
 .Section__title {
   display: flex;
+  margin-bottom: 16px;
   border-bottom: 1px solid rgba($dark-gray, .5);
 
   .title {
