@@ -31,38 +31,32 @@ class FlipnotePlayer extends Component {
       smoothScaling: true,
       volume: 100,
     };
-    if (process.browser) {
-      const playerCanvas = document.createElement('canvas');
-      const player = new flipnote.player(playerCanvas, 512, 384);
-      player.on('frame:update', index => { this.onFrameUpdate(index) });
-      player.on('playback:end', () => { this.onPlaybackEnd() });
-      player.on('load', () => { this.onLoad() });
-      window.player = player;
-      this.player = player;
-    }
+    const playerCanvas = document.createElement('canvas');
+    const player = new flipnote.player(playerCanvas, 512, 384);
+    player.on('frame:update', index => { this.onFrameUpdate(index) });
+    player.on('playback:end', () => { this.onPlaybackEnd() });
+    player.on('load', () => { this.onLoad() });
+    window.player = player;
+    this.player = player;
   }
 
   componentDidMount() {
-    if (process.browser) {
-      const { player, props } = this;
-      this.resizeCanvas();
-      this._resizeHandler = e => { this.resizeCanvas(); }
-      window.addEventListener('resize', this._resizeHandler);
-      this._canvasWrapper.appendChild(player.canvas.el);
-      player.open(props.src);
-    }
+    const { player, props } = this;
+    this.resizeCanvas();
+    this._resizeHandler = e => { this.resizeCanvas(); }
+    window.addEventListener('resize', this._resizeHandler);
+    this._canvasWrapper.appendChild(player.canvas.el);
+    player.open(props.src);
   }
 
   componentWillUnmount() {
-    if (process.browser) {
-      const { player } = this;
-      player.close();
-      player.destroy();
-      window.removeEventListener('resize', this._resizeHandler);
-      window.onblur = undefined;
-      this._canvasWrapper.removeChild(player.canvas.el);
-      this.player = null;
-    }
+    const { player } = this;
+    player.close();
+    player.destroy();
+    window.removeEventListener('resize', this._resizeHandler);
+    window.onblur = undefined;
+    this._canvasWrapper.removeChild(player.canvas.el);
+    this.player = null;
   }
 
   render() {

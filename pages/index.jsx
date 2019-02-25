@@ -6,6 +6,8 @@ import FlipnoteGrid from '~/components/FlipnoteGrid';
 import Pagination from '~/components/Pagination';
 import Dropzone from '~/components/Dropzone';
 
+import { loadFiles } from '~/utils/loadFiles';
+
 import '~/assets/styles/pages/index.scss';
 
 class Index extends Component {
@@ -31,6 +33,28 @@ class Index extends Component {
     this.setState({page: newPage});
   }
 
+  onDrop(items) {
+    if (items.length == 1) {
+      this.loadFlipnote(items[0])
+    } 
+    else if (items.length > 1) {
+      this.props.dispatch({
+        type: 'LOAD_SAMPLE_FLIPNOTES', 
+        payload: {
+          sampleFlipnotes: []
+        }
+      });
+      loadFiles(items).then(meta => {
+        this.props.dispatch({
+          type: 'LOAD_SAMPLE_FLIPNOTES', 
+          payload: {
+            sampleFlipnotes: meta
+          }
+        });
+      })
+    }
+  }
+
   render() {
     const {props, state} = this;
 
@@ -41,7 +65,7 @@ class Index extends Component {
             <h4 className="title">Upload Flipnote</h4>
           </div>
           <div className="Section__body">
-            <Dropzone onDrop={accepted => this.loadFlipnote(accepted[0])}/>
+            <Dropzone onDrop={accepted => this.onDrop(accepted)}/>
           </div>
         </div>
         <div className="Section Section--main">
