@@ -15,14 +15,14 @@
   width: 100%;
   background: rgba($dark-gray, .5);
   height: 5px;
-  border-radius: 6px;
+  border-radius: 3px;
 }
 
 .rc-slider-track {
   position: absolute;
   left: 0;
   height: 5px;
-  border-radius: 6px;
+  border-radius: 3px;
   background-color: $primary-color;
 }
 
@@ -34,30 +34,32 @@
 }
 
 .rc-slider-handle {
-  display: none;
-  visibility: hidden;
-  pointer-events: none;
+  // display: none;
+  // visibility: hidden;
+  // pointer-events: none;
   position: absolute;
-  margin-left: -7px;
+  margin-left: -8px;
   margin-top: -5px;
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
   cursor: pointer;
-  cursor: -webkit-grab;
-  cursor: grab;
+  outline: none;
   border-radius: 50%;
-  border: solid 2px #fff;
+  border: solid 3px #fff;
+  @include theme((
+    border-color: "background",
+  ));
   background-color: $primary-color;
   -ms-touch-action: pan-x;
   touch-action: pan-x;
 }
 
-.rc-slider:hover .rc-slider-handle,
-.rc-slider.is-active .rc-slider-handle {
-  display: block;
-  visibility: visible;
-  pointer-events: all;
-}
+// .rc-slider:hover .rc-slider-handle,
+// .rc-slider.is-active .rc-slider-handle {
+//   display: block;
+//   visibility: visible;
+//   pointer-events: all;
+// }
 
 .rc-slider-mark {
   position: absolute;

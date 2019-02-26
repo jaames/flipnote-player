@@ -36,9 +36,9 @@ $dark-gray: rgb(93, 106, 114);
 $text: $white;
 $text-light: #6f7275;
 $background: #000022;
-$font-family:  'sudofont', 'M PLUS 1p', -apple-system, BlinkMacSystemFont, 'avenir next', avenir, helvetica, 'helvetica neue', ubuntu, roboto, noto, 'segoe ui', arial, sans-serif;
+$font-family: 'M PLUS 1p', sudofont, -apple-system, BlinkMacSystemFont, 'avenir next', avenir, helvetica, 'helvetica neue', ubuntu, roboto, noto, 'segoe ui', arial, sans-serif;
 
-$sf-font-path: "../public/static/fonts/";
+$sf-font-path: "../../public/static/fonts/";
 
 @import './mixins.scss';
 // Foundation SCSS framework: https://foundation.zurb.com/sites
