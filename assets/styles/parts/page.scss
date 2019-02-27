@@ -5,17 +5,17 @@
   min-height: 100vh;
   max-width: 960px;
 
-  @include breakpoint(medium only) {
+  @include breakpoint-medium-only {
     max-width: 528px;
   }
 
-  @include breakpoint(xlarge) {
+  @include breakpoint-xlarge {
     max-width: 1120px;
   }
 }
 
 .Page {
-  @include breakpoint(large) {
+  @include breakpoint-large {
     display: flex;
     margin: 0 -12px;
   }

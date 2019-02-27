@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=M+PLUS+1p:500,700&subset=japanese');
 @import './config.scss';
-@import '~css-reset-and-normalize/scss/reset-and-normalize.scss';
 @import './parts/sudofont.scss';
+@import url('https://fonts.googleapis.com/css?family=M+PLUS+1p:500,700&subset=japanese');
+@import '~css-reset-and-normalize/scss/reset-and-normalize.scss';
 
 body {
   color: $text;

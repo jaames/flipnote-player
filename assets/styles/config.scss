@@ -14,13 +14,8 @@ $dark-theme: (
   text-invert: #cdd5e0,
 );
 
-$foundation-palette: (
-  primary: #fa8f52,
-  secondary: #767676,
-  success: #3adb76,
-  warning: #ffae00,
-  alert: #cc4b37,
-);
+
+$primary-color: #fa8f52;
 
 $breakpoints: (
   small: 0,
@@ -33,6 +28,7 @@ $breakpoints: (
 $black: #141414;
 $white: #fff;
 $dark-gray: rgb(93, 106, 114);
+$medium-gray: lighten($dark-gray, 12);
 $text: $white;
 $text-light: #6f7275;
 $background: #000022;
@@ -41,5 +37,3 @@ $font-family: 'M PLUS 1p', sudofont, -apple-system, BlinkMacSystemFont, 'avenir 
 $sf-font-path: "../../public/static/fonts/";
 
 @import './mixins.scss';
-// Foundation SCSS framework: https://foundation.zurb.com/sites
-@import "~foundation-sites/scss/foundation";
