@@ -13,22 +13,24 @@ export function readFileArrayBuffer(file) {
   });
 }
 
-export function getFlipnoteMeta(arrayBuffer) {
+export function getFlipnoteItem(arrayBuffer) {
   return new Promise((resolve, reject) => {
     const flipnote = new Parser(arrayBuffer);
-    const meta = {
-      author: flipnote.meta.current.username,
+    const meta = flipnote.meta;
+    const item = {
+      author: meta.current.username,
+      lock: meta.lock ? true : false,
       src: arrayBuffer,
       placeholder: false,
       ext: null,
       thumb: flipnote.getFrameBitmap(flipnote.thumbFrameIndex).getUrl(),
       note: flipnote
     };
-    resolve(meta);
+    resolve(item);
   });
 }
 
 export function loadFiles(files) {
   return Promise.all(files.map(file => readFileArrayBuffer(file)))
-  .then(buffers => Promise.all(buffers.map(buffer => getFlipnoteMeta(buffer))));
+  .then(buffers => Promise.all(buffers.map(buffer => getFlipnoteItem(buffer))));
 }
