@@ -3,6 +3,9 @@ import { storage as localstorage } from '~/utils';
 const initialState = {
   theme: localstorage.get('theme', 'dark'),
   sampleFlipnotes: [],
+  gridMode: 'SAMPLE',
+  gridItems: [],
+  gridPage: 0,
   playerSrc: '',
   playerVolume: localstorage.get('volume', 100),
   playerSmoothingEnabled: true,
@@ -22,7 +25,25 @@ const reducer = (state = initialState, action) => {
     case 'LOAD_SAMPLE_FLIPNOTES':
       return {
         ...state,
-        sampleFlipnotes: action.payload.sampleFlipnotes
+        sampleFlipnotes: action.payload.sampleFlipnotes,
+        gridItems: action.payload.sampleFlipnotes
+      };
+    case 'GRID_SET_PAGE':
+      return {
+        ...state,
+        gridPage: action.payload.page
+      };
+    case 'GRID_SET_MODE':
+      return {
+        ...state,
+        gridItems: action.payload.items,
+        gridMode: action.payload.mode,
+        gridPage: 0
+      };
+    case 'GRID_SET_ITEMS':
+      return {
+        ...state,
+        gridItems: action.payload.items
       };
     case 'PLAYER_LOAD_FLIPNOTE':
       return {

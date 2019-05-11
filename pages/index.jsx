@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import { connect } from "react-redux";
-import { Router } from "react-router-dom";
 import Layout from '~/components/Layout';
 import FlipnoteGrid from '~/components/FlipnoteGrid';
 import Pagination from '~/components/Pagination';
@@ -11,13 +10,6 @@ import { loadFiles } from '~/utils/loadFiles';
 import '~/assets/styles/pages/index.scss';
 
 class Index extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      page: 0
-    };
-  }
 
   loadFlipnote(src) {
     this.props.dispatch({
@@ -30,25 +22,31 @@ class Index extends Component {
   }
 
   setPage(newPage) {
-    this.setState({page: newPage});
+    this.props.dispatch({
+      type: 'GRID_SET_PAGE', 
+      payload: {
+        page: newPage
+      }
+    });
   }
 
-  onDrop(items) {
-    if (items.length == 1) {
-      this.loadFlipnote(items[0])
+  onDrop(files) {
+    if (files.length == 1) {
+      this.loadFlipnote(files[0])
     } 
-    else if (items.length > 1) {
+    else if (files.length > 1) {
       this.props.dispatch({
-        type: 'LOAD_SAMPLE_FLIPNOTES', 
+        type: 'GRID_SET_ITEMS', 
         payload: {
-          sampleFlipnotes: []
+          items: []
         }
       });
-      loadFiles(items).then(meta => {
+      loadFiles(files).then(items => {
         this.props.dispatch({
-          type: 'LOAD_SAMPLE_FLIPNOTES', 
+          type: 'GRID_SET_MODE', 
           payload: {
-            sampleFlipnotes: meta
+            mode: 'UPLOADS',
+            items: items
           }
         });
       })
@@ -62,7 +60,7 @@ class Index extends Component {
       <Layout page="index">
         <div className="Section Section--side">
           <div className="Section__title">
-            <h4 className="title">Upload Flipnote</h4>
+            <h4 className="title">Upload</h4>
           </div>
           <div className="Section__body">
             <Dropzone onDrop={accepted => this.onDrop(accepted)}/>
@@ -70,17 +68,17 @@ class Index extends Component {
         </div>
         <div className="Section Section--main">
           <div className="Section__title">
-            <h4 className="title">Sample Flipnotes</h4>
+            <h4 className="title">{ props.gridMode === 'SAMPLE' ? 'Sample Flipnotes' : 'Browse Folder' }</h4>
             <Pagination 
-              current={state.page}
-              itemCount={props.sampleFlipnotes.length} 
+              current={props.gridPage}
+              itemCount={props.gridItems.length} 
               itemsPerPage={12} onChange={newPage => this.setPage(newPage) }
             />
           </div>
           <div className="Section__body">
             <FlipnoteGrid 
-              items={props.sampleFlipnotes}
-              page={state.page}
+              items={props.gridItems}
+              page={props.gridPage}
               onSelect={src => this.loadFlipnote(src)}
             />
           </div>

@@ -13,24 +13,46 @@ export function readFileArrayBuffer(file) {
   });
 }
 
-export function getFlipnoteItem(arrayBuffer) {
+export function createParser(arrayBuffer) {
   return new Promise((resolve, reject) => {
-    const flipnote = new Parser(arrayBuffer);
+    let flipnote = new Parser(arrayBuffer);
+    if (!flipnote) {
+      reject();
+    } else {
+      resolve(flipnote);
+     }
+  });
+}
+
+export function getFlipnoteMeta(flipnote) {
+  return new Promise((resolve, reject) => {
+    console.log(flipnote)
+    if (!flipnote) {
+      reject();
+    } else {
     const meta = flipnote.meta;
     const item = {
       author: meta.current.username,
       lock: meta.lock ? true : false,
-      src: arrayBuffer,
+      src: flipnote,
       placeholder: false,
       ext: null,
       thumb: flipnote.getFrameBitmap(flipnote.thumbFrameIndex).getUrl(),
       note: flipnote
     };
     resolve(item);
+    }
   });
 }
 
 export function loadFiles(files) {
   return Promise.all(files.map(file => readFileArrayBuffer(file)))
-  .then(buffers => Promise.all(buffers.map(buffer => getFlipnoteItem(buffer))));
+  // create a parser object for each flipnote
+  .then(buffers => Promise.all(buffers.map(buffer => createParser(buffer))))
+  .then(flipnotes => Promise.all(
+    flipnotes
+    // filter out any null flipnotes (these are errors!)
+    .filter(flipnote => flipnote !== undefined)
+    .map(flipnote => getFlipnoteMeta(flipnote))
+  ))
 }

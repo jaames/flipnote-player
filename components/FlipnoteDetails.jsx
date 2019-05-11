@@ -19,7 +19,7 @@ class FlipnoteDetails extends Component {
         </div>
       );
     }
-
+    
     return (
       <div className="FlipnoteDetails">
         <div className="DetailItem">

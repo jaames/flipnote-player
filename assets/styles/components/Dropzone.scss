@@ -3,7 +3,8 @@
 .Dropzone {
   height: 100%;
   border-radius: 4px;
-  border: 2px dashed $medium-gray;
+  background: #fff;
+  padding: 12px;
   display: flex;
   flex-direction: column;
   padding: 32px;
@@ -22,6 +23,7 @@
 }
 
 .Dropzone__content {
+  border: 2px dashed $medium-gray;
   flex: 0;
   margin: auto;
 }
