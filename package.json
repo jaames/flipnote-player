@@ -1,9 +1,9 @@
 {
   "name": "flipnote-player",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "private": true,
   "dependencies": {
-    "flipnote.js": "^2.2.0",
+    "flipnote.js": "^2.6.0",
     "foundation-sites": "^6.4.4-rc1",
     "preact": "^8.2.7",
     "preact-compat": "^3.18.0",
