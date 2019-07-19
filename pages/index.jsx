@@ -72,7 +72,8 @@ class Index extends Component {
             <Pagination 
               current={props.gridPage}
               itemCount={props.gridItems.length} 
-              itemsPerPage={12} onChange={newPage => this.setPage(newPage) }
+              itemsPerPage={12}
+              onChange={newPage => this.setPage(newPage) }
             />
           </div>
           <div className="Section__body">

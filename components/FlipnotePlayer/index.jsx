@@ -24,16 +24,17 @@ class FlipnotePlayer extends Component {
       loop: false,
       type: null,
       currentFrame: 0,
+      currentProgress: 0,
       frameCount: 1,
       showFrameCounter: true,
       showSettingsMenu: false,
       showLayers: { 1: true, 2: true, 3: true },
-      smoothScaling: true,
       volume: 100,
     };
     const playerCanvas = document.createElement('canvas');
     const player = new flipnote.player(playerCanvas, 512, 384);
-    player.on('frame:update', index => { this.onFrameUpdate(index) });
+    player.on('progress', progress => { this.onPlayerProgress(progress) });
+    player.on('frame:update', frameIndex => { this.onPlayerFrame(frameIndex) });
     player.on('playback:end', () => { this.onPlaybackEnd() });
     player.on('load', () => { this.onLoad() });
     window.player = player;
@@ -79,18 +80,18 @@ class FlipnotePlayer extends Component {
               { state.type === 'KWZ' &&
                 <SettingsMenuItem label="Show Layer 3" value={state.showLayers[3]} onChange={() => this.toggleLayer(3)} />
               }
-              <SettingsMenuItem label="Smooth Display" value={state.smoothScaling} onChange={() => this.toggleSmoothing()} />
             </SettingsMenu>
           </div>
           <div className="Player__progress">
             <Slider
               className="player__progressSlider"
               min={0}
-              max={state.frameCount - 1}
-              value={state.currentFrame}
-              onChange={value => this.handleProgressBarEvent('change', value)}
-              onBeforeChange={value => this.handleProgressBarEvent('inputStart', value)}
-              onAfterChange={value => this.handleProgressBarEvent('inputEnd', value)}
+              max={100}
+              step={.1}
+              value={state.currentProgress}
+              onChange={value => this.player.seek(value)}
+              onBeforeChange={value => this.player.startSeek()}
+              onAfterChange={value => this.player.endSeek()}
             />
           </div>
           <div className="Player__controls">
@@ -108,6 +109,10 @@ class FlipnotePlayer extends Component {
         </div>
       </HotKeys>
     );
+  }
+
+  nextFrame() {
+
   }
 
   play() {
@@ -153,12 +158,6 @@ class FlipnotePlayer extends Component {
     this.setState({showLayers: layers});
   }
 
-  toggleSmoothing() {
-    const smooth = !this.state.smoothScaling;
-    this.player.setSmoothRendering(smooth);
-    this.setState({smoothScaling: smooth});
-  }
-
   setVolume(value) {
     this.player.volume = value / 100;
     this.props.dispatch({
@@ -171,7 +170,8 @@ class FlipnotePlayer extends Component {
 
   onLoad() {
     const player = this.player;
-    const { meta, fileLength } = player;
+    const meta = player.meta;
+    const byteLength = player.note.byteLength;
     this.setState({
       type: player.type,
       loop: player.loop,
@@ -182,37 +182,23 @@ class FlipnotePlayer extends Component {
       type: 'PLAYER_SET_META',
       payload: {
         meta: {
-          filesize: fileLength,
+          filesize: byteLength,
           ...meta
         }
       }
     });
   }
 
-  handleProgressBarEvent(type, value) {
-    switch (type) {
-      case 'change':
-        this.player.setFrame(value);
-        break;
-      case 'inputStart':
-        this.wasPlaying = !this.state.paused;
-        this.pause();
-        break;
-      case 'inputEnd':
-        if (this.wasPlaying) {
-          this.play();
-          this.wasPlaying = null;
-        }
-        break;
-    }
-  }
-
   onPlaybackEnd() {
     this.setState({paused: true});
   }
 
-  onFrameUpdate(index) {
-    this.setState({currentFrame: index});
+  onPlayerProgress(progress) {
+    this.setState({currentProgress: progress});
+  }
+
+  onPlayerFrame(frameIndex) {
+    this.setState({currentFrame: frameIndex});
   }
 
   resizeCanvas() {

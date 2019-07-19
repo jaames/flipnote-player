@@ -1,4 +1,7 @@
-import { parser as Parser } from 'flipnote.js';
+import {
+  parser as Parser,
+  gifEncoder as GifEncoder
+} from 'flipnote.js';
 
 export function readFileArrayBuffer(file) {
   return new Promise((resolve, reject) => {
@@ -26,18 +29,18 @@ export function createParser(arrayBuffer) {
 
 export function getFlipnoteMeta(flipnote) {
   return new Promise((resolve, reject) => {
-    console.log(flipnote)
     if (!flipnote) {
       reject();
     } else {
     const meta = flipnote.meta;
+    const thumb = GifEncoder.fromFlipnoteFrame(flipnote, flipnote.thumbFrameIndex);
     const item = {
       author: meta.current.username,
       lock: meta.lock ? true : false,
-      src: flipnote,
+      src: flipnote.buffer,
       placeholder: false,
       ext: null,
-      thumb: flipnote.getFrameBitmap(flipnote.thumbFrameIndex).getUrl(),
+      thumb: thumb.getUrl(),
       note: flipnote
     };
     resolve(item);
