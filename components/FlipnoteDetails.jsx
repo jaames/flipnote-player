@@ -1,12 +1,18 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
-import { format } from '~/utils'
+import flipnote from 'flipnote.js';
+import { format } from '~/utils';
+import convertFlipnoteToGif from '~/converters/gif';
 
 import '~/assets/styles/components/FlipnoteDetails.scss';
 
 class FlipnoteDetails extends Component {
   constructor(props) {
     super(props);
+  }
+
+  convertGif() {
+    // convertFlipnoteToGif(note);
   }
 
   render() {
@@ -38,6 +44,7 @@ class FlipnoteDetails extends Component {
           <span className="DetailItem__title">Filesize:</span>
           <span className="DetailItem__value">{ format.byteCount(meta.filesize) }</span>
         </div>
+        <div className="Button Button--inline" onClick={ () => { this.convertGif() } }>Convert</div>
       </div>
     );
   }

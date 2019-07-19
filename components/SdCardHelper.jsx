@@ -1,42 +1,40 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import '~/assets/styles/components/Dropzone.scss';
 import { getSdCardRoute } from '~/utils'
 
-export default class SdCardHelper extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      system: '3ds',
-      systemOptions: [
-        { title: 'Flipnote Studio', value: 'dsi' },
-        { title: 'Flipnote Studio 3D', value: '3ds' },
-      ],
-      region: 'eu',
-      regionOptions: [
-        { title: 'Europe', value: 'eu' },
-        { title: 'Americas', value: 'us' },
-        { title: 'Japan', value: 'jp' },
-      ]
-    };
-  }
+const appVersionOptions = [
+  { title: 'Flipnote Studio', value: 'dsi' },
+  { title: 'Flipnote Studio 3D', value: '3ds' },
+];
 
-  render() {
-    const { state, props } = this;
-    return (
-      <div className="SdCardHelper">
-        <select value={state.system} onChange={e => this.setState({system: event.target.value})}>
-          {state.systemOptions.map(op => (
-            <option key={op.value} value={op.value}>{op.title}</option>
-          ))}
-        </select>
-        <select value={state.region} onChange={e => this.setState({region: event.target.value})}>
-          {state.regionOptions.map(op => (
-            <option key={op.value} value={op.value}>{op.title}</option>
-          ))}
-        </select>
-        SD card path:
-        { getSdCardRoute(state.system, state.region) }
-      </div>
-    );
-  }
+const regionOptions = [
+  { title: 'Europe', value: 'eu' },
+  { title: 'America', value: 'us' },
+  { title: 'Japan', value: 'jp' },
+];
+
+export default function SdCardHelper() {
+  const [appVersion, setAppVersion] = useState('3ds');
+  const [region, setRegion] = useState('eu');
+  
+  return (
+    <div className="SdCardHelper">
+      <select value={ appVersion } onChange={ e => setAppVersion(event.target.value) }>
+        {appVersionOptions.map(op => (
+          <option key={op.value} value={op.value}>{op.title}</option>
+        ))}
+      </select>
+      <select value={ region } onChange={ e => setRegion(event.target.value) }>
+        {regionOptions.map(op => (
+          <option key={op.value} value={op.value}>{op.title}</option>
+        ))}
+      </select>
+      SD card path:
+      <code>
+        <pre>
+          { getSdCardRoute(appVersion, region) }
+        </pre>
+      </code>
+    </div>
+  );
 }
