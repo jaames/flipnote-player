@@ -7,14 +7,7 @@ import Slider from '~/components/Slider';
 import FrameCounter from './FrameCounter';
 import SettingsMenu from './SettingsMenu';
 import SettingsMenuItem from './SettingsMenuItem';
-
 import '~/assets/styles/components/FlipnotePlayer.scss';
-
-const useStateWithCallback = (initialState, callback) => {
-  const [state, setState] = useState(initialState);
-  useLayoutEffect(() => callback(state), [state, callback]);
-  return [state, setState];
-};
 
 const keymap = {
   prevFrame: ['left', 'a'],
@@ -24,11 +17,10 @@ const keymap = {
 function FlipnotePlayer(props) {
 
   const canvasWrapper = useRef(null);
+  const mainElement = useRef(null);
 
   const [type, setType] = useState('PPM');
-  const [paused, setPaused] = useStateWithCallback(true, paused => {
-    
-  });
+  const [paused, setPaused] = useState(true);
   const [loop, setLoop] = useState(false);
   const [currentFrame, setCurrentFrame] = useState(0);
   const [currentProgress, setCurrentProgress] = useState(0);
@@ -40,7 +32,7 @@ function FlipnotePlayer(props) {
 
   useLayoutEffect(() => {
     const playerCanvas = document.createElement('canvas');
-    const player = new flipnote.player(playerCanvas, 512, 384);
+    const player = new flipnote.player(playerCanvas, 640, 480);
     player.on('progress', progress => { setCurrentProgress(progress) });
     player.on('frame:update', frameIndex => { setCurrentFrame(frameIndex) });
     player.on('playback:end', () => { setPaused(true) });
@@ -49,12 +41,12 @@ function FlipnotePlayer(props) {
       setLoop(player.loop);
       setFrameCount(player.frameCount);
 
-      this.props.dispatch({
+      props.dispatch({
         type: 'PLAYER_SET_META',
         payload: {
           meta: {
             filesize: player.note.byteLength,
-            ...player.meya
+            ...player.meta
           }
         }
       });
@@ -70,16 +62,36 @@ function FlipnotePlayer(props) {
     player.open(props.src);
 
     return () => {
+      window.removeEventListener('resize', resizeCanvas);
       player.clearEvents();
       player.close();
-      window.removeEventListener('resize', resizeCanvas);
+      player.destroy();
     };
   }, []);
 
+  const togglePlay = () => {
+    if (paused) {
+      player.play();
+      setShowFrameCounter(false);
+    } else {
+      player.pause();
+      setShowFrameCounter(true);
+    }
+    setPaused(!paused);
+  }
+
+  const toggleLayer = layerIndex => {
+    let isVisible = !layerVisibility[layerIndex];
+    player.setLayerVisibility(layerIndex, isVisible);
+    setLayerVisibility({...layerVisibility, [layerIndex]: isVisible});
+  }
+
   return (
     <HotKeys keyMap={keymap} handlers={this}>
-      <div className="Player">
+      <div className="Player" ref={mainElement}>
         <div className="Player__canvasFrame">
+          <div className="Player__overlay" onClick={(e) => togglePlay()}>
+          </div>
           <div className="Player__canvas" ref={canvasWrapper}>
           </div>
           <FrameCounter 
@@ -94,29 +106,29 @@ function FlipnotePlayer(props) {
             <SettingsMenuItem
               label="Loop"
               value={loop}
-              onChange={() => setLoop(!loop)}
+              onChange={() => { player.loop = !loop; setLoop(!loop); }}
             />
             <SettingsMenuItem
               label="Volume"
               type="slider"
-              value={props.playerVolume}
-              onChange={(v) => this.setVolume(v)}
+              value={volume}
+              onChange={(v) => { player.volume = v / 100; setVolume(v); }}
             />
             <SettingsMenuItem
               label="Show Layer 1"
               value={layerVisibility[1]}
-              onChange={() => setLayerVisibility({...layerVisibility, 1: !layerVisibility[1]})}
+              onChange={() => toggleLayer(1)}
             />
             <SettingsMenuItem
               label="Show Layer 2"
               value={layerVisibility[2]}
-              onChange={() => setLayerVisibility({...layerVisibility, 2: !layerVisibility[2]})}
+              onChange={() => toggleLayer(2)}
             />
             { type === 'KWZ' &&
               <SettingsMenuItem
                 label="Show Layer 3"
                 value={layerVisibility[3]}
-                onChange={() => setLayerVisibility({...layerVisibility, 3: !layerVisibility[3]})}
+                onChange={() => toggleLayer(3)}
               />
             }
           </SettingsMenu>
@@ -135,153 +147,19 @@ function FlipnotePlayer(props) {
         </div>
         <div className="Player__controls">
           <div className="ControlsGroup ControlsGroup--left">
-            <Icon icon={paused ? 'play' : 'pause'} onClick={e => {setPaused(!paused); if(paused) { player.play() } else { player.pause() }}}></Icon>
+            <Icon icon={paused ? 'play' : 'pause'} onClick={e => { togglePlay() }}></Icon>
             <Icon icon="settings" onClick={e => setShowSettingsMenu(!showSettingsMenu)}/>
           </div>
           <div className="ControlsGroup ControlsGroup--right">
-            <Icon icon="firstFrame" disabled={!paused} onClick={e => player.firstFrame()}/>
-            <Icon icon="prevFrame" disabled={!paused} onClick={e => player.prevFrame()}/>
-            <Icon icon="nextFrame" disabled={!paused} onClick={e => player.nextFrame()}/>
-            <Icon icon="lastFrame" disabled={!paused} onClick={(e) => player.lastFrame()}/>
+            <Icon icon="firstFrame" disabled={!paused} onClick={e => { if (paused) player.firstFrame()}}/>
+            <Icon icon="prevFrame" disabled={!paused} onClick={e => { if (paused) player.prevFrame()}}/>
+            <Icon icon="nextFrame" disabled={!paused} onClick={e => { if (paused) player.nextFrame()}}/>
+            <Icon icon="lastFrame" disabled={!paused} onClick={(e) => { if (paused) player.lastFrame()}}/>
           </div>
         </div>
       </div>
     </HotKeys>
   );
-
 }
-
-// class FlipnotePlayer extends Component {
-
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       paused: true,
-//       loop: false,
-//       type: null,
-//       currentFrame: 0,
-//       currentProgress: 0,
-//       frameCount: 1,
-//       showFrameCounter: true,
-//       showSettingsMenu: false,
-//       showLayers: { 1: true, 2: true, 3: true },
-//       volume: 100,
-//     };
-//     const playerCanvas = document.createElement('canvas');
-//     const player = new flipnote.player(playerCanvas, 512, 384);
-//     player.on('progress', progress => { this.onPlayerProgress(progress) });
-//     player.on('frame:update', frameIndex => { this.onPlayerFrame(frameIndex) });
-//     player.on('playback:end', () => { this.onPlaybackEnd() });
-//     player.on('load', () => { this.onLoad() });
-//     window.player = player;
-//     this.player = player;
-//   }
-
-//   componentDidMount() {
-//     const { player, props } = this;
-//     this.resizeCanvas();
-//     this._resizeHandler = e => { this.resizeCanvas(); }
-//     window.addEventListener('resize', this._resizeHandler);
-//     this._canvasWrapper.appendChild(player.canvas.el);
-//     player.open(props.src);
-//   }
-
-//   componentWillUnmount() {
-//     const { player } = this;
-//     player.close();
-//     player.destroy();
-//     window.removeEventListener('resize', this._resizeHandler);
-//     window.onblur = undefined;
-//     this._canvasWrapper.removeChild(player.canvas.el);
-//     this.player = null;
-//   }
-
-//   render() {
-//     const { props, state } = this;
-    
-//   }
-
-//   nextFrame() {
-
-//   }
-
-//   play() {
-//     const { player } = this;
-//     player.play();
-//     this.setState({
-//       paused: player.paused,
-//       showFrameCounter: false,
-//     });
-//   }
-
-//   pause() {
-//     const { player } = this;
-//     player.pause(); 
-//     this.setState({
-//       paused: player.paused,
-//       showFrameCounter: true,
-//     });
-//   }
-
-//   togglePlay() {
-//     if (this.state.paused) {
-//       this.play();
-//     } else {
-//       this.pause();
-//     }
-//   }
-
-//   toggleSettings() {
-//     this.setState({showSettingsMenu: !this.state.showSettingsMenu});
-//   }
-
-//   toggleLoop() {
-//     const loop = !this.player.loop;
-//     this.player.loop = loop;
-//     this.setState({loop: loop})
-//   }
-
-//   toggleLayer(index) {
-//     var layers = this.state.showLayers;
-//     layers[index] = !layers[index];
-//     this.player.setLayerVisibility(index, layers[index]);
-//     this.setState({showLayers: layers});
-//   }
-
-//   setVolume(value) {
-//     this.player.volume = value / 100;
-//     this.props.dispatch({
-//       type: 'PLAYER_SET_VOLUME',
-//       payload: {
-//         volume: value
-//       }
-//     });
-//   }
-
-//   onLoad() {
-//     
-//   }
-
-//   onPlaybackEnd() {
-//     this.setState({paused: true});
-//   }
-
-//   onPlayerProgress(progress) {
-//     this.setState({currentProgress: progress});
-//   }
-
-//   onPlayerFrame(frameIndex) {
-//     this.setState({currentFrame: frameIndex});
-//   }
-
-//   resizeCanvas() {
-//     var rect = this._canvasWrapper.getBoundingClientRect();
-//     this.player.resize(rect.width, rect.width * 0.75);
-//   }
-// }
-
-// FlipnotePlayer.defaultProps = {
-//   src: '',
-// };
 
 export default connect(state => state)(FlipnotePlayer);
