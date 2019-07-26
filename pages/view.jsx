@@ -1,40 +1,38 @@
-import { Component } from 'react';
-import { connect } from 'react-redux';
+import { useEffect } from 'react';
+import { useStoreState } from 'pullstate';
+import { PlayerStore } from '~/store';
 import Layout from '~/components/Layout';
 import FlipnotePlayer from '~/components/FlipnotePlayer';
 import FlipnoteDetails from '~/components/FlipnoteDetails';
 
 import '~/assets/styles/pages/view.scss';
 
-class View extends Component {
+export default (props) => {
 
-  componentDidMount() {
-    if (!this.props.playerSrc) {
-      this.props.history.push('/')
-    }
+  const playerNote = useStoreState(PlayerStore, store => store.note);
+
+  if (playerNote === null) {
+    props.history.push('/');
+    return null;
   }
 
-  render() {
-    const {props, state} = this;
-    return (
-      <Layout page="view">
-        <div className="Section Section--main">
-          <div className="Section__body">
-            <FlipnotePlayer src={props.playerSrc}/>
-          </div>
-        </div>
-        <div className="Section Section--side">
-          <div className="Section__title">
-            { props.playerAuthor && <h4 className="title">Flipnote By { props.playerAuthor }</h4> }
-          </div>
-          <div className="Section__body">
-            <FlipnoteDetails/>
-          </div>
-        </div>
-      </Layout>
-    );
-  }
+  const playerAuthor = playerNote.meta.current.username;
 
+  return (
+    <Layout page="view">
+      <div className="Section Section--main">
+        <div className="Section__body">
+          <FlipnotePlayer/>
+        </div>
+      </div>
+      <div className="Section Section--side">
+        <div className="Section__title">
+          { playerAuthor && <h4 className="title">Flipnote By { playerAuthor }</h4> }
+        </div>
+        <div className="Section__body">
+          <FlipnoteDetails/>
+        </div>
+      </div>
+    </Layout>
+  );
 }
-
-export default connect(state => state)(View);

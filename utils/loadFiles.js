@@ -1,5 +1,5 @@
 import {
-  parser as Parser,
+  parseSource,
   gifEncoder as GifEncoder
 } from 'flipnote.js';
 
@@ -18,12 +18,13 @@ export function readFileArrayBuffer(file) {
 
 export function createParser(arrayBuffer) {
   return new Promise((resolve, reject) => {
-    let flipnote = new Parser(arrayBuffer);
-    if (!flipnote) {
-      reject();
-    } else {
-      resolve(flipnote);
-     }
+    parseSource(arrayBuffer)
+      .then((parser) => {
+        resolve(parser);
+      })
+      .catch(() => {
+        resolve(undefined);
+      })
   });
 }
 

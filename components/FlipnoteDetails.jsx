@@ -1,53 +1,43 @@
-import { Component } from 'react';
-import { connect } from 'react-redux';
-import flipnote from 'flipnote.js';
+import { useStoreState } from 'pullstate';
+import { PlayerStore } from '~/store';
 import { format } from '~/utils';
 import convertFlipnoteToGif from '~/converters/gif';
 
 import '~/assets/styles/components/FlipnoteDetails.scss';
 
-class FlipnoteDetails extends Component {
-  constructor(props) {
-    super(props);
-  }
+export default (props) => {
 
-  convertGif() {
-    // convertFlipnoteToGif(note);
-  }
+  const playerNote = useStoreState(PlayerStore, store => store.note);
 
-  render() {
-    const meta = this.props.playerMeta;
-
-    if (!meta) {
-      return (
-        <div className="FlipnoteDetails">
-          loading...
-        </div>
-      );
-    }
-    
+  if (!playerNote) {
     return (
       <div className="FlipnoteDetails">
-        <div className="DetailItem">
-          <span className="DetailItem__title">Created:</span>
-          <span className="DetailItem__value">{ meta.timestamp.toLocaleDateString() }</span>
-        </div>
-        <div className="DetailItem">
-          <span className="DetailItem__title">Frames:</span>
-          <span className="DetailItem__value">{ meta.frame_count }</span>
-        </div>
-        <div className="DetailItem">
-          <span className="DetailItem__title">Frame Speed:</span>
-          <span className="DetailItem__value">{ meta.frame_speed }</span>
-        </div>
-        <div className="DetailItem">
-          <span className="DetailItem__title">Filesize:</span>
-          <span className="DetailItem__value">{ format.byteCount(meta.filesize) }</span>
-        </div>
-        <div className="Button Button--inline" onClick={ () => { this.convertGif() } }>Convert</div>
+        loading...
       </div>
     );
   }
-}
 
-export default connect(state => state)(FlipnoteDetails);
+  const meta = playerNote.meta;
+  
+  return (
+    <div className="FlipnoteDetails">
+      <div className="DetailItem">
+        <span className="DetailItem__title">Created:</span>
+        <span className="DetailItem__value">{ meta.timestamp.toLocaleDateString() }</span>
+      </div>
+      <div className="DetailItem">
+        <span className="DetailItem__title">Frames:</span>
+        <span className="DetailItem__value">{ meta.frame_count }</span>
+      </div>
+      <div className="DetailItem">
+        <span className="DetailItem__title">Frame Rate:</span>
+        <span className="DetailItem__value">{ playerNote.framerate } FPS</span>
+      </div>
+      <div className="DetailItem">
+        <span className="DetailItem__title">Filesize:</span>
+        <span className="DetailItem__value">{ format.byteCount(playerNote.buffer.byteLength) }</span>
+      </div>
+      <div className="Button Button--inline" onClick={ () => { this.convertGif() } }>Convert</div>
+    </div>
+  );
+}

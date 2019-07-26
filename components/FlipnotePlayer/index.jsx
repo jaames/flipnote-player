@@ -1,7 +1,8 @@
-import flipnote from 'flipnote.js';
-import { Component, useState, useRef, useLayoutEffect } from 'react';
+import { useState, useRef, useLayoutEffect } from 'react';
+import { useStoreState } from 'pullstate';
+import { PlayerStore } from '~/store';
+import { player as Player } from 'flipnote.js';
 import { HotKeys } from 'react-hotkeys';
-import { connect } from 'react-redux';
 import Icon from '~/components/Icon';
 import Slider from '~/components/Slider';
 import FrameCounter from './FrameCounter';
@@ -14,7 +15,9 @@ const keymap = {
   nextFrame: ['right', 'd'],
 };
 
-function FlipnotePlayer(props) {
+export default function FlipnotePlayer(props) {
+
+  const playerNote = useStoreState(PlayerStore, store => store.note);
 
   const canvasWrapper = useRef(null);
   const mainElement = useRef(null);
@@ -32,7 +35,7 @@ function FlipnotePlayer(props) {
 
   useLayoutEffect(() => {
     const playerCanvas = document.createElement('canvas');
-    const player = new flipnote.player(playerCanvas, 640, 480);
+    const player = new Player(playerCanvas, 640, 480);
     player.on('progress', progress => { setCurrentProgress(progress) });
     player.on('frame:update', frameIndex => { setCurrentFrame(frameIndex) });
     player.on('playback:end', () => { setPaused(true) });
@@ -40,17 +43,7 @@ function FlipnotePlayer(props) {
       setType(player.type);
       setLoop(player.loop);
       setFrameCount(player.frameCount);
-
-      props.dispatch({
-        type: 'PLAYER_SET_META',
-        payload: {
-          meta: {
-            filesize: player.note.byteLength,
-            ...player.meta
-          }
-        }
-      });
-     });
+    });
     const resizeCanvas = () => {
       const rect = canvasWrapper.current.getBoundingClientRect();
       player.resize(rect.width, rect.width * 0.75);
@@ -59,7 +52,7 @@ function FlipnotePlayer(props) {
     canvasWrapper.current.appendChild(playerCanvas);
     window.addEventListener('resize', resizeCanvas);
     window.player = player;
-    player.open(props.src);
+    player.load(playerNote);
 
     return () => {
       window.removeEventListener('resize', resizeCanvas);
@@ -161,5 +154,3 @@ function FlipnotePlayer(props) {
     </HotKeys>
   );
 }
-
-export default connect(state => state)(FlipnotePlayer);

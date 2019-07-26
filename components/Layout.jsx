@@ -1,11 +1,10 @@
 import Header from '~/components/Header';
 import Footer from '~/components/Footer';
-import { connect } from 'react-redux';
 
 import '~/assets/styles/main.scss';
 
-const Layout = (props) => (
-  <div className={`View theme--${props.theme}`}>
+export default (props) => (
+  <div className="View">
     {/* <Head>
       <title>Flipnote Player</title>
       <meta charSet="utf-8"/>
@@ -28,7 +27,6 @@ const Layout = (props) => (
     <div className="Wrap">
       <Header/>
       <main className={`Page Page--${props.page}`}>
-        { props.foo }
         { props.children }
       </main>
       <Footer/>
@@ -36,4 +34,4 @@ const Layout = (props) => (
   </div>
 );
 
-export default connect(state => state)(Layout);
+// export default connect(state => state)(Layout);

@@ -41,13 +41,10 @@ a {
 }
 
 .View {
-  color: map-get($light-theme, "text");
-  background: map-get($light-theme, "background");
-
-  &.theme--dark {
-    color: map-get($dark-theme, "text");
-    background: map-get($dark-theme, "background");
-  }
+  @include theme((
+    color: "text",
+    background: "background",
+  ));
 }
 
 @import './parts/buttons.scss';

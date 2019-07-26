@@ -1,26 +1,13 @@
-import { Component } from 'react';
-import { connect } from 'react-redux';
+import { useStoreState } from 'pullstate';
+import { UIStore } from '~/store';
 import Switch from '~/components/Switch';
 
-class ThemeToggle extends Component {
+export default (props) => {
+  const isDarkMode = useStoreState(UIStore, s => s.isDarkMode);
 
-  render() {
-    return (
-      <div className="ThemeToggle">
-        <Switch on={ this.props.theme === 'light' } onClick={ () => this.toggleTheme() }/>
-      </div>
-    );
-  }
-
-  toggleTheme() {
-    this.props.dispatch({
-      type: 'SET_THEME',
-      payload: {
-        theme: this.props.theme === 'light' ? 'dark' : 'light'
-      }
-    });
-  }
-
+  return (
+    <div className="ThemeToggle">
+      <Switch on={ !isDarkMode } onClick={ () => UIStore.update(s => {s.isDarkMode = !isDarkMode}) }/>
+    </div>
+  );
 }
-
-export default connect(state => state)(ThemeToggle);
