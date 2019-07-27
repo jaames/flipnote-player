@@ -16,6 +16,16 @@ body {
   -webkit-text-rendering: optimizeLegibility;
   -moz-font-smoothing: antialiased;
   -moz-text-rendering: optimizeLegibility;
+
+  #root {
+    transition: filter 200ms linear;
+  }
+
+  &.is-modal-open {
+    #root {
+      filter: blur(4px);
+    }
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {

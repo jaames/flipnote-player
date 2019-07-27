@@ -27,12 +27,7 @@ const SettingsMenuItem = props => {
 SettingsMenuItem.defaultProps = {
   label: '',
   type: 'switch',
-  value: false,
-  min: 0,
-  max: 100,
-  onBeforeChange: function(){},
-  onChange: function(){},
-  onAfterChange: function(){},
-}
+  value: false
+};
 
 export default SettingsMenuItem;
