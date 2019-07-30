@@ -4,20 +4,21 @@ import useOnClickOutside from '~/utils/useOnClickOutside';
 
 import '~/assets/styles/components/SettingsMenu.scss';
 
-export default function SettingsMenu(props) {
+export default function SettingsMenu({ isVisible, onHide, children }) {
 
   const root = useRef();
   useOnClickOutside(root, (e) => {
-    props.onHide();
+    onHide();
   });
 
   return (
     <CSSTransition
-      in={props.isVisible}
-      timeout={200}
-      unmountOnExit>
+      in={ isVisible }
+      timeout={ 150 }
+      unmountOnExit
+    >
       <div ref={ root } className="SettingsMenu">  
-        { props.children }
+        { children }
       </div>
     </CSSTransition>
   );

@@ -1,5 +1,5 @@
 import '~/assets/styles/components/FlipnoteThumb.scss';
-import Loader from '~/assets/svg/loader.svg';
+import Icon from '~/components/Icon';
 
 const FlipnoteThumb = ({ placeholder, ext, src, thumb, author, onSelect, lock }) => (
   <div className="FlipnoteThumb" onClick={(e) => { onSelect(src) }} data-lock={ lock }>
@@ -10,7 +10,7 @@ const FlipnoteThumb = ({ placeholder, ext, src, thumb, author, onSelect, lock })
       {
         placeholder &&
         <div className="FlipnoteThumb__placeholder">
-          <Loader className="icon"></Loader>
+          <Icon icon="loader" spin={ true }/>
         </div>
       }
     </div>

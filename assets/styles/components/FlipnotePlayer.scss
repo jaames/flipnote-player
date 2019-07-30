@@ -2,7 +2,7 @@
 
 .Player__canvasFrame {
   position: relative;
-  overflow: hidden;
+  // overflow: hidden;
 }
 
 .Player__progress {
@@ -68,11 +68,13 @@
 .Player__canvas {
   canvas {
     display: block;
+    box-shadow: 0 4px 12px -4px rgba(77, 77, 100, 0.1);
 
     @include breakpoint-medium {
-      border-radius: 3px;
+      border-radius: 6px;
     }
   }
+
 }
 
 .Player__progress {

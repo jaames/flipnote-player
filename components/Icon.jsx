@@ -28,11 +28,11 @@ const svgs = {
   chevronRight
 };
 
-const Icon = (props) => {
-  const { className, icon, disabled, ...innerProps } = props;
+export default function Icon(props) {
+  const { className, icon, disabled, spin, ...innerProps } = props;
   const IconSvg = svgs[icon];
   return (
-    <div className={`${className} Icon Icon--${icon} ${disabled ? 'Icon--disabled' : ''}`} {...innerProps}>
+    <div className={`${className} Icon Icon--${icon} ${disabled ? 'Icon--disabled' : ''} ${spin ? 'Icon--spin' : ''}`} {...innerProps}>
       { IconSvg && <IconSvg/> }
     </div>
   )
@@ -41,7 +41,6 @@ const Icon = (props) => {
 Icon.defaultProps = {
   icon: '',
   className: '',
-  disabled: false
+  disabled: false,
+  spin: false,
 };
-
-export default Icon;

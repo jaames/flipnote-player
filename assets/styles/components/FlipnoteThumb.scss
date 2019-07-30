@@ -1,11 +1,5 @@
 @import "../config.scss";
 
-@keyframes spin { 
-  100% {
-    transform:rotate(360deg);
-  } 
-}
-
 .FlipnoteThumb {
 }
 
@@ -18,7 +12,8 @@
   padding-bottom: 75%;
   overflow: hidden;
   width: 100%;
-  border-radius: 4px;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px -4px rgba(77, 77, 100, 0.1);
 }
 
 .FlipnoteThumb__placeholder {
@@ -32,11 +27,9 @@
   right: 0;
   bottom: 0;
 
-  .icon {
+  .Icon {
     width: 32px;
     height: 32px;
-    animation: spin 1s linear infinite;
-    fill: rgba($dark-gray, .5);
   }
 }
 
@@ -46,10 +39,8 @@
   // border-bottom-right-radius: 3px;
   font-size: 0.85rem;
   line-height: 1rem;
-  height: 28px;
   overflow: hidden;
-  padding: 6px 0 3px 0;
-  margin-top: -2px;
+  padding-top: 6px;
 }
 
 .FlipnoteThumb__author {

@@ -7,7 +7,7 @@ body {
   color: $text;
   background: $background;
   font-family: $font-family;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.5;
   // letter-spacing: .015em;
   font-smoothing: antialiased;
@@ -23,7 +23,7 @@ body {
 
   &.is-modal-open {
     #root {
-      filter: blur(4px);
+      filter: blur(2px) brightness(0.9);
     }
   }
 }
@@ -50,12 +50,26 @@ a {
   text-decoration: none;
 }
 
-.View {
-  @include theme((
-    color: "text",
-    background: "background",
-  ));
+code {
+  font-size: 1.1em;
+  color: #e0e0f1;
+  background: #161525;
+  display: block;
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.App {
+  transition: background .5s;
+  color: map-get($light-theme, 'text');
+  background: map-get($light-theme, 'background');
+
+  &.theme--dark {
+    color: map-get($dark-theme, 'text');
+    background: map-get($dark-theme, 'background');
+  }
 }
 
 @import './parts/buttons.scss';
+@import './parts/forms.scss';
 @import './parts/page.scss';

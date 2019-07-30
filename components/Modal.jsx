@@ -1,11 +1,16 @@
 import { useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { useStoreState } from 'pullstate';
+import { GlobalStore } from '~/store';
 import { CSSTransition } from 'react-transition-group';
 import useOnClickOutside from '~/utils/useOnClickOutside';
 
 import '~/assets/styles/components/Modal.scss';
 
-export default function Modal({isVisible, isBackdropVisible, onHide, className, children}) {
+export default function Modal({isVisible, isBackdropVisible, onHide, className, title, children}) {
+  const isDarkMode = useStoreState(GlobalStore, s => s.isDarkMode);
+
+
   const body = useRef(document.body);
   const root = useRef();
   useOnClickOutside(root, (e) => {
@@ -27,11 +32,12 @@ export default function Modal({isVisible, isBackdropVisible, onHide, className, 
       timeout={ 300 }
       unmountOnExit
     >
-      <div className={`ModalBackdrop ${ isBackdropVisible ? 'ModalBackdrop--visible' : '' }`}>
+      <div className={`ModalBackdrop ${ isBackdropVisible ? 'ModalBackdrop--visible' : '' } ${ isDarkMode ? 'theme--dark' : 'theme--light' }`}>
         <div ref={ root } className={`Modal ${ className }`}>
           <div className="Modal__head">
-            <span onClick={ () => { onHide() } }>
-              close
+            <h4 className="Modal__title">{ title }</h4>
+            <span className="Modal__closeIcon" onClick={ () => { onHide() } }>
+              Close
             </span>
           </div>
           <div className="Modal__body">
@@ -44,6 +50,7 @@ export default function Modal({isVisible, isBackdropVisible, onHide, className, 
 }
 
 Modal.defaultProps = {
+  title: '',
   isVisible: false,
   isBackdropVisible: false,
   onHide: function(){},

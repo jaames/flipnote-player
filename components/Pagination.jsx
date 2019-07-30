@@ -15,7 +15,7 @@ export default ({current, itemCount, itemsPerPage, onChange}) => {
         onClick={e => { if (!isMin) onChange(current - 1) }}
       />
       <span className="Pagination__current">
-        { current + 1 }
+        { current + 1 } / { limit + 1 }
       </span>
       <Icon
         className="Pagination__next"

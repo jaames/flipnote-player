@@ -3,8 +3,8 @@ import '~/assets/styles/components/FrameCounter.scss';
 
 export default ({isVisible, current, total}) => ((
   <CSSTransition
-    in={isVisible}
-    timeout={200}
+    in={ isVisible }
+    timeout={ 150 }
     unmountOnExit
   >
     <span className="FrameCounter">

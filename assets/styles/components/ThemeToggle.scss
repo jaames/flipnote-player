@@ -1,0 +1,53 @@
+@import "../config.scss";
+
+.ThemeToggle {
+  position: relative;
+  width: 32px;
+}
+
+.ThemeToggle__circle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  border: 2px solid $primary-color;
+  cursor: pointer;
+  transition: transform 350ms, z-index 350ms;
+  box-shadow: 0 4px 12px -4px rgba(77, 77, 100, 0.1);
+}
+
+.ThemeToggle__circle.ThemeToggle__circle--light {
+  background: #fff;
+  border-color: #b2b2c5;
+}
+
+.ThemeToggle__circle.ThemeToggle__circle--dark {
+  background: #000;
+  border-color: #4e4e5c;
+}
+
+.ThemeToggle--theme-is-dark {
+  .ThemeToggle__circle.ThemeToggle__circle--light {
+    z-index: 0;
+    transform: translateX(12px);
+  }
+
+  .ThemeToggle__circle.ThemeToggle__circle--dark {
+    z-index: 1;
+    transform: translateX(0);
+  }
+}
+
+.ThemeToggle--theme-is-light {
+  .ThemeToggle__circle.ThemeToggle__circle--light {
+    z-index: 1;
+    transform: translateX(0);
+  }
+
+  .ThemeToggle__circle.ThemeToggle__circle--dark {
+    z-index: 0;
+    transform: translateX(12px);
+  }
+}

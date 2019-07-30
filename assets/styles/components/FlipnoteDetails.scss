@@ -24,7 +24,7 @@
 
 .DetailItem__value {
   text-align: right;
-  flex: 1;
+  flex: 2;
   margin-left: auto;
 }
 
@@ -39,4 +39,26 @@
   & .Link {
     display: block;
   }
+}
+
+.DetailLink {
+  @include theme((
+    background: "background-light",
+  ));
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+  padding: 12px;
+  margin: 8px 0;
+  box-shadow: 0 4px 12px -4px rgba(77, 77, 100, 0.1);
+}
+
+.DetailLink__icon {
+  width: 42px;
+  height: 42px;
+}
+
+.DetailLink__title {
+  margin-left: 12px;
+  font-size: .9em;
 }

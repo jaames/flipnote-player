@@ -1,5 +1,11 @@
 @import "../config.scss";
 
+@keyframes spin { 
+  100% {
+    transform: rotate(360deg);
+  } 
+}
+
 .Icon {
   display: inline-block;
   user-select: none;
@@ -38,6 +44,10 @@
       stroke: rgba($dark-gray, .5) !important;
     }
     
+  }
+
+  &.Icon--spin svg {
+    animation: spin 1s linear infinite;
   }
   
 }

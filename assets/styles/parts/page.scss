@@ -1,4 +1,4 @@
-.Wrap {
+.View {
   flex: 0;
   margin: auto;
   width: 100%;
@@ -35,13 +35,13 @@
 
 .Section__title {
   display: flex;
-  margin-bottom: 16px;
-  border-bottom: 1px solid rgba($dark-gray, .5);
+  margin-bottom: 8px;
+  // border-bottom: 1px solid rgba($dark-gray, .5);
 
   .title {
     font-size: 1.025rem;
     line-height: 2.5em;
-    margin-bottom: 0.25em;
+    margin-bottom: 0;
   }
 
   .title__right {

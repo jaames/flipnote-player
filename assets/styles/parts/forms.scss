@@ -1,0 +1,31 @@
+.FormGroup {
+  display: flex;
+  margin: 0 -6px;
+  margin-bottom: 6px;
+}
+
+.FormGroup:last-child {
+  margin-bottom: 0;
+}
+
+.FormGroup .FormItem {
+  flex: 1;
+  margin: 0 6px;
+}
+
+.FormItem {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    margin-bottom: 4px;
+  }
+}
+
+.Input {
+  display: block;
+  line-height: 28px;
+  border-radius: 4px;
+  border: 2px solid #efefef;
+  padding: 2px 8px;
+}

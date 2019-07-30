@@ -8,13 +8,4 @@ export default class format {
     return (bytes / Math.pow(k, exp)).toFixed(1) + ' ' + sizes[exp];
   }
 
-  static kwzFsid(hex) {
-    return [
-      hex.substr(0, 4),
-      hex.substr(4, 4),
-      hex.substr(8, 4),
-      hex.substr(12, 6),
-    ].join('-').toLowerCase();
-  }
-
 }

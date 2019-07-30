@@ -1,9 +1,15 @@
 
 // helper for setting certain rules based on the current color theme
 @mixin theme($rules) {
+  $transition: ();
+  $transition-duration: .5s;
+
   @each $prop, $value in $rules {
     #{$prop}: map-get($light-theme, $value);
+    $transition: join($transition, unquote($prop) + ' #{$transition-duration}', $separator: comma);
   }
+
+  transition: $transition;
   
   @at-root {
     .theme--dark & {

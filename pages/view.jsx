@@ -27,7 +27,7 @@ export default (props) => {
       </div>
       <div className="Section Section--side">
         <div className="Section__title">
-          { playerAuthor && <h4 className="title">Flipnote By { playerAuthor }</h4> }
+          { playerAuthor && <h4 className="title">Flipnote by { playerAuthor }</h4> }
         </div>
         <div className="Section__body">
           <FlipnoteDetails/>

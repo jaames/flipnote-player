@@ -1,18 +1,20 @@
 import { useStoreState } from 'pullstate';
-import { UIStore } from '~/store';
+import { GlobalStore } from '~/store';
 import { storage as localstorage } from '~/utils';
 import Switch from '~/components/Switch';
+import '~/assets/styles/components/ThemeToggle.scss';
 
 export default (props) => {
-  const isDarkMode = useStoreState(UIStore, s => s.isDarkMode);
+  const isDarkMode = useStoreState(GlobalStore, s => s.isDarkMode);
   const toggleDarkMode = () => {
     localstorage.set('theme', !isDarkMode ? 'dark' : 'light');
-    UIStore.update(s => {s.isDarkMode = !isDarkMode});
+    GlobalStore.update(s => {s.isDarkMode = !isDarkMode});
   }
 
   return (
-    <div className="ThemeToggle">
-      <Switch on={ !isDarkMode } onClick={ toggleDarkMode }/>
+    <div className={`ThemeToggle ${isDarkMode ? 'ThemeToggle--theme-is-dark' : 'ThemeToggle--theme-is-light'}`} onClick={ toggleDarkMode }>
+      <div className="ThemeToggle__circle ThemeToggle__circle--light"></div>
+      <div className="ThemeToggle__circle ThemeToggle__circle--dark"></div>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 $light-theme: (
-  background: rgb(242, 242, 242),
+  background: #EFF1F5,
   background-light: #fff,
   background-dark: #E5E5E5,
   text: #141414,
@@ -8,14 +8,14 @@ $light-theme: (
 
 $dark-theme: (
   background: #08080A,
-  background-light: #303544,
+  background-light: #2f364b,
   background-dark: #252938,
   text: #fff,
   text-invert: #cdd5e0,
 );
 
 
-$primary-color: #fa8f52;
+$primary-color: #faa352;
 
 $breakpoints: (
   small: 0,

@@ -1,13 +1,13 @@
 import storage from './storage';
-import flipnoteStudio from './flipnoteStudio';
 import format from './format';
-import { getSdCardRoute } from './getSdCardRoute';
+import flipnoteStudio from './flipnoteStudio';
+import externalServices from './externalServices';
 import ga from './ga';
 
 export {
   storage,
   flipnoteStudio,
+  externalServices,
   format,
-  getSdCardRoute,
   ga,
 };

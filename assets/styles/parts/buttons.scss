@@ -1,12 +1,19 @@
 .Button {
   line-height: 28px;
-  border-radius: 3px;
+  border-radius: 4px;
   color: $primary-color;
+  font-weight: bold;
+  font-size: 1.05em;
+  text-align: center;
   border: 2px solid $primary-color;
   cursor: pointer;
-  padding: 3px 12px;
+  padding: 2px 6px;
 }
 
 .Button--inline {
   display: inline-block;
+}
+
+.Button--lg {
+  padding: 4px 12px;
 }

@@ -9,12 +9,12 @@
   
   @include breakpoint-medium {
     flex-basis: 80px;
-    padding: 0;
+    
+    padding: 60px 0;
   }
 }
 
 .Header__group {
-  flex: 1 1 auto;
   display: flex;
   align-items: center;
 }
@@ -59,4 +59,26 @@
 
 .Header a {
   color: inherit !important;
+}
+
+.Header__loadIndicator {
+  margin: 0 8px;
+  transition: transform 200ms, opacity 200ms;
+}
+
+.Header__loadIndicator.enter {
+  opacity: 0;
+  transform: scale(.5);
+}
+.Header__loadIndicator.enter-active {
+  opacity: 1;
+  transform: scale(1);
+}
+.Header__loadIndicator.exit {
+  opacity: 1;
+  transform: scale(1);
+}
+.Header__loadIndicator.exit-active {
+  opacity: 0;
+  transform: scale(.5)
 }

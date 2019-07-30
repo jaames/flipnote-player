@@ -2,21 +2,20 @@
 
 .Footer {
   padding: 0 12px;
-  flex-direction: row;
   flex: 0 0 80px;
-  height: 80px;
-  display: none;
+  margin-top: 60px;
+  // height: 80px;
+  // display: none;
   
   @include theme((
     color: "text-invert",
   ));
   opacity: 0.7;
-  font-size: 0.75rem;
+  font-size: 0.9rem;
 
   @include breakpoint-medium {
     flex-basis: 80px;
     padding: 0;
-    display: flex;
     margin-bottom: 0px;
     flex-basis: 48px;
   }
@@ -24,19 +23,4 @@
   a {
     border-bottom: 1px solid currentColor;
   }
-}
-
-.Footer__group {
-  flex: 1 1 auto;
-  display: flex;
-  align-items: center;
-}
-
-.Footer__group--left {
-  margin-right: auto;
-}
-
-.Footer__group--right {
-  margin-left: auto;
-  justify-content: flex-end;
 }
