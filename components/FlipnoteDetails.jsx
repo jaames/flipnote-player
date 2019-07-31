@@ -5,7 +5,6 @@ import { flipnoteStudio, format, externalServices } from '~/utils';
 import KaeruGallerySvg from '~/assets/svg/kaeru_gallery.svg';
 import IpgFlipSvg from '~/assets/svg/ipgflip.svg';
 import SudomemoFoxSvg from '~/assets/svg/sudomemo_fox.svg';
-import convertFlipnoteToGif from '~/converters/gif';
 
 import '~/assets/styles/components/FlipnoteDetails.scss';
 
@@ -95,7 +94,6 @@ export default (props) => {
         </div>
       </a>
       )}
-      {/* <div className="Button Button--inline" onClick={ () => { this.convertGif() } }>Convert</div> */}
     </div>
   );
 }

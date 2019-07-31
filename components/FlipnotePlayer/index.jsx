@@ -1,4 +1,4 @@
-import { useState, useRef, useLayoutEffect } from 'react';
+import { useState, useRef, useLayoutEffect, useEffect } from 'react';
 import { useStoreState } from 'pullstate';
 import { PlayerStore } from '~/store';
 import { player as Player } from 'flipnote.js';
@@ -18,6 +18,7 @@ const keymap = {
 export default function FlipnotePlayer(props) {
 
   const playerNote = useStoreState(PlayerStore, store => store.note);
+  const playerForcePause = useStoreState(PlayerStore, store => store.forcePause);
 
   const canvasWrapper = useRef(null);
   const mainElement = useRef(null);
@@ -62,13 +63,22 @@ export default function FlipnotePlayer(props) {
     };
   }, []);
 
+  useEffect(() => {
+    if (playerForcePause) {
+      player.pause();
+      setPaused(true);
+    }
+  }, [playerForcePause]);
+
+  useEffect(() => {
+    setShowFrameCounter(paused);
+  }, [paused]);
+
   const togglePlay = () => {
     if (paused) {
       player.play();
-      setShowFrameCounter(false);
     } else {
       player.pause();
-      setShowFrameCounter(true);
     }
     setPaused(!paused);
   }

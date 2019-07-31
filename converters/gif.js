@@ -1,8 +1,19 @@
 import { gifEncoder as GifEncoder } from 'flipnote.js';
 import { saveAs } from 'file-saver';
 
-export default function convertFlipnoteToGif(flipnote) {
-  const gif = GifEncoder.fromFlipnote(flipnote);
-  const blob = gif.toBlob();
-  saveAs(blob, `${flipnote.meta.current.filename}.gif`);
+export default class GifConverter {
+
+  constructor() {
+    this.gif = null;
+  }
+
+  convert(flipnote) {
+    this.gif = GifEncoder.fromFlipnote(flipnote);
+  }
+
+  saveAs(filename) {
+    const blob = this.gif.getBlob();
+    saveAs(blob, filename);
+  }
+
 }

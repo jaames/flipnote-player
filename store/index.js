@@ -12,6 +12,7 @@ export const GlobalStore = new Store({
 export const PlayerStore = new Store({
   src: null,
   note: null,
+  forcePause: false,
   volume: localstorage.get('volume', 100)
 });
 

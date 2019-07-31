@@ -1,22 +1,26 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useStoreState } from 'pullstate';
 import { PlayerStore } from '~/store';
 import Layout from '~/components/Layout';
 import FlipnotePlayer from '~/components/FlipnotePlayer';
 import FlipnoteDetails from '~/components/FlipnoteDetails';
+import ConversionModal from '~/components/ConversionModal';
 
 import '~/assets/styles/pages/view.scss';
 
 export default (props) => {
 
   const playerNote = useStoreState(PlayerStore, store => store.note);
+  const [showConversionModal, setShowConversionModal] = useState(false);
+
+  useEffect(() => {
+    PlayerStore.update(store => { store.forcePause = showConversionModal });
+  }, [showConversionModal]);
 
   if (playerNote === null) {
     props.history.push('/');
     return null;
   }
-
-  const playerAuthor = playerNote.meta.current.username;
 
   return (
     <Layout page="view">
@@ -27,10 +31,12 @@ export default (props) => {
       </div>
       <div className="Section Section--side">
         <div className="Section__title">
-          { playerAuthor && <h4 className="title">Flipnote by { playerAuthor }</h4> }
+          { playerNote && <h4 className="title">Flipnote by { playerNote.meta.current.username }</h4> }
         </div>
         <div className="Section__body">
           <FlipnoteDetails/>
+          <div className="Button Button--inline" onClick={ () => { setShowConversionModal(true) } }>Convert</div>
+          <ConversionModal isVisible={ showConversionModal } onHide={ () => { setShowConversionModal(false) } }/>
         </div>
       </div>
     </Layout>
