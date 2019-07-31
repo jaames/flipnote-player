@@ -1,5 +1,6 @@
 import { gifEncoder as GifEncoder } from 'flipnote.js';
 import { saveAs } from 'file-saver';
+import { resolve } from 'q';
 
 export default class GifConverter {
 
@@ -7,8 +8,13 @@ export default class GifConverter {
     this.gif = null;
   }
 
+  init() {
+    return this;
+  }
+
   convert(flipnote) {
     this.gif = GifEncoder.fromFlipnote(flipnote);
+    return this;
   }
 
   saveAs(filename) {

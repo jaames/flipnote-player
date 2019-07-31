@@ -5,7 +5,14 @@ import JSZip from 'jszip';
 export default class GifSequenceConverter {
 
   constructor() {
-    this.zip = new JSZip();
+    this.zip = null;
+  }
+
+  init() {
+    return new Promise((resolve, reject) => {
+      this.zip = new JSZip();
+      resolve(this);
+    });
   }
 
   convert(flipnote) {
@@ -14,6 +21,7 @@ export default class GifSequenceConverter {
       const blob = gif.getBlob();
       this.zip.file(`${ frameIndex.toString().padStart(3, '0') }.gif`, blob);
     }
+    return this;
   }
 
   saveAs(filename) {
