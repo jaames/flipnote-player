@@ -100,10 +100,8 @@ export function getFileFromFlipnoteUrl(flipnoteUrl) {
       return url
     }
   }
-  return null;
+  return flipnoteUrl;
 }
-
-window.getFileFromFlipnoteUrl = getFileFromFlipnoteUrl;
 
 export default {
   getFileFromFlipnoteUrl,

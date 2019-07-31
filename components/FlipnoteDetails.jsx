@@ -8,7 +8,6 @@ import SudomemoFoxSvg from '~/assets/svg/sudomemo_fox.svg';
 import convertFlipnoteToGif from '~/converters/gif';
 
 import '~/assets/styles/components/FlipnoteDetails.scss';
-import { kaeruGallery } from '../utils/externalServices';
 
 export default (props) => {
 

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import Dropzone from 'react-dropzone';
+import { externalServices } from '~/utils';
 import '~/assets/styles/components/UploadPanel.scss';
 
 import SdCardModal from './SdCardModal';
@@ -43,7 +44,7 @@ export default ({ onLoadFiles, onLoadSrc }) => {
             />
           </div>
           <div className="FormItem">
-            <div className="Button" onClick={ () => { if (flipnoteSrc) onLoadSrc(flipnoteSrc) } }>Load</div>
+            <div className="Button" onClick={ () => { if (flipnoteSrc) onLoadSrc(externalServices.getFileFromFlipnoteUrl(flipnoteSrc)) } }>Load</div>
           </div>
         </div>
       </div>

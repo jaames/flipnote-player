@@ -24,6 +24,7 @@ export default (props) => {
         props.history.push('/view');
         stopLoading();
       }).catch(err => {
+        console.log(err);
         stopLoading();
         GlobalStore.update(store => {
           store.hasError = true;
@@ -55,7 +56,7 @@ export default (props) => {
           <h4 className="title">Upload</h4>
         </div>
         <div className="Section__body">
-          <UploadPanel onLoadFiles={ handleDrop }/>
+          <UploadPanel onLoadFiles={ handleDrop } onLoadSrc={ loadFlipnote }/>
         </div>
       </div>
       <div className="Section Section--main">
