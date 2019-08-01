@@ -1,13 +1,15 @@
 .Button {
   line-height: 28px;
+  display: block;
+  height: 32px;
   border-radius: 4px;
   color: $primary-color;
   font-weight: bold;
-  font-size: 1.05em;
+  // font-size: 1.05em;
   text-align: center;
   border: 2px solid $primary-color;
   cursor: pointer;
-  padding: 2px 6px;
+  padding: 0 6px;
 }
 
 .Button--inline {
@@ -15,5 +17,7 @@
 }
 
 .Button--lg {
-  padding: 4px 12px;
+  height: 42px;
+  line-height: 38px;
+  padding: 0 12px;
 }

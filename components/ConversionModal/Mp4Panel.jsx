@@ -1,0 +1,98 @@
+import { useState } from 'react';
+import Switch from '~/components/Switch';
+import ProgressMeter from './ProgressMeter';
+
+export default function Mp4Panel({ flipnote }) {
+
+  const [progress, setProgress] = useState(0);
+  const [status, setStatus] = useState('');
+  const [isConverting, setIsConverting] = useState(false);
+  const [videoQuality, setVideoQuality] = useState('medium');
+  const [videoScale, setVideoScale] = useState('2');
+  const [audioEq, setAudioEq] = useState(true);
+  const [filename, setFilename] = useState(`${ flipnote.meta.current.filename }.mp4`);
+
+  function convert(flipnote) {
+    import('~/converters/mp4')
+      .then(module => {
+        const Mp4Converter = module.default;
+        return new Mp4Converter();
+      })
+      .then(mp4 => {
+        mp4.onprogress = (progress) => {setProgress(progress)};
+        setStatus('Preparing...');
+        setIsConverting(true);
+        return mp4.init();
+      })
+      .then(mp4 => {
+        setStatus('Converting...');
+        return mp4.convert(flipnote, {
+          quality: videoQuality,
+          scale: videoScale,
+          equalizer: audioEq
+        });
+      })
+      .then(mp4 => {
+        setIsConverting(false);
+        setStatus('Done!');
+        mp4.saveAs(filename);
+      });
+  }
+
+  return (
+    <div className="Mp4Converter">
+      <p className="Note">
+        This feature is highly experimental. Video conversion may be very slow on certain devices.
+      </p>
+      <div className="FormGroup">
+        <div className="FormItem">
+          <label htmlFor="quality">Video Quality</label>
+          <select 
+            id="quality"
+            className="Select"
+            value={ videoQuality } 
+            onChange={ e => setVideoQuality(event.target.value) }
+          >
+            <option key="low" value="low">Low</option>
+            <option key="medium" value="medium">Medium</option>
+            <option key="high" value="high">High</option>
+          </select>
+        </div>
+        <div className="FormItem">
+          <label htmlFor="scale">Video Scale</label>
+          <select 
+            id="scale"
+            className="Select"
+            value={ videoScale }
+            onChange={ e => setVideoScale(event.target.value) }
+          >
+            <option key="1" value="1">1x</option>
+            <option key="2" value="2">2x</option>
+            <option key="4" value="4">4x</option>
+          </select>
+        </div>
+        <div className="FormItem">
+          <label htmlFor="">Enhance Audio</label>
+          <Switch on={ audioEq } className="switch--large" onClick={ e => { setAudioEq(!audioEq) } }></Switch>
+        </div>
+      </div>
+      <div className="FormGroup">
+        <div className="FormItem FormItem--flex3">
+          <label htmlFor="filename">Output Filename</label>
+          <input 
+            className="Input"
+            id="filename"
+            type="text"
+            placeholder="Video Filename"
+            value={ filename } 
+            onChange={ (e) => { setFilename(e.target.value)} }
+          />
+        </div>
+        <div className="FormItem">
+          <div className="Button Button--inline" onClick={ () => { convert(flipnote) } }>Convert</div>
+        </div>
+      </div>
+      <ProgressMeter isActive={ isConverting } percent={ progress } status={ status }/>
+    </div>
+  );
+}

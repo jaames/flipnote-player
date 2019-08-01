@@ -4,7 +4,7 @@
   border: 2px solid $primary-color;
   width: 32px;
   height: 18px;
-  border-radius: 13px;
+  border-radius: 9px;
   cursor: pointer;
   display: inline-block;
   vertical-align: middle;
@@ -34,4 +34,21 @@
 
 .switch.disabled {
   cursor: not-allowed;
+}
+
+.switch.switch--large {
+  height: 28px;
+  width: 48px;
+  border-radius: 14px;
+  margin: 2px 0;
+
+  .switch-toggle {
+    height: 28px;
+    width: 28px;
+    border-radius: 14px;
+  }
+
+  &.on .switch-toggle {
+    transform: translateX(48px - 28px);
+  }
 }

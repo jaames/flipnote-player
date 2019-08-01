@@ -32,11 +32,12 @@ export default ({ onLoadFiles, onLoadSrc }) => {
         <SdCardModal isVisible={ showSdCardModal } onHide={ () => { setShowSdCardModal(false) } }></SdCardModal>
       </div>
       <div className="UrlForm">
-        <p>Or load from a URL</p>
         <div className="FormGroup">
           <div className="FormItem">
+            <label htmlFor="url">Or load from a URL</label>
             <input 
-              className="Input" 
+              className="Input"
+              id="url"
               type="text" 
               placeholder="Flipnote URL"
               value={ flipnoteSrc } 

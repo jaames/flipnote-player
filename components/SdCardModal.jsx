@@ -34,7 +34,7 @@ export default function SdCardModal({ isVisible, onHide }) {
           <label htmlFor="region">
             Region
           </label>
-          <select value={ region } onChange={ e => setRegion(event.target.value) }>
+          <select id="region" value={ region } onChange={ e => setRegion(event.target.value) }>
             {regionOptions.map(op => (
               <option key={ op.value } value={ op.value }>{ op.title }</option>
             ))}
