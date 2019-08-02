@@ -24,7 +24,12 @@ export default function SdCardModal({ isVisible, onHide }) {
           <label htmlFor="appVersion">
             App version
           </label>
-          <select id="appVersion" value={ appVersion } onChange={ e => setAppVersion(event.target.value) }>
+          <select 
+            className="Select"
+            id="appVersion"
+            value={ appVersion }
+            onChange={ e => setAppVersion(event.target.value) }
+          >
             {appVersionOptions.map(op => (
               <option key={ op.value } value={ op.value }>{ op.title }</option>
             ))}
@@ -34,7 +39,12 @@ export default function SdCardModal({ isVisible, onHide }) {
           <label htmlFor="region">
             Region
           </label>
-          <select id="region" value={ region } onChange={ e => setRegion(event.target.value) }>
+          <select
+            className="Select"
+            id="region"
+            value={ region }
+            onChange={ e => setRegion(event.target.value) }
+          >
             {regionOptions.map(op => (
               <option key={ op.value } value={ op.value }>{ op.title }</option>
             ))}

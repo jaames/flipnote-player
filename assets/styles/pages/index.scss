@@ -2,7 +2,11 @@
 
 .Page.Page--index {
   .Section.Section--side {
-    flex-basis: 320px;
+    flex-basis: 270px;
+
+    @include breakpoint-xlarge {
+      flex-basis: 300px;
+    }
   }
 
   .Section.Section--main {

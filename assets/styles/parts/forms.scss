@@ -40,9 +40,12 @@
 .Input {
   display: block;
   height: 32px;
-  border-radius: 4px;
-  border: 2px solid #efefef;
   padding: 2px 8px;
+  border-radius: 4px;
+  border: 1px solid #efefef;
+  @include theme((
+    border-color: 'background-dark'
+  ));
 }
 
 .Select {
