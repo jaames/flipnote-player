@@ -1,21 +1,36 @@
-import { player as FlipnotePlayer, wavEncoder as WavEncoder } from 'flipnote.js';
+import { gifEncoder as GifEncoder } from 'flipnote.js';
 import { saveAs } from 'file-saver';
+
+const FFMPEG_WORKER_PATH = '/static/workers/ffmpeg-worker-mp4.js';
+const FFMPEG_TOTAL_MEMORY_BYTES = 419430400;
+// https://trac.ffmpeg.org/wiki/Encode/H.264
+const FFMPEG_X264_PRESET_MAP = {
+  slow: 'slower',
+  medium: 'medium',
+  fast: 'ultrafast'
+};
 
 export default class Mp4Converter {
 
   constructor() {
     this.blob = null;
-    this.ffmpegError = false;
     this.totalFrames = 0;
+    this.scale = 1;
+    this.compression = 'medium';
+    this.equalizer = false;
   }
   
   onvideocomplete() {}
 
   onprogress(progress) {}
 
-  init() {
+  init({ compression, scale, equalizer }) {
+    this.compression = compression;
+    this.scale = scale;
+    this.equalizer = equalizer;
+
     return new Promise((resolve, reject) => {
-      this.worker = new Worker('/static/workers/ffmpeg-worker-mp4.js');
+      this.worker = new Worker(FFMPEG_WORKER_PATH);
       this.stdout = '';
       this.stderr = '';
       this.worker.onmessage = (e) => {
@@ -38,33 +53,31 @@ export default class Mp4Converter {
             this.stderr += msg.data + '\n';
             break;
           case 'done':
-            if (!this.ffmpegError && msg.data.MEMFS.length) {
+            if (msg.data.MEMFS.length) {
               this.blob = new Blob([msg.data.MEMFS[0].data], {
                 type: 'video/mp4'
               });
               this.oncomplete();
-              this.worker.terminate();
-            } 
-              console.warn('-------- FFMPEG ERROR --------')
+            }
               console.warn(this.stdout);
               console.warn(this.stderr);
-              this.worker.terminate();
-            // }
+            this.worker.terminate();
             break;
           case 'exit':
-              console.log('exit');
-            console.log(msg.data);
-            if (msg.data === 1) { // check exit code
-              this.ffmpegError = false;
-              console.warn('-------- FFMPEG ERROR --------')
-              console.warn(this.stdout);
-              console.warn(this.stderr);
-              this.worker.terminate();
-            }
+            console.log('exit');
             break;
         }
       };
     });
+  }
+
+  concatArgumentList(args) {
+    return args.reduce(function (result, arg) {
+      if (arg) {
+        return result.concat(arg);
+      }
+      return result;
+    }, []);
   }
 
   getDurationString(duration) {
@@ -73,47 +86,14 @@ export default class Mp4Converter {
     return `${ minutes }:${ seconds }`
   }
 
-  getFlipnoteFrames(fileArray, flipnote, width, height) {
-    const canvas = document.createElement('canvas');
-    const player = new FlipnotePlayer(canvas, width, height);
-    player.load(flipnote);
-    for (let frameIndex = 0; frameIndex < flipnote.frameCount; frameIndex++) {
-      player.setFrame(frameIndex);
-      // get frame as jpeg image
-      const dataUri = canvas.toDataURL('image/jpeg', 1);
-      // convert base64 image data URI to an array of bytes
-      const rawData = window.atob(dataUri.substring(23));
-      const rawLength = rawData.length;
-      const bytes = new Uint8Array(rawLength);
-      for (let byteIndex = 0; byteIndex < rawLength; byteIndex++) {
-        bytes[byteIndex] = rawData.charCodeAt(byteIndex);
-      }
-      fileArray.push({
-        name: `${ frameIndex.toString().padStart(3, '0') }.jpeg`,
-        data: bytes
-      });
-    }
-    player.destroy();
-    return fileArray;
-  }
-
-  getFlipnoteAudioTracks(fileArray, flipnote) {
-    const pcmData = flipnote.decodeAudio('bgm');
-    fileArray.push({
-      name: `bgm.raw`,
-      data: new Uint8Array(pcmData.buffer)
-    });
-  }
-
-  convert(flipnote, { quality, scale, equalizer }) {
+  convert(flipnote) {
 
     this.totalFrames = flipnote.frameCount;
-    scale = 2;
-    const width = flipnote.width * 2;
-    const height = flipnote.height * 2;
     const framerate = flipnote.framerate;
-    const bgmSampleRate = flipnote.sampleRate * ((1 / flipnote.bgmrate) / (1 / flipnote.framerate));
+    const sampleRate = flipnote.sampleRate;
+    const bgmSampleRate = sampleRate * ((1 / flipnote.bgmrate) / (1 / flipnote.framerate));
     const duration = (1 / flipnote.framerate) * flipnote.frameCount;
+    const preset = FFMPEG_X264_PRESET_MAP[this.compression];
 
     return new Promise((resolve, reject) => {
       this.oncomplete = () => {
@@ -122,35 +102,86 @@ export default class Mp4Converter {
 
       const fileArray = [];
 
-      this.getFlipnoteFrames(fileArray, flipnote, width, height);
-      this.getFlipnoteAudioTracks(fileArray, flipnote);
+      // Convert frames to GIF
+      const gif = GifEncoder.fromFlipnote(flipnote);
+      fileArray.push({
+        name: 'frames.gif',
+        data: new Uint8Array(gif.getBuffer())
+      });
+
+      // Get a list of active audio tracks
+      const tracks = Object.keys(flipnote.soundMeta).filter(key => flipnote.soundMeta[key].length > 0);
+
+      // Convert audio tracks to raw PCM sound data
+      tracks.forEach(track => {
+        const pcm = flipnote.decodeAudio(track);
+        fileArray.push({
+          name: `${ track }.raw`,
+          data: new Uint8Array(pcm.buffer)
+        });
+      });
+
+      // Map audio tracks to their input index
+      const trackIndexMap = {};
+      // Create input args for each audio track
+      const trackArgs = tracks.reduce((args, track) => {
+        trackIndexMap[track] = tracks.indexOf(track) + 1;
+        return args.concat([
+          '-f', 's16le',
+          '-ar', `${ track === 'bgm' ? Math.floor(bgmSampleRate) : sampleRate }`,
+          '-ac', '1',
+          '-i', `${ track }.raw`,
+        ]);
+      }, []);
+
+      const filterGraph = [];
+      const mixFilterInputs = [];
+      
+      if (tracks.indexOf('bgm') > -1) {
+        mixFilterInputs.push(`[${ trackIndexMap['bgm'] }:0]`);
+      }
+
+      let soundEffectIndex = 1;
+      flipnote.decodeSoundFlags().forEach((frameFlags, frameIndex) => {
+        const frameDelay = Math.round((1000 / flipnote.framerate) * frameIndex);
+        frameFlags.forEach((flag, flagIndex) => {
+          const track = ['se1', 'se2', 'se3', 'se4'][flagIndex];
+          if ((tracks.indexOf(track) > -1) && (flag)) {
+            filterGraph.push(`[${ trackIndexMap[track] }:0]adelay=${ frameDelay > 0 ? frameDelay : 1 }[e${ soundEffectIndex }]`);
+            mixFilterInputs.push(`[e${ soundEffectIndex }]`);
+            soundEffectIndex += 1;
+          }
+        });
+      });
+      filterGraph.push(`${ mixFilterInputs.join('') }amix=inputs=${ mixFilterInputs.length }${ this.equalizer ? '[mix]' : '' }`);
+
+      if (this.equalizer) {
+        filterGraph.push("[mix]firequalizer=gain_entry='entry(31.25\\,4.1);entry(62.5\\,1.2);entry(125\\,0);entry(250\\,-4.1);entry(500\\,-2.3);entry(1000\\\,0.5);entry(2000\\,6.5);entry(8000\\,5.1);entry(16000\\,5.1)'");
+      }
+
+      console.log(filterGraph)
+      // console.log(mixFilterInputs);
 
       this.worker.postMessage({
         type: 'run',
-        TOTAL_MEMORY: 268435456,
+        TOTAL_MEMORY: FFMPEG_TOTAL_MEMORY_BYTES,
         MEMFS: fileArray,
-        arguments: [
-          '-hide_banner',
-          // '-loglevel', 'info',
-          '-s', `${ width }x${ height }`,
-          '-r', `${ framerate }`,
-          '-i', '%03d.jpeg',
-          '-f', 's16le',
-          '-ar', `${ Math.floor(bgmSampleRate) }`,
-          '-ac', '1',
-          '-ss', '00:00',
-          '-i', 'bgm.raw',
-          '-vcodec', 'libx264',
-          '-pix_fmt', 'yuv420p',
-          '-acodec', 'aac',
-          // '-vf', `scale=${ width * scale }:${ height * scale }:flags=neighbor`,
-          // '-af', "firequalizer=gain_entry='entry(0\\\,-23);entry(250\\\,-11.5);entry(1000\\\,0);entry(4000\\\,8);entry(16000\\\,16)'",
-          '-af', "firequalizer=gain_entry='entry(31.25\\\,4.1);entry(62.5\\\,1.2);entry(125\\\,0);entry(250\\\,-4.1);entry(500\\\,-2.3);entry(1000\\\,0.5);entry(2000\\\,6.5);entry(8000\\\,5.1);entry(16000\\\,5.1)'",
-          '-preset', 'medium',
-          '-tune', 'animation',
-          '-t', this.getDurationString(duration),
-          'out.mp4'
-        ]
+        arguments: this.concatArgumentList([
+          // ['-hide_banner'],
+          // ['-loglevel', 'info'],
+          ['-r', framerate.toString()],
+          ['-i', 'frames.gif'],
+          this.concatArgumentList(trackArgs),
+          ['-vcodec', 'libx264'],
+          ['-pix_fmt', 'yuv420p'],
+          ['-acodec', 'aac'],
+          ['-filter_complex', filterGraph.join(';')],
+          ['-vf', `scale=iw*${ this.scale }:ih*${ this.scale }:flags=neighbor`],
+          ['-preset', preset],
+          ['-tune', 'animation'],
+          ['-t', this.getDurationString(duration)],
+          ['out.mp4']
+        ])
       });
     });
   }

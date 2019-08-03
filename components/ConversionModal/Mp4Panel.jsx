@@ -7,7 +7,7 @@ export default function Mp4Panel({ flipnote }) {
   const [progress, setProgress] = useState(0);
   const [status, setStatus] = useState('');
   const [isConverting, setIsConverting] = useState(false);
-  const [videoQuality, setVideoQuality] = useState('medium');
+  const [videoCompression, setVideoCompression] = useState('fast');
   const [videoScale, setVideoScale] = useState('2');
   const [audioEq, setAudioEq] = useState(true);
   const [filename, setFilename] = useState(`${ flipnote.meta.current.filename }.mp4`);
@@ -22,15 +22,15 @@ export default function Mp4Panel({ flipnote }) {
         mp4.onprogress = (progress) => {setProgress(progress)};
         setStatus('Preparing...');
         setIsConverting(true);
-        return mp4.init();
-      })
-      .then(mp4 => {
-        setStatus('Converting...');
-        return mp4.convert(flipnote, {
-          quality: videoQuality,
+        return mp4.init({
+          compression: videoCompression,
           scale: videoScale,
           equalizer: audioEq
         });
+      })
+      .then(mp4 => {
+        setStatus('Converting...');
+        return mp4.convert(flipnote);
       })
       .then(mp4 => {
         setIsConverting(false);
@@ -42,20 +42,20 @@ export default function Mp4Panel({ flipnote }) {
   return (
     <div className="Mp4Converter">
       <p className="Note">
-        This feature is highly experimental. Video conversion may be very slow on certain devices.
+        This feature is highly experimental. Video conversion may not work on certain devices.
       </p>
       <div className="FormGroup">
         <div className="FormItem">
-          <label htmlFor="quality">Video Quality</label>
+          <label htmlFor="quality">Compression</label>
           <select 
             id="quality"
             className="Select"
-            value={ videoQuality } 
-            onChange={ e => setVideoQuality(event.target.value) }
+            value={ videoCompression } 
+            onChange={ e => setVideoCompression(event.target.value) }
           >
-            <option key="low" value="low">Low</option>
+            <option key="fast" value="fast">Fast</option>
             <option key="medium" value="medium">Medium</option>
-            <option key="high" value="high">High</option>
+            <option key="slow" value="slow">Slow</option>
           </select>
         </div>
         <div className="FormItem">
