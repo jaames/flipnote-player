@@ -5,7 +5,7 @@ const FFMPEG_WORKER_PATH = '/static/workers/ffmpeg-worker-mp4.js';
 const FFMPEG_TOTAL_MEMORY_BYTES = 419430400;
 // https://trac.ffmpeg.org/wiki/Encode/H.264
 const FFMPEG_X264_PRESET_MAP = {
-  slow: 'slower',
+  slow: 'slow',
   medium: 'medium',
   fast: 'ultrafast'
 };
@@ -153,14 +153,11 @@ export default class Mp4Converter {
           }
         });
       });
-      filterGraph.push(`${ mixFilterInputs.join('') }amix=inputs=${ mixFilterInputs.length }${ this.equalizer ? '[mix]' : '' }`);
-
+      filterGraph.push(`${ mixFilterInputs.join('') }amix=inputs=${ mixFilterInputs.length }[mix]`);
+      filterGraph.push(`[mix]volume=${ mixFilterInputs.length }${ this.equalizer ? '[final]' : '' }`);
       if (this.equalizer) {
-        filterGraph.push("[mix]firequalizer=gain_entry='entry(31.25\\,4.1);entry(62.5\\,1.2);entry(125\\,0);entry(250\\,-4.1);entry(500\\,-2.3);entry(1000\\\,0.5);entry(2000\\,6.5);entry(8000\\,5.1);entry(16000\\,5.1)'");
+        filterGraph.push("[final]firequalizer=gain_entry='entry(31.25\\,4.1);entry(62.5\\,1.2);entry(125\\,0);entry(250\\,-4.1);entry(500\\,-2.3);entry(1000\\\,0.5);entry(2000\\,6.5);entry(8000\\,5.1);entry(16000\\,5.1)'");
       }
-
-      console.log(filterGraph)
-      // console.log(mixFilterInputs);
 
       this.worker.postMessage({
         type: 'run',
