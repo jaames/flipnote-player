@@ -1,5 +1,6 @@
 import { gifEncoder as GifEncoder } from 'flipnote.js';
 import { saveAs } from 'file-saver';
+import { FilterGraph, buildArgumentList } from '~/utils/ffmpeg.js';
 
 const FFMPEG_WORKER_PATH = '/static/workers/ffmpeg-worker-mp4.js';
 const FFMPEG_TOTAL_MEMORY_BYTES = 419430400;
@@ -21,6 +22,8 @@ export default class Mp4Converter {
   }
   
   onvideocomplete() {}
+
+  onerror() {}
 
   onprogress(progress) {}
 
@@ -58,32 +61,20 @@ export default class Mp4Converter {
                 type: 'video/mp4'
               });
               this.oncomplete();
-            }
+            } else {
+              this.onerror();
               console.warn(this.stdout);
               console.warn(this.stderr);
+            }
             this.worker.terminate();
             break;
+          // TODO: The worker doesnt seem to post the exit message? Why is that?
           case 'exit':
             console.log('exit');
             break;
         }
       };
     });
-  }
-
-  concatArgumentList(args) {
-    return args.reduce(function (result, arg) {
-      if (arg) {
-        return result.concat(arg);
-      }
-      return result;
-    }, []);
-  }
-
-  getDurationString(duration) {
-    const minutes = Math.floor(duration / 60);
-    const seconds = duration % 60;
-    return `${ minutes }:${ seconds }`
   }
 
   convert(flipnote) {
@@ -121,24 +112,11 @@ export default class Mp4Converter {
         });
       });
 
-      // Map audio tracks to their input index
-      const trackIndexMap = {};
-      // Create input args for each audio track
-      const trackArgs = tracks.reduce((args, track) => {
-        trackIndexMap[track] = tracks.indexOf(track) + 1;
-        return args.concat([
-          '-f', 's16le',
-          '-ar', `${ track === 'bgm' ? Math.floor(bgmSampleRate) : sampleRate }`,
-          '-ac', '1',
-          '-i', `${ track }.raw`,
-        ]);
-      }, []);
-
-      const filterGraph = [];
+      const filterGraph = new FilterGraph();
       const mixFilterInputs = [];
-      
-      if (tracks.indexOf('bgm') > -1) {
-        mixFilterInputs.push(`[${ trackIndexMap['bgm'] }:0]`);
+
+      if ((tracks.indexOf('bgm') > -1)) {
+        mixFilterInputs.push(`${  tracks.indexOf('bgm') }:0`);
       }
 
       let soundEffectIndex = 1;
@@ -146,38 +124,54 @@ export default class Mp4Converter {
         const frameDelay = Math.round((1000 / flipnote.framerate) * frameIndex);
         frameFlags.forEach((flag, flagIndex) => {
           const track = ['se1', 'se2', 'se3', 'se4'][flagIndex];
-          if ((tracks.indexOf(track) > -1) && (flag)) {
-            filterGraph.push(`[${ trackIndexMap[track] }:0]adelay=${ frameDelay > 0 ? frameDelay : 1 }[e${ soundEffectIndex }]`);
-            mixFilterInputs.push(`[e${ soundEffectIndex }]`);
+          const trackIndex = tracks.indexOf(track);
+          if ((trackIndex > -1) && (flag)) {
+            const outputName = `e${ soundEffectIndex }`;
+            mixFilterInputs.push(outputName);
+            filterGraph.delay(`${ trackIndex + 1 }:0`, frameDelay, outputName);
             soundEffectIndex += 1;
           }
         });
       });
-      filterGraph.push(`${ mixFilterInputs.join('') }amix=inputs=${ mixFilterInputs.length }[mix]`);
-      filterGraph.push(`[mix]volume=${ mixFilterInputs.length }${ this.equalizer ? '[final]' : '' }`);
-      if (this.equalizer) {
-        filterGraph.push("[final]firequalizer=gain_entry='entry(31.25\\,4.1);entry(62.5\\,1.2);entry(125\\,0);entry(250\\,-4.1);entry(500\\,-2.3);entry(1000\\\,0.5);entry(2000\\,6.5);entry(8000\\,5.1);entry(16000\\,5.1)'");
-      }
+
+      filterGraph.mix(mixFilterInputs, 'mix');
+      filterGraph.volume('mix', mixFilterInputs.length, 'mix_adjust');
+      filterGraph.equalize('mix_adjust', [
+        ['31.25', '4.1'],
+        ['62.5', '1.2'],
+        ['125', '0'],
+        ['250', '-4.1'],
+        ['500', '-2.3'],
+        ['1000', '0.5'],
+        ['2000', '6.5'],
+        ['8000', '5.1'],
+        ['16000', '5.1']
+      ], 'equalized');
 
       this.worker.postMessage({
         type: 'run',
         TOTAL_MEMORY: FFMPEG_TOTAL_MEMORY_BYTES,
         MEMFS: fileArray,
-        arguments: this.concatArgumentList([
-          // ['-hide_banner'],
-          // ['-loglevel', 'info'],
-          ['-r', framerate.toString()],
-          ['-i', 'frames.gif'],
-          this.concatArgumentList(trackArgs),
-          ['-vcodec', 'libx264'],
-          ['-pix_fmt', 'yuv420p'],
-          ['-acodec', 'aac'],
-          ['-filter_complex', filterGraph.join(';')],
-          ['-vf', `scale=iw*${ this.scale }:ih*${ this.scale }:flags=neighbor`],
-          ['-preset', preset],
-          ['-tune', 'animation'],
-          ['-t', this.getDurationString(duration)],
-          ['out.mp4']
+        arguments: buildArgumentList([
+          '-hide_banner',
+          '-loglevel', 'info',
+          '-r', framerate.toString(),
+          '-i', 'frames.gif',
+          tracks.map(track => [
+            '-f', 's16le',
+            '-ar', `${ track === 'bgm' ? Math.floor(bgmSampleRate) : sampleRate }`,
+            '-ac', '1',
+            '-i', `${ track }.raw`,
+          ]),
+          '-vcodec', 'libx264',
+          '-pix_fmt', 'yuv420p',
+          '-acodec', 'aac',
+          '-filter_complex', filterGraph.getGraph(),
+          '-vf', `scale=iw*${ this.scale }:ih*${ this.scale }:flags=neighbor`,
+          '-preset', preset,
+          '-tune', 'animation',
+          '-t', `${ Math.floor(duration / 60) }:${ duration % 60 }`,
+          'out.mp4'
         ])
       });
     });
