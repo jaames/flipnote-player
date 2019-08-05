@@ -3,7 +3,6 @@ import Switch from '~/components/Switch';
 
 export default function GifPanel({ flipnote }) {
 
-  const [progress, setProgress] = useState(0);
   const [filename, setFilename] = useState(`${ flipnote.meta.current.filename }.gif`);
 
   function convert(flipnote) {

@@ -1,26 +1,26 @@
 import { useState } from 'react';
-import Switch from '~/components/Switch';
 
-export default function GifPanel({ flipnote }) {
+export default function ImagePanel({ flipnote }) {
 
-  const [progress, setProgress] = useState(0);
   const [imageFormat, setImageFormat] = useState('gif');
   const [filename, setFilename] = useState(`${ flipnote.meta.current.filename }.zip`);
 
   function convert(flipnote) {
-    import('~/converters/gifSequence')
+    import('~/converters/imageSequence')
       .then(module => {
-        const GifSequenceConverter = module.default;
-        return new GifSequenceConverter();
+        const ImageSequenceConverter = module.default;
+        return new ImageSequenceConverter();
       })
-      .then(gifSequence => {
-        return gifSequence.init();
+      .then(imgSequence => {
+        return imgSequence.init({
+          format: imageFormat
+        });
       })
-      .then(gifSequence => {
-        return gifSequence.convert(flipnote);
+      .then(imgSequence => {
+        return imgSequence.convert(flipnote);
       })
-      .then(gifSequence => {
-        gifSequence.saveAs(filename);
+      .then(imgSequence => {
+        imgSequence.saveAs(filename);
       });
   }  
 

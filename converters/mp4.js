@@ -116,7 +116,7 @@ export default class Mp4Converter {
       const mixFilterInputs = [];
 
       if ((tracks.indexOf('bgm') > -1)) {
-        mixFilterInputs.push(`${  tracks.indexOf('bgm') }:0`);
+        mixFilterInputs.push(`${ tracks.indexOf('bgm') + 1 }:0`);
       }
 
       let soundEffectIndex = 1;
@@ -136,17 +136,20 @@ export default class Mp4Converter {
 
       filterGraph.mix(mixFilterInputs, 'mix');
       filterGraph.volume('mix', mixFilterInputs.length, 'mix_adjust');
-      filterGraph.equalize('mix_adjust', [
-        ['31.25', '4.1'],
-        ['62.5', '1.2'],
-        ['125', '0'],
-        ['250', '-4.1'],
-        ['500', '-2.3'],
-        ['1000', '0.5'],
-        ['2000', '6.5'],
-        ['8000', '5.1'],
-        ['16000', '5.1']
-      ], 'equalized');
+      if (this.equalizer) {
+        filterGraph.equalize('mix_adjust', [
+          ['31.25', '4.1'],
+          ['62.5', '1.2'],
+          ['125', '0'],
+          ['250', '-4.1'],
+          ['500', '-2.3'],
+          ['1000', '0.5'],
+          ['2000', '6.5'],
+          ['8000', '5.1'],
+          ['16000', '5.1']
+        ], 'equalized');
+      }
+      
 
       this.worker.postMessage({
         type: 'run',
