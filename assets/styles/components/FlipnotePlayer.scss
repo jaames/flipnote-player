@@ -2,6 +2,10 @@
 
 .Player__canvasFrame {
   position: relative;
+
+  @include breakpoint-small-only {
+    margin: 0 -12px;
+  }
   // overflow: hidden;
 }
 

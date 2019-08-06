@@ -40,7 +40,8 @@ export function getFlipnoteMeta(flipnote) {
       lock: meta.lock ? true : false,
       src: flipnote.buffer,
       placeholder: false,
-      ext: null,
+      ext: flipnote.type.toLowerCase(),
+      filename: meta.current.filename,
       thumb: thumb.getUrl(),
       note: flipnote
     };

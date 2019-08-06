@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 export default function ImagePanel({ flipnote }) {
 
-  const [imageFormat, setImageFormat] = useState('gif');
+  const [imageFormat, setImageFormat] = useState('png');
   const [filename, setFilename] = useState(`${ flipnote.meta.current.filename }.zip`);
 
   function convert(flipnote) {

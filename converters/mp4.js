@@ -114,9 +114,11 @@ export default class Mp4Converter {
 
       const filterGraph = new FilterGraph();
       const mixFilterInputs = [];
+      let hasAudio = false;
 
       if ((tracks.indexOf('bgm') > -1)) {
         mixFilterInputs.push(`${ tracks.indexOf('bgm') + 1 }:0`);
+        hasAudio = true;
       }
 
       let soundEffectIndex = 1;
@@ -130,6 +132,7 @@ export default class Mp4Converter {
             mixFilterInputs.push(outputName);
             filterGraph.delay(`${ trackIndex + 1 }:0`, frameDelay, outputName);
             soundEffectIndex += 1;
+            hasAudio = true;
           }
         });
       });
@@ -149,7 +152,6 @@ export default class Mp4Converter {
           ['16000', '5.1']
         ], 'equalized');
       }
-      
 
       this.worker.postMessage({
         type: 'run',
@@ -169,7 +171,7 @@ export default class Mp4Converter {
           '-vcodec', 'libx264',
           '-pix_fmt', 'yuv420p',
           '-acodec', 'aac',
-          '-filter_complex', filterGraph.getGraph(),
+          hasAudio ? ['-filter_complex', filterGraph.getGraph()] : null,
           '-vf', `scale=iw*${ this.scale }:ih*${ this.scale }:flags=neighbor`,
           '-preset', preset,
           '-tune', 'animation',

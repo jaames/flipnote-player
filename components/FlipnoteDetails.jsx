@@ -44,32 +44,30 @@ export default (props) => {
   
   return (
     <div className="FlipnoteDetails">
-      <div className="DetailItem">
-        <span className="DetailItem__title">Created:</span>
-        <span className="DetailItem__value">{ meta.timestamp.toLocaleDateString() }</span>
-      </div>
-      <div className="DetailItem">
-        <span className="DetailItem__title">Frames:</span>
-        <span className="DetailItem__value">{ meta.frame_count }</span>
-      </div>
-      <div className="DetailItem">
-        <span className="DetailItem__title">Frame Rate:</span>
-        <span className="DetailItem__value">{ playerNote.framerate } FPS</span>
-      </div>
-      <div className="DetailItem">
-        <span className="DetailItem__title">Filesize:</span>
-        <span className="DetailItem__value">{ format.byteCount(playerNote.buffer.byteLength) }</span>
-      </div>
-      <div className="DetailItem">
-        <span className="DetailItem__title">User ID:</span>
-        <span className="DetailItem__value">{ playerNote.type === 'KWZ' ? flipnoteStudio.formatKwzFsid(meta.current.fsid) : meta.current.fsid }</span>
-      </div>
-      { playerNote.type === 'PPM' && (
+      <div className="DetailItemList">
         <div className="DetailItem">
-          <span className="DetailItem__title">Region:</span>
-          <span className="DetailItem__value">{ flipnoteStudio.getFsidRegion(meta.current.fsid) }</span>
+          <span className="DetailItem__title">Created:</span>
+          <span className="DetailItem__value">{ meta.timestamp.toLocaleDateString() }</span>
         </div>
-      )}
+        <div className="DetailItem">
+          <span className="DetailItem__title">Frames:</span>
+          <span className="DetailItem__value">{ meta.frame_count }</span>
+        </div>
+        <div className="DetailItem">
+          <span className="DetailItem__title">Frame Rate:</span>
+          <span className="DetailItem__value">{ playerNote.framerate } FPS</span>
+        </div>
+        <div className="DetailItem">
+          <span className="DetailItem__title">Filesize:</span>
+          <span className="DetailItem__value">{ format.byteCount(playerNote.buffer.byteLength) }</span>
+        </div>
+        { playerNote.type === 'PPM' && (
+          <div className="DetailItem">
+            <span className="DetailItem__title">Region:</span>
+            <span className="DetailItem__value">{ flipnoteStudio.getFsidRegion(meta.current.fsid) }</span>
+          </div>
+        )}
+      </div>
       { kaeruGalleryUrl && (
       <a href={ kaeruGalleryUrl } target="blank" className="DetailLink DetailLink--kaeruGallery">
         <KaeruGallerySvg className="DetailLink__icon"/>

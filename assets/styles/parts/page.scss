@@ -4,9 +4,16 @@
   width: 100%;
   min-height: 100vh;
   max-width: 960px;
+  padding: 0 12px;
 
-  @include breakpoint-medium-only {
+  @include breakpoint-medium {
+    padding: 0;
     max-width: 528px;
+  }
+
+  @include breakpoint-large {
+    padding: 0;
+    max-width: 960px;
   }
 
   @include breakpoint-xlarge {
@@ -24,7 +31,9 @@
 .Section {
   display: flex;
   flex-direction: column;
-  margin: 0 12px;
+  @include breakpoint-large {
+    margin: 0 12px;
+  }
 }
 
 .Section--main {
@@ -35,18 +44,24 @@
 
 .Section__title {
   display: flex;
-  margin-bottom: 8px;
+  margin-bottom: 4px;
+  height: 48px;
+  align-items: center;
   // border-bottom: 1px solid rgba($dark-gray, .5);
 
   .title {
     font-size: 1.025rem;
-    line-height: 2.5em;
+    // line-height: 30px;
     margin-bottom: 0;
   }
 
   .title__right {
     margin-left: auto;
   }
+}
+
+.Section__actions {
+  margin-left: auto;
 }
 
 .Section__body {

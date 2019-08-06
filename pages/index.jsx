@@ -24,7 +24,6 @@ export default (props) => {
         props.history.push('/view');
         stopLoading();
       }).catch(err => {
-        console.log(err);
         stopLoading();
         GlobalStore.update(store => {
           store.hasError = true;
@@ -62,12 +61,14 @@ export default (props) => {
       <div className="Section Section--main">
         <div className="Section__title">
           <h4 className="title">{ gridMode === 'SAMPLE' ? 'Sample Flipnotes' : 'Browse Uploads' }</h4>
-          <Pagination 
-            current={ gridPage }
-            itemCount={ gridItems.length } 
-            itemsPerPage={ 12 }
-            onChange={ newPage => { GridStore.update(store => {store.page = newPage}) }}
-          />
+          <div className="Section__actions">
+            <Pagination 
+              current={ gridPage }
+              itemCount={ gridItems.length } 
+              itemsPerPage={ 12 }
+              onChange={ newPage => { GridStore.update(store => {store.page = newPage}) }}
+            />
+          </div>
         </div>
         <div className="Section__body">
           <FlipnoteGrid 

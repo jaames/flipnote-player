@@ -1,15 +1,11 @@
 @import '../config.scss';
 
 .Header {
-  padding: 0 12px;
   flex-direction: row;
-  flex: 0 0 80px;
-  height: 80px;
   display: flex;
   
   @include breakpoint-medium {
-    flex-basis: 80px;
-    
+    // flex-basis: 80px;
     padding: 60px 0;
   }
 }
@@ -31,7 +27,7 @@
 .Header__logo {
   height: 40px;
   width: 40px;
-  margin-right: 6px;
+  margin-right: 12px;
   display: none;
 
   @include breakpoint-medium {

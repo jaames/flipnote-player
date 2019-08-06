@@ -1,6 +1,7 @@
 $light-theme: (
   background: #EFF1F5,
   background-light: #fff,
+  background-lighter: #fff,
   background-dark: #E5E5E5,
   text: #141414,
   text-invert: #6f7275,
@@ -9,13 +10,13 @@ $light-theme: (
 $dark-theme: (
   background: #08080A,
   background-light: #2f364b,
+  background-lighter: #48516b,
   background-dark: #252938,
   text: #fff,
   text-invert: #cdd5e0,
 );
 
-
-$primary-color: #faa352;
+$primary-color: #f1824e;
 
 $breakpoints: (
   small: 0,
@@ -31,7 +32,7 @@ $dark-gray: rgb(93, 106, 114);
 $medium-gray: lighten($dark-gray, 12);
 $text: $white;
 $text-light: #6f7275;
-$background: #000022;
+$background: #000000;
 $font-family: 'Public Sans', 'M PLUS 1p', sudofont, -apple-system, BlinkMacSystemFont, 'avenir next', avenir, helvetica, 'helvetica neue', ubuntu, roboto, noto, 'segoe ui', arial, sans-serif;
 
 $sf-font-path: "../../public/static/fonts/";

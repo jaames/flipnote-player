@@ -20,6 +20,12 @@
   }
 }
 
+@mixin breakpoint-small-only() {
+  @media print, screen and (max-width: map-get($breakpoints, 'medium')) {
+    @content;
+  }
+}
+
 @mixin breakpoint-medium() {
   @media print, screen and (min-width: map-get($breakpoints, 'medium')) {
     @content;

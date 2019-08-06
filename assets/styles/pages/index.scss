@@ -2,19 +2,20 @@
 
 .Page.Page--index {
   .Section.Section--side {
-    flex-basis: 270px;
+    
+
+    @include breakpoint-large {
+      width: 270px;
+      height: 494px;
+    }
 
     @include breakpoint-xlarge {
-      flex-basis: 300px;
+      width: 300px;
+      height: 570px;
     }
   }
 
   .Section.Section--main {
     flex-grow: 1;
-  }
-
-  .Section.Section--main .Pagination {
-    margin-left: auto;
-    align-self: center;
   }
 }

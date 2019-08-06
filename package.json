@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/core": "^7.4.3",
+    "@loadable/component": "^5.10.2",
     "@mapbox/svg-react-transformer-loader": "^1.0.6",
     "babel-plugin-react-require": "^3.0.1",
     "babel-plugin-root-import": "^6.1.0",

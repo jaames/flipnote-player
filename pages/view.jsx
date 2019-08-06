@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useStoreState } from 'pullstate';
 import { PlayerStore } from '~/store';
 import Layout from '~/components/Layout';
@@ -32,13 +32,15 @@ export default (props) => {
       <div className="Section Section--side">
         <div className="Section__title">
           { playerNote && <h4 className="title">Flipnote by { playerNote.meta.current.username }</h4> }
+          <div className="Section__actions">
+            <div className="Button Button--inline Button--nobg" onClick={ () => { setShowConversionModal(true) } }>Convert</div>
+          </div>
         </div>
         <div className="Section__body">
           <FlipnoteDetails/>
-          <div className="Button Button--inline" onClick={ () => { setShowConversionModal(true) } }>Convert</div>
-          <ConversionModal isVisible={ showConversionModal } onHide={ () => { setShowConversionModal(false) } }/>
         </div>
       </div>
+      <ConversionModal isVisible={ showConversionModal } onHide={ () => { setShowConversionModal(false) } }/>
     </Layout>
   );
 }

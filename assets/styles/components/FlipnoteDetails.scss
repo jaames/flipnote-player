@@ -1,7 +1,12 @@
 @import "../config.scss";
 
-.FlipnoteDetails {
-  margin-top: 0;
+.DetailItemList {
+  @include theme((
+    background: "background-light",
+  ));
+  border-radius: 6px;
+  padding: 2px 12px;
+  box-shadow: 0 4px 12px -4px rgba(77, 77, 100, 0.1);
 }
 
 .DetailItem {
@@ -13,8 +18,12 @@
   width: 100%;
   margin-top: 4px;
   border-bottom: 1px dashed $dark-gray;
-  line-height: 2em;
+  line-height: 2.5em;
   padding: 6px 0 8px 0;
+
+  &:last-of-type {
+    border-bottom: 0;
+  }
 }
 
 .DetailItem__title {
@@ -49,7 +58,7 @@
   align-items: center;
   border-radius: 6px;
   padding: 12px;
-  margin: 8px 0;
+  margin-top: 16px;
   box-shadow: 0 4px 12px -4px rgba(77, 77, 100, 0.1);
 }
 
