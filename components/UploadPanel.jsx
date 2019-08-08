@@ -20,15 +20,15 @@ export default ({ onLoadFiles, onLoadSrc }) => {
             <div className="Dropzone__inner" {...getRootProps()}>
               <div className="Dropzone__content">
               <input {...getInputProps()} />
-                <p>Drag &amp; drop Flipnote Studio .PPM or .KWZ files here</p>
-                <div className="Button Button--inline Button--lg">Browse Files</div>
+              <p>Drag &amp; drop Flipnote Studio .PPM or .KWZ files here</p>
+              <div className="Button Button--inline Button--lg">Browse Files</div>
+              <div className="UploadPanel__sdCardLink" onClick={ (e) => { e.stopPropagation(); setShowSdCardModal(!showSdCardModal) } }>
+                ? How to find Flipnote files
+              </div>
               </div>
             </div>
           )}
         </Dropzone>
-        <div className="UploadPanel__sdCardLink" onClick={ () => { setShowSdCardModal(!showSdCardModal) } }>
-          ? How to find Flipnote files
-        </div>
         <SdCardModal isVisible={ showSdCardModal } onHide={ () => { setShowSdCardModal(false) } }></SdCardModal>
       </div>
       <div className="UrlForm">

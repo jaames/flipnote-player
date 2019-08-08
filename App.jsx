@@ -3,7 +3,8 @@ import loadable from '@loadable/component';
 import { useStoreState } from 'pullstate';
 import { GridStore, GlobalStore } from '~/store';
 import Index from '~/pages/index';
-const View = loadable(() => import('~/pages/view'));
+import View from '~/pages/view';
+// const View = loadable(() => import('~/pages/view'));
 
 GlobalStore.update(store => { store.isLoading = true });
 
@@ -28,7 +29,7 @@ export default props => {
     <Router>
       <div className={`App ${ isDarkMode ? 'theme--dark' : 'theme--light' }`}>
         <Route path="/" exact component={ Index }/>
-        <Route path="/view" component={ (props) => <View {...props}/> }/>
+        <Route path="/view" component={ View }/>
       </div>
     </Router>
   )

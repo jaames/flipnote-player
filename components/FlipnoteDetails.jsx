@@ -5,6 +5,7 @@ import { flipnoteStudio, format, externalServices } from '~/utils';
 import KaeruGallerySvg from '~/assets/svg/kaeru_gallery.svg';
 import IpgFlipSvg from '~/assets/svg/ipgflip.svg';
 import SudomemoFoxSvg from '~/assets/svg/sudomemo_fox.svg';
+import Icon from '~/components/Icon';
 
 import '~/assets/styles/components/FlipnoteDetails.scss';
 
@@ -74,6 +75,7 @@ export default (props) => {
         <div className="DetailLink__title">
           View this Flipnote on Kaeru Gallery
         </div>
+        <Icon icon="externalService" disabled={true}></Icon>
       </a>
       )}
       { ipgFlipUrl && (
@@ -82,6 +84,7 @@ export default (props) => {
         <div className="DetailLink__title">
           View this Flipnote on IPGFlip
         </div>
+        <Icon icon="externalService" disabled={true}></Icon>
       </a>
       )}
       { sudomemoUrl && (
@@ -90,6 +93,7 @@ export default (props) => {
         <div className="DetailLink__title">
           View this Flipnote on Sudomemo
         </div>
+        <Icon icon="externalService" disabled={true}></Icon>
       </a>
       )}
     </div>

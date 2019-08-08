@@ -8,13 +8,13 @@
   display: flex;
   align-items: center;
   border-radius: 18px;
-  padding: 0px 4px;
+  padding: 0px 8px;
   box-shadow: 0 4px 12px -4px rgba(77, 77, 100, 0.1);
 
   .Pagination__current {
     line-height: 30px;
     font-variant-numeric: tabular-nums;
-    padding: 0 4px;
+    padding: 0 8px;
   }
 
   .Icon, .Icon svg {

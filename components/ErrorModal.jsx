@@ -13,9 +13,12 @@ export default function ErrorModal() {
   if (errorType === 'FLIPNOTE_COULD_NOT_BE_LOADED') {
     var content = (
       <div>
-        <div className="ErrorModal__errorFile">
-          Download error file
-        </div>
+        <p>
+          This Flipnote could not be loaded.
+        </p>
+        <p>
+          If this seems to be a bug, please open an issue thread on this <a href="https://github.com/jaames/flipnote-player/issues" target="blank">project's GitHub page</a>, or contact me on <a href="https://twitter.com/rakujira" target="blank">Twitter</a>.
+        </p>
       </div>
     );
   } else {

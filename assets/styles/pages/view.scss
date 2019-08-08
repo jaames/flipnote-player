@@ -2,12 +2,15 @@
 
 .Page.Page--view {
   .Section.Section--side {
-    flex-grow: 1;
+    flex: 1;
   }
 
   .Section.Section--main {
+    margin-bottom: 24px;
+
     @include breakpoint-large() {
       width: 640px;
+      margin-bottom: 0;
     }
 
     @include breakpoint-xlarge() {

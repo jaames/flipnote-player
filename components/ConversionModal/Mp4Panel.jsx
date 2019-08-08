@@ -19,8 +19,14 @@ export default function Mp4Panel({ flipnote }) {
         return new Mp4Converter();
       })
       .then(mp4 => {
-        mp4.onprogress = (progress) => {setProgress(progress)};
+        mp4.onprogress = setProgress;
+        mp4.onerror = () => {
+          setProgress(0);
+          setIsConverting(false);
+          setStatus('Error: Could not convert Flipnote to video')
+        };
         setStatus('Preparing...');
+        setProgress(0);
         setIsConverting(true);
         return mp4.init({
           compression: videoCompression,
@@ -73,7 +79,7 @@ export default function Mp4Panel({ flipnote }) {
         </div>
         <div className="FormItem">
           <label htmlFor="">Enhance Audio</label>
-          <Switch on={ audioEq } className="switch--large" onClick={ e => { setAudioEq(!audioEq) } }></Switch>
+          <Switch on={ audioEq } className="Switch--large" onClick={ e => { setAudioEq(!audioEq) } }></Switch>
         </div>
       </div>
       <div className="FormGroup">

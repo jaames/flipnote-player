@@ -41,15 +41,17 @@
   width: 80px;
   margin-top: -2px;
 
-  .rc-slider-handle {
+  .Slider__handle {
     @include theme((
       border-color: "background-light",
     ));
-
+    transition: none;
+    
     .SettingsMenuItem:hover & {
       @include theme((
         border-color: "background",
       ));
+      transition: none;
     }
   }
 }

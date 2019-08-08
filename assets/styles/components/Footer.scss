@@ -6,15 +6,16 @@
   ));
   display: flex;
   align-items: center;
-  opacity: 0.7;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+  padding: 24px 0;
 
   @include breakpoint-medium {
-    padding: 0;
+    
+    padding: 64px 0;
     margin-bottom: 0;
   }
 
-  a {
-    border-bottom: 1px solid currentColor;
+  p {
+    margin-bottom: .25em;
   }
 }

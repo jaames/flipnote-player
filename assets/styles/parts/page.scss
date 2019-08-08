@@ -3,12 +3,12 @@
   margin: auto;
   width: 100%;
   min-height: 100vh;
-  max-width: 960px;
+  // max-width: 960px;
   padding: 0 12px;
 
   @include breakpoint-medium {
     padding: 0;
-    max-width: 528px;
+    max-width: 640px;
   }
 
   @include breakpoint-large {

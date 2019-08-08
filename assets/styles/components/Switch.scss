@@ -1,54 +1,62 @@
 @import "../config.scss";
 
-.switch {
+.Switch {
   border: 2px solid $primary-color;
+  @include theme((
+    border-color: 'background-lighter'
+  ));
   width: 32px;
   height: 18px;
   border-radius: 9px;
   cursor: pointer;
   display: inline-block;
   vertical-align: middle;
-  transition: background 0.2s;
+  transition: background 0.2s, border-color 0.2s;
 }
 
-.switch-toggle {
+.Switch__toggle {
   background: #fff;
   border: 2px solid $primary-color;
+  @include theme((
+    border-color: 'background-lighter'
+  ));
   width: 18px;
   height: 18px;
   top: -2px;
   left: -2px;
   border-radius: 12px;
   position: relative;
-  transition: transform 0.2s;
+  transition: transform 0.2s, border-color 0.2s;
 }
 
-.switch.on {
+.Switch.Switch--on {
   background: $primary-color;
+  border-color: $primary-color;
 }
 
-.switch.on .switch-toggle {
+.Switch.Switch--on .Switch__toggle {
+  border-color: $primary-color;
   background: $white;
   transform: translateX(32px - 18px);
 }
 
-.switch.disabled {
+.Switch.Switch--disabled {
   cursor: not-allowed;
 }
 
-.switch.switch--large {
+.Switch.Switch--large {
   height: 28px;
   width: 48px;
   border-radius: 14px;
   margin: 2px 0;
 
-  .switch-toggle {
+  .Switch__toggle {
     height: 28px;
     width: 28px;
     border-radius: 14px;
   }
 
-  &.on .switch-toggle {
+  &.Switch--on .Switch__toggle {
     transform: translateX(48px - 28px);
   }
 }

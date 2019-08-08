@@ -8,16 +8,14 @@ export default function ProgressMeter({ isActive, percent, status }) {
         <div className="ProgressMeter__status">
           { status } 
         </div>
-        <div className="ProgressBar">
-          <div className="ProgressBar__level" style={ {width: `${percent}%`} }></div>
-        </div>
+        <CSSTransition in={ isActive } timeout={200}>
+          <div className="ProgressBar">
+            <div className="ProgressBar__level" style={ {width: `${percent}%`} }></div>
+          </div>
+        </CSSTransition>
       </div>
       <div className="ProgressMeter__icon">
-        <CSSTransition
-          in={ isActive }
-          timeout={200}
-          unmountOnExit
-        >
+        <CSSTransition in={ isActive } timeout={200} unmountOnExit>
           <Icon icon="loader" spin={ true }/> 
         </CSSTransition>
       </div>

@@ -26,22 +26,7 @@
 .Player__controls {
   display: flex;
   flex-direction: row;
-  height: 64px;
-  padding-bottom: 8px;
-
-  i.icon {
-    margin: 0px 6px;
-  }
-
-  .icon {
-    width: 30px;
-    height: 30px;
-  }
-
-  .icon--play, .icon--pause {
-    width: 34px;
-    height: 34px;
-  }
+  height: 32px;
 }
 
 .ControlsGroup {
@@ -49,6 +34,7 @@
   display: flex;
   align-items: center;
   flex-direction: row;
+  margin: 0 -8px;
 
   &.ControlsGroup--left {
     margin-right: auto;
@@ -59,7 +45,7 @@
   }
 
   .Icon {
-    margin: 6px;
+    margin: 0 8px;
     flex: 0;
     // flex-basis: 28px;
 
@@ -71,6 +57,7 @@
 
 .Player__canvas {
   canvas {
+    width: 100%;
     display: block;
     box-shadow: 0 4px 12px -4px rgba(77, 77, 100, 0.1);
 
@@ -81,7 +68,6 @@
 
 }
 
-.Player__progress {
-  padding-top: 16px;
-  padding-bottom: 4px;
+.Player__progressSlider {
+  padding: 16px 0;
 }

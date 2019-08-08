@@ -58,7 +58,9 @@
   align-items: center;
   border-radius: 6px;
   padding: 12px;
+  padding-right: 20px;
   margin-top: 16px;
+  border: 0;
   box-shadow: 0 4px 12px -4px rgba(77, 77, 100, 0.1);
 }
 
@@ -68,6 +70,7 @@
 }
 
 .DetailLink__title {
+  flex: 1;
   margin-left: 12px;
   font-size: .9em;
 }

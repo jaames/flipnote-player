@@ -10,6 +10,7 @@ import settings from '~/assets/svg/settings.svg';
 import loader from '~/assets/svg/loader.svg';
 import chevronLeft from '~/assets/svg/chevronLeft.svg';
 import chevronRight from '~/assets/svg/chevronRight.svg';
+import externalService from '~/assets/svg/externalService.svg';
 
 import '~/assets/styles/components/Icon.scss';
 
@@ -25,7 +26,8 @@ const svgs = {
   settings,
   loader,
   chevronLeft,
-  chevronRight
+  chevronRight,
+  externalService
 };
 
 export default function Icon(props) {

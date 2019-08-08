@@ -18,35 +18,46 @@
 
     & *[fill] {
       fill: $primary-color;
+      transition: fill 0.25s !important;
     }
 
     & *[stroke] {
       stroke: $primary-color;
+      transition: stroke 0.25s !important;
     }
 
     &:hover {
       & *[fill] {  
-        fill: darken($primary-color, 6) !important;
+        fill: darken($primary-color, 6);
       }
 
       & *[stroke] {  
-        stroke: darken($primary-color, 6) !important;
+        stroke: darken($primary-color, 6);
       }
     }
   }
 
-  &.Icon--disabled svg {
+  &.Icon--disabled {
+    cursor: inherit;
+  }
+
+  &.Icon--disabled svg, &.Icon--disabled svg:hover {
     & *[fill] {  
-      fill: rgba($dark-gray, .5) !important;
+      @include theme((
+        fill: "background-lighter",
+      ));
     }
 
     & *[stroke] {  
-      stroke: rgba($dark-gray, .5) !important;
+      @include theme((
+        stroke: "background-lighter",
+      ));
     }
     
   }
 
   &.Icon--spin svg {
+    cursor: inherit;
     animation: spin 1s linear infinite;
   }
   

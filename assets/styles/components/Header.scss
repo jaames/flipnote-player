@@ -3,10 +3,10 @@
 .Header {
   flex-direction: row;
   display: flex;
+  padding: 24px 0;
   
   @include breakpoint-medium {
-    // flex-basis: 80px;
-    padding: 60px 0;
+    padding: 64px 0;
   }
 }
 
@@ -25,14 +25,10 @@
 }
 
 .Header__logo {
+  display: block;
   height: 40px;
   width: 40px;
   margin-right: 12px;
-  display: none;
-
-  @include breakpoint-medium {
-    display: block;
-  }
 }
 
 .Header__title {
@@ -54,6 +50,7 @@
 }
 
 .Header a {
+  border: 0;
   color: inherit !important;
 }
 
