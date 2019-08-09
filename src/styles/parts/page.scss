@@ -1,0 +1,66 @@
+.View {
+  flex: 0;
+  margin: auto;
+  width: 100%;
+  min-height: 100vh;
+  padding: 0 12px;
+
+  @include breakpoint-medium {
+    padding: 0;
+    max-width: 640px;
+  }
+
+  @include breakpoint-large {
+    padding: 0;
+    max-width: 960px;
+  }
+
+  @include breakpoint-xlarge {
+    max-width: 1120px;
+  }
+}
+
+.Page {
+  @include breakpoint-large {
+    display: flex;
+    margin: 0 -12px;
+  }
+}
+
+.Section {
+  display: flex;
+  flex-direction: column;
+  @include breakpoint-large {
+    margin: 0 12px;
+  }
+}
+
+.Section--main {
+}
+
+.Section--side {
+}
+
+.Section__title {
+  display: flex;
+  margin-bottom: 4px;
+  height: 48px;
+  align-items: center;
+
+  .title {
+    font-size: 1.025rem;
+    margin-bottom: 0;
+  }
+
+  .title__right {
+    margin-left: auto;
+  }
+}
+
+.Section__actions {
+  margin-left: auto;
+}
+
+.Section__body {
+  flex: 1;
+}

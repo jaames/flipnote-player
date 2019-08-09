@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@babel/core": "^7.4.3",
-    "@loadable/component": "^5.10.2",
     "@mapbox/svg-react-transformer-loader": "^1.0.6",
     "babel-plugin-react-require": "^3.0.1",
     "babel-plugin-root-import": "^6.1.0",
@@ -21,8 +20,8 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-dropzone": "^9.0.0",
-    "react-ga": "^2.5.6",
     "react-router-dom": "^4.3.1",
+    "react-router-ga": "^1.2.1",
     "react-transition-group": "^2.9.0",
     "sass-loader": "^7.1.0"
   },

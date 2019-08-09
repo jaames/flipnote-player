@@ -1,0 +1,13 @@
+@import '../config.scss';
+
+.Page.Page--404 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 494px;
+
+  @include breakpoint-xlarge {
+    height: 570px;
+  }
+}
