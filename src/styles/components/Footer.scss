@@ -1,0 +1,21 @@
+@import '../config.scss';
+
+.Footer {
+  @include theme((
+    color: "text-invert",
+  ));
+  display: flex;
+  align-items: center;
+  font-size: 0.85rem;
+  padding: 24px 0;
+
+  @include breakpoint-medium {
+    
+    padding: 64px 0;
+    margin-bottom: 0;
+  }
+
+  p {
+    margin-bottom: .25em;
+  }
+}

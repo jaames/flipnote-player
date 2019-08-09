@@ -1,0 +1,70 @@
+@import "../config.scss";
+
+.ModalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ModalBackdrop.ModalBackdrop--visible {
+}
+
+.Modal {
+  @include theme((
+    background: 'background-light',
+    color: 'text'
+  ));
+  min-width: 320px;
+  width: 390px;
+  border-radius: 12px;
+  padding: 8px;
+  box-shadow: 0 4px 20px -4px rgba(77, 77, 100, 0.3);
+  transition: transform 200ms ease-out, opacity 200ms;
+}
+
+.ModalBackdrop.enter .Modal {
+  opacity: 0;
+  transform: scale(.9) translateY(20px);
+}
+.ModalBackdrop.enter-active .Modal {
+  opacity: 1;
+  transform: scale(1);
+}
+.ModalBackdrop.exit .Modal {
+  opacity: 1;
+  transform: scale(1);
+}
+.ModalBackdrop.exit-active .Modal {
+  opacity: 0;
+  transform: scale(.9) translateY(20px);
+}
+
+.Modal__head {
+  display: flex;
+  padding: 8px;
+}
+
+.Modal__closeIcon {
+  margin-left: auto;
+}
+
+.Modal__body {
+  padding: 8px;
+  padding-top: 0;
+}
+
+.ErrorModal {
+  .title {
+    color: #fd4c6a;
+  }
+  // background: 
+}
+
+.ErrorModal__errorFile {
+
+}

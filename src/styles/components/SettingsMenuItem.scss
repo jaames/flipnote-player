@@ -1,0 +1,57 @@
+@import "../config.scss";
+
+.SettingsMenuItem {
+  display: flex;
+  align-items: center;
+  line-height: 2em;
+  padding: 6px 8px;
+  font-size: 0.9rem;
+  @include theme((
+    color: "text-invert",
+  ));
+
+  &:hover {
+    @include theme((
+      background: "background",
+    ));
+  }
+
+  &:first-of-type {
+    padding-top: 8px;
+  }
+
+  &:last-of-type {
+    padding-bottom: 8px;
+  }
+}
+
+.SettingsMenuItem__label {
+  flex: 1;
+  margin-right: auto;
+  padding: 0 12px;
+}
+
+.SettingsMenuItem__input {
+  flex: 0;
+  margin-left: auto;
+  padding: 0 12px;
+}
+
+.SettingsMenuItem__slider {
+  width: 80px;
+  margin-top: -2px;
+
+  .Slider__handle {
+    @include theme((
+      border-color: "background-light",
+    ));
+    transition: none;
+    
+    .SettingsMenuItem:hover & {
+      @include theme((
+        border-color: "background",
+      ));
+      transition: none;
+    }
+  }
+}

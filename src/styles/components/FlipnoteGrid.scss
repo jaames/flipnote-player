@@ -1,0 +1,16 @@
+@import "../config.scss";
+
+.FlipnoteGrid {
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 16px;
+
+  @include breakpoint-medium {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include breakpoint-large {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

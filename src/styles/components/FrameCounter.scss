@@ -1,0 +1,37 @@
+@import "../config.scss";
+
+.FrameCounter {
+  font-variant-numeric: tabular-nums;
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  border-radius: 6px;
+  border-width: 1px;
+  border-style: solid;
+  @include theme((
+    border-color: "background",
+    color: "text-invert",
+    background: "background-light",
+  ));
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  box-shadow: 0 4px 12px -4px rgba(77, 77, 100, 0.1);
+  transition: opacity 150ms ease-out, transform 150ms cubic-bezier(0.64, 0.57, 0.67, 1.53);
+}
+
+.FrameCounter.enter {
+  opacity: 0;
+  transform: scale(.9) translateY(20px);
+}
+.FrameCounter.enter-done {
+  opacity: 1;
+  transform: translateY(0);
+}
+.FrameCounter.exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+.FrameCounter.exit-active {
+  opacity: 0;
+  transform: scale(.9) translateY(20px);
+}

@@ -1,0 +1,77 @@
+@import "../config.scss";
+
+.DetailItemList {
+  @include theme((
+    background: "background-light",
+  ));
+  border-radius: 6px;
+  padding: 2px 12px;
+  box-shadow: 0 4px 12px -4px rgba(77, 77, 100, 0.1);
+}
+
+.DetailItem {
+  border-bottom: 1px dashed #fff;
+  @include theme((
+    color: "text-invert",
+    border-color: "background-lighter"
+  ));
+  font-size: 0.9rem;
+  display: flex;
+  width: 100%;
+  margin-top: 4px;
+  line-height: 2.5em;
+  padding: 6px 0 8px 0;
+
+  &:last-of-type {
+    border-bottom: 0;
+  }
+}
+
+.DetailItem__title {
+  flex: 1;
+  margin-right: auto;
+}
+
+.DetailItem__value {
+  text-align: right;
+  flex: 2;
+  margin-left: auto;
+}
+
+.DetailItem.DetailItem--links {
+
+  & .DetailItem__value {
+    line-height: inherit;
+    margin: 0;
+    list-style-type: none;
+  }
+
+  & .Link {
+    display: block;
+  }
+}
+
+.DetailLink {
+  @include theme((
+    background: "background-light",
+  ));
+  display: flex;
+  align-items: center;
+  border-radius: 6px;
+  padding: 12px;
+  padding-right: 20px;
+  margin-top: 16px;
+  border: 0;
+  box-shadow: 0 4px 12px -4px rgba(77, 77, 100, 0.1);
+}
+
+.DetailLink__icon {
+  width: 42px;
+  height: 42px;
+}
+
+.DetailLink__title {
+  flex: 1;
+  margin-left: 12px;
+  font-size: .9em;
+}

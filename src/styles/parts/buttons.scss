@@ -1,0 +1,31 @@
+.Button {
+  @include theme((
+    background: 'background-light'
+  ));
+  // background: #fff;
+  color: $primary-color;
+  border: 1px solid $primary-color;
+  display: block;
+  height: 32px;
+  line-height: 30px;
+  border-radius: 4px;
+  letter-spacing: .02em;
+  font-size: .9rem;
+  text-align: center;
+  cursor: pointer;
+  padding: 0 12px;
+}
+
+.Button--nobg {
+  background: none !important;
+}
+
+.Button--inline {
+  display: inline-block;
+}
+
+.Button--lg {
+  height: 42px;
+  line-height: 40px;
+  padding: 0 12px;
+}

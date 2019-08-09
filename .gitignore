@@ -15,7 +15,10 @@ meta.json
 /coverage
 
 # production
+.next/*
 /build
+/dist/*
+/out
 
 # misc
 .DS_Store

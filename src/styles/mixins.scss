@@ -1,0 +1,51 @@
+
+// helper for setting certain rules based on the current color theme
+@mixin theme($rules) {
+  $transition: ();
+  $transition-duration: .5s;
+
+  @each $prop, $value in $rules {
+    #{$prop}: map-get($light-theme, $value);
+    $transition: join($transition, unquote($prop) + ' #{$transition-duration}', $separator: comma);
+  }
+
+  transition: $transition;
+  
+  @at-root {
+    .theme--dark & {
+      @each $prop, $value in $rules {
+        #{$prop}: map-get($dark-theme, $value);
+      }
+    }
+  }
+}
+
+@mixin breakpoint-small-only() {
+  @media print, screen and (max-width: map-get($breakpoints, 'medium')) {
+    @content;
+  }
+}
+
+@mixin breakpoint-medium() {
+  @media print, screen and (min-width: map-get($breakpoints, 'medium')) {
+    @content;
+  }
+}
+
+@mixin breakpoint-medium-only() {
+  @media print, screen and (min-width: map-get($breakpoints, 'medium')) and (max-width: map-get($breakpoints, 'large')) {
+    @content;
+  }
+}
+
+@mixin breakpoint-large() {
+  @media print, screen and (min-width: map-get($breakpoints, 'large')) {
+    @content;
+  }
+}
+
+@mixin breakpoint-xlarge() {
+  @media print, screen and (min-width: map-get($breakpoints, 'xlarge')) {
+    @content;
+  }
+}
