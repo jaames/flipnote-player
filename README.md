@@ -16,7 +16,7 @@ Released in 2009, *Flipnote Studio* is an application for the Nintendo DSi which
 
 Even though it has been several years since the last Flipnote Studio installment was released (and the online services for both apps have since been retired) there is still a large community of people actively creating Flipnotes thanks to fan-built services such as [Kaeru Gallery](https://gallery.kaeru.world/), [IPGFLip](https://ipgflip.xyz/) and [Sudomemo](https://www.sudomemo.net/). There's even several high-profile artists such as [Kéké](https://twitter.com/kekeflipnote) who are rocking Flipnote Studio on social media.
 
-My hope is that this project will help the Flipnote community to continue on by sharing their work on social media sites. :)
+My hope is that this project will help the Flipnote community to continue sharing their work on social media sites. :)
 
 ### Built With
 
