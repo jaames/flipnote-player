@@ -20,7 +20,8 @@ Promise.all(meta['items'].map(item => {
         filestem: filestem,
         author: note.meta.current.username,
         ext: note.type.toLowerCase(),
-        thumb: imageUrl, 
+        thumb: imageUrl,
+        timestamp: note.meta.timestamp
       }
     });
   }

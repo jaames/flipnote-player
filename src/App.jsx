@@ -15,6 +15,10 @@ fetch('./static/manifest.json')
       ...item,
       src: `./static/${item.ext}/${item.filestem}.${item.ext}`
     }));
+
+    items.map(x => x.timestamp = new Date(x.timestamp));
+    items.sort((a, b) => b.timestamp - a.timestamp);
+
     GridStore.update(store => {
       store.samples = items;
       store.items = items;

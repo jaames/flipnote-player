@@ -43,7 +43,8 @@ export function getFlipnoteMeta(flipnote) {
       ext: flipnote.type.toLowerCase(),
       filename: meta.current.filename,
       thumb: thumb.getUrl(),
-      note: flipnote
+      note: flipnote,
+      timestamp: meta.timestamp
     };
     resolve(item);
     }

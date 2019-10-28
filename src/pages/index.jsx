@@ -42,6 +42,7 @@ export default (props) => {
       startLoading();
       GridStore.update(store => { store.items = []; });
       loadFiles(files).then(items => {
+        items.sort((a, b) => b.timestamp - a.timestamp);
         GridStore.update(store => { store.items = items; store.mode = 'UPLOADS'; store.page = 0; });
         stopLoading();
       });
