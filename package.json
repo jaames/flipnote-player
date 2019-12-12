@@ -29,5 +29,11 @@
     "dev": "poi --serve",
     "build": "poi --prod",
     "manifest": "node ./scripts/generateManifest.js"
+  },
+  "devDependencies": {
+    "@poi/plugin-typescript": "^12.2.1",
+    "@types/react": "^16.9.16",
+    "@types/react-dom": "^16.9.4",
+    "typescript": "^3.7.3"
   }
 }

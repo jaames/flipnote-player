@@ -4,6 +4,12 @@ module.exports = {
   envs: {
     __VERSION__: version
   },
+  plugins: [
+    {
+      resolve: '@poi/plugin-typescript',
+      options: {}
+    }
+  ],
   chainWebpack(config) {
     // remove the old svg loader
     config.module.rules.delete('svg')
