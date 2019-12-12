@@ -1,7 +1,7 @@
 import '@/styles/components/FlipnoteThumb.scss';
 import Icon from '@/components/Icon';
 
-const FlipnoteThumb = ({ placeholder, ext, src, thumb, author, onSelect, lock }) => (
+const FlipnoteThumb = ({ placeholder, ext, src, thumb, author, onSelect, lock, timestamp }) => (
   <div className="FlipnoteThumb" onClick={(e) => { onSelect(src) }}>
     <div className="FlipnoteThumb__image" style={{ "backgroundImage": `url(${ thumb })` }}>
       { ext && (
@@ -15,6 +15,9 @@ const FlipnoteThumb = ({ placeholder, ext, src, thumb, author, onSelect, lock })
     </div>
     <div className="FlipnoteThumb__info">
       <span className="FlipnoteThumb__author">{ author }</span>
+      <span className="FlipnoteThumb__date">
+          { timestamp === undefined ? "" : timestamp.toLocaleDateString() }
+      </span>
     </div>
   </div>
 )

@@ -42,10 +42,16 @@
   line-height: 1rem;
   overflow: hidden;
   padding-top: 6px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .FlipnoteThumb__author {
   color: $primary-color;
+}
+
+.FlipnoteThumb__date {
+  font-size: 0.8em;
 }
 
 .FlipnoteThumb__type {
