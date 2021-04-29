@@ -1,4 +1,4 @@
-import { gifEncoder as GifEncoder } from 'flipnote.js';
+import { GifImage } from 'flipnote.js';
 import { saveAs } from 'file-saver';
 import { FilterGraph, buildArgumentList } from '@/utils/ffmpeg.js';
 
@@ -82,8 +82,7 @@ export default class Mp4Converter {
     this.totalFrames = flipnote.frameCount;
     const framerate = flipnote.framerate;
     const sampleRate = flipnote.sampleRate;
-    const bgmSampleRate = sampleRate * ((1 / flipnote.bgmrate) / (1 / flipnote.framerate));
-    const duration = (1 / flipnote.framerate) * flipnote.frameCount;
+    const duration = flipnote.duration;
     const preset = FFMPEG_X264_PRESET_MAP[this.compression];
 
     return new Promise((resolve, reject) => {
@@ -94,64 +93,18 @@ export default class Mp4Converter {
       const fileArray = [];
 
       // Convert frames to GIF
-      const gif = GifEncoder.fromFlipnote(flipnote);
+      const gif = GifImage.fromFlipnote(flipnote);
       fileArray.push({
         name: 'frames.gif',
-        data: new Uint8Array(gif.getBuffer())
+        data: new Uint8Array(gif.getArrayBuffer())
       });
 
-      // Get a list of active audio tracks
-      const tracks = Object.keys(flipnote.soundMeta).filter(key => flipnote.soundMeta[key].length > 0);
-
-      // Convert audio tracks to raw PCM sound data
-      tracks.forEach(track => {
-        const pcm = flipnote.decodeAudio(track);
-        fileArray.push({
-          name: `${ track }.raw`,
-          data: new Uint8Array(pcm.buffer)
-        });
+      const audioTrack = flipnote.getAudioMasterPcm();
+      const audioRate = flipnote.sampleRate;
+      fileArray.push({
+        name: `audio.raw`,
+        data: new Uint8Array(audioTrack.buffer)
       });
-
-      const filterGraph = new FilterGraph();
-      const mixFilterInputs = [];
-      let hasAudio = false;
-
-      if ((tracks.indexOf('bgm') > -1)) {
-        mixFilterInputs.push(`${ tracks.indexOf('bgm') + 1 }:0`);
-        hasAudio = true;
-      }
-
-      let soundEffectIndex = 1;
-      flipnote.decodeSoundFlags().forEach((frameFlags, frameIndex) => {
-        const frameDelay = Math.round((1000 / flipnote.framerate) * frameIndex);
-        frameFlags.forEach((flag, flagIndex) => {
-          const track = ['se1', 'se2', 'se3', 'se4'][flagIndex];
-          const trackIndex = tracks.indexOf(track);
-          if ((trackIndex > -1) && (flag)) {
-            const outputName = `e${ soundEffectIndex }`;
-            mixFilterInputs.push(outputName);
-            filterGraph.delay(`${ trackIndex + 1 }:0`, frameDelay, outputName);
-            soundEffectIndex += 1;
-            hasAudio = true;
-          }
-        });
-      });
-
-      filterGraph.mix(mixFilterInputs, 'mix');
-      filterGraph.volume('mix', mixFilterInputs.length, 'mix_adjust');
-      if (this.equalizer) {
-        filterGraph.equalize('mix_adjust', [
-          ['31.25', '4.1'],
-          ['62.5', '1.2'],
-          ['125', '0'],
-          ['250', '-4.1'],
-          ['500', '-2.3'],
-          ['1000', '0.5'],
-          ['2000', '6.5'],
-          ['8000', '5.1'],
-          ['16000', '5.1']
-        ], 'equalized');
-      }
 
       this.worker.postMessage({
         type: 'run',
@@ -160,18 +113,17 @@ export default class Mp4Converter {
         arguments: buildArgumentList([
           '-hide_banner',
           '-loglevel', 'info',
+          // frame input
           '-r', framerate.toString(),
           '-i', 'frames.gif',
-          tracks.map(track => [
-            '-f', 's16le',
-            '-ar', `${ track === 'bgm' ? Math.floor(bgmSampleRate) : sampleRate }`,
-            '-ac', '1',
-            '-i', `${ track }.raw`,
-          ]),
+          // audio input
+          '-f', 's16le',
+          '-ar', `${ audioRate }`,
+          '-ac', '1',
+          '-i', `audio.raw`,
           '-vcodec', 'libx264',
           '-pix_fmt', 'yuv420p',
           '-acodec', 'aac',
-          hasAudio ? ['-filter_complex', filterGraph.getGraph()] : null,
           '-vf', `scale=iw*${ this.scale }:ih*${ this.scale }:flags=neighbor`,
           '-preset', preset,
           '-tune', 'animation',

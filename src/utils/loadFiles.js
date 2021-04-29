@@ -1,6 +1,6 @@
 import {
   parseSource,
-  gifEncoder as GifEncoder
+  GifImage
 } from 'flipnote.js';
 
 export function readFileArrayBuffer(file) {
@@ -34,13 +34,13 @@ export function getFlipnoteMeta(flipnote) {
       reject();
     } else {
     const meta = flipnote.meta;
-    const thumb = GifEncoder.fromFlipnoteFrame(flipnote, flipnote.thumbFrameIndex);
+    const thumb = GifImage.fromFlipnoteFrame(flipnote, flipnote.thumbFrameIndex);
     const item = {
       author: meta.current.username,
       lock: meta.lock ? true : false,
       src: flipnote.buffer,
       placeholder: false,
-      ext: flipnote.type.toLowerCase(),
+      ext: flipnote.format.toLowerCase(),
       filename: meta.current.filename,
       thumb: thumb.getUrl(),
       note: flipnote,

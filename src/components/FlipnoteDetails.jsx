@@ -52,7 +52,7 @@ export default (props) => {
         </div>
         <div className="DetailItem">
           <span className="DetailItem__title">Frames:</span>
-          <span className="DetailItem__value">{ meta.frame_count }</span>
+          <span className="DetailItem__value">{ meta.frameCount }</span>
         </div>
         <div className="DetailItem">
           <span className="DetailItem__title">Frame Rate:</span>
@@ -62,7 +62,11 @@ export default (props) => {
           <span className="DetailItem__title">Filesize:</span>
           <span className="DetailItem__value">{ format.byteCount(playerNote.buffer.byteLength) }</span>
         </div>
-        { playerNote.type === 'PPM' && (
+        <div className="DetailItem">
+            <span className="DetailItem__title">Author ID:</span>
+            <span className="DetailItem__value">{ meta.current.fsid }</span>
+          </div>
+        { playerNote.format === 'PPM' && (
           <div className="DetailItem">
             <span className="DetailItem__title">Region:</span>
             <span className="DetailItem__value">{ flipnoteStudio.getFsidRegion(meta.current.fsid) }</span>

@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-const flipnote = require('flipnote.js/dist/node');
+const flipnote = require('flipnote.js');
 
 const basePath = './public/static';
 const meta = require(path.resolve(basePath, 'meta.json'));
@@ -12,16 +12,17 @@ Promise.all(meta['items'].map(item => {
   const file = fs.readFileSync(filepath);
   return flipnote.parseSource(file.buffer)
     .then(note => {
-      const gif = flipnote.gifEncoder.fromFlipnoteFrame(note, note.thumbFrameIndex);
-      const gifBuffer = Buffer.from(gif.getBuffer());
-      const imageUrl = `data:image/gif;base64,${gifBuffer.toString('base64')}`;
+      const meta = note.meta;
+      const thumbImg = flipnote.GifImage.fromFlipnoteFrame(note, note.thumbFrameIndex);
+      const thumbBuffer = thumbImg.getBuffer();
+      const thumbDataUrl = `data:image/gif;base64,${thumbBuffer.toString('base64')}`;
       return {
         ...item,
         filestem: filestem,
-        author: note.meta.current.username,
-        ext: note.type.toLowerCase(),
-        thumb: imageUrl,
-        timestamp: note.meta.timestamp
+        author: meta.current.username,
+        ext: note.format.toLowerCase(),
+        thumb: thumbDataUrl,
+        timestamp: meta.timestamp
       }
     });
   }

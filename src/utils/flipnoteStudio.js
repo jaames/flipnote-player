@@ -30,13 +30,8 @@ export default class flipnoteStudio {
     }
   }
 
-  static formatKwzFsid(hex) {
-    return [
-      hex.substr(0, 4),
-      hex.substr(4, 4),
-      hex.substr(8, 4),
-      hex.substr(12, 6),
-    ].join('-').toLowerCase();
+  static formatKwzFsid(fsid) {
+    return fsid;
   }
 
   static getSdCardRoute(system='twl', region='eu') {

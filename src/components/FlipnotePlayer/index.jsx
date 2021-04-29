@@ -1,4 +1,4 @@
-import { player as Player } from 'flipnote.js';
+import { Player } from 'flipnote.js';
 import { useState, useRef, useLayoutEffect, useEffect } from 'react';
 import { useStoreState } from 'pullstate';
 import { PlayerStore } from '@/store';
@@ -53,19 +53,18 @@ export default function FlipnotePlayer(props) {
     player.on('frame:update', frameIndex => { setCurrentFrame(frameIndex) });
     player.on('playback:end', () => { setPaused(true) });
     player.on('load', () => {
-      setType(player.type);
+      setType(player.noteFormat);
       setLoop(player.loop);
       setFrameCount(player.frameCount);
     });
     const resizeCanvas = () => {
       const rect = canvasWrapper.current.getBoundingClientRect();
-      const pixelRatio = window.devicePixelRatio || 1;
-      player.resize(rect.width * pixelRatio, rect.width * 0.75 * pixelRatio);
+      player.resize(rect.width, rect.width * 0.75);
     }
     resizeCanvas();
     canvasWrapper.current.appendChild(playerCanvas);
     window.addEventListener('resize', resizeCanvas);
-    player.load(playerNote);
+    player.openNote(playerNote);
 
     hotkeys('space, left, a, right, d, shift+left, shift+a, shift+right, shift+d', 'player', (e, handler) => {
       switch (handler.key) {
@@ -97,7 +96,7 @@ export default function FlipnotePlayer(props) {
       hotkeys.deleteScope('player');
       window.removeEventListener('resize', resizeCanvas);
       player.clearEvents();
-      player.close();
+      player.closeNote();
       player.destroy();
     };
   }, []);
