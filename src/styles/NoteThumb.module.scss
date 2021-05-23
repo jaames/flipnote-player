@@ -1,0 +1,42 @@
+.root {
+  cursor: pointer;
+}
+
+.panel {
+  background: #fff;
+  box-shadow: 0 0 3px 1px rgba(#50525D, .12), 0 6px 3px 0 rgba(#30323E, .08);
+  border-radius: 10px;
+  padding: 5px;
+  position: relative;
+}
+
+.img {
+  background-size: contain;
+  transition: background-image 0.2s ease-in-out;
+  border-radius: 5px;
+  // force 3:4 aspect ratio
+  padding-bottom: 75%;
+}
+
+.lockIcon {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+}
+
+.spinoffIcon {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+}
+
+.systemIcon {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+}
+
+.author {
+  margin-top: 6px;
+  line-height: 1.2em;
+}

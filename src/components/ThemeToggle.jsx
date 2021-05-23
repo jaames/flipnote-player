@@ -1,5 +1,5 @@
-import { useStoreState } from 'pullstate';
-import { GlobalStore } from '@/store';
+import { useStoreState } from './_ConversionModal/node_modules/pullstate';
+import { GlobalStore } from './_ConversionModal/node_modules/@/store';
 import { storage as localstorage } from '@/utils';
 import '@/styles/components/ThemeToggle.scss';
 

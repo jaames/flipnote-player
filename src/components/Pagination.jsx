@@ -1,4 +1,4 @@
-import Icon from '@/components/Icon';
+import Icon from './_ConversionModal/node_modules/@/components/Icon';
 import '@/styles/components/Pagination.scss';
 
 export default ({current, itemCount, itemsPerPage, onChange}) => {

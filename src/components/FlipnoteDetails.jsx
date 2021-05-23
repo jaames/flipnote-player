@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useStoreState } from 'pullstate';
-import { PlayerStore } from '@/store';
+import { useStoreState } from './_ConversionModal/node_modules/pullstate';
+import { PlayerStore } from './_ConversionModal/node_modules/@/store';
 import { flipnoteStudio, format, externalServices } from '@/utils';
 import KaeruGallerySvg from '@/svg/kaeru_gallery.svg';
 import IpgFlipSvg from '@/svg/ipgflip.svg';
 import SudomemoFoxSvg from '@/svg/sudomemo_fox.svg';
-import Icon from '@/components/Icon';
+import Icon from './_ConversionModal/node_modules/@/components/Icon';
 
 import '@/styles/components/FlipnoteDetails.scss';
 

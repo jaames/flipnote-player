@@ -1,70 +1,46 @@
-<h1 align="center"><a href="//flipnote.rakujira.jp"><img src="https://raw.githubusercontent.com/jaames/flipnote-player/master/public/static/media/social_media_preview.png"/><br/>Flipnote Player</a></h1>
+# Getting Started with Create React App
 
-<p align="center">
-  <b>A web player and video converter for animations created with Flipnote Studio and Flipnote Studio 3D</b><br>
-  Check it out at <a href="//flipnote.rakujira.jp">flipnote.rakujira.jp</a>
-</p>
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-### Features
+## Available Scripts
 
-* Full support for both of the proprietary animation formats used by Flipnote Studio and Flipnote Studio 3D
-* Built-in converters for exporting Flipnotes as high quality MP4 video (!!!), animated GIF, or static image sequences
-* Multi-file upload support -- open multiple Flipnotes at once and browse through them, with thumbnails and usernames shown
-* The ability to load Flipnotes directly from [Kaeru Gallery](https://gallery.kaeru.world) or [IPGFlip](https://ipgflip.xyz/) web URLs
-* No server-side code whatsoever
-* 100% free and open source :^)
+In the project directory, you can run:
 
-### Background
+### `yarn start`
 
-Released in 2009, *Flipnote Studio* is an application for the Nintendo DSi which allows users to create flipbook-style animations with the console's touch screen, cameras and microphone. In 2013 it recieved a sequel on the Nintendo 3DS called *Flipnote Studio 3D*, which expanded upon the original's feature set and added the ability to use 3D depth.
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-Even though it has been several years since the last Flipnote Studio installment was released (and the online services for both apps have since been retired) there is still a large community of people actively creating Flipnotes thanks to fan-built services such as [Kaeru Gallery](https://gallery.kaeru.world/), [IPGFlip](https://ipgflip.xyz/) and [Sudomemo](https://www.sudomemo.net/). There's even several high-profile artists such as [Kéké](https://twitter.com/kekeflipnote) who are rocking Flipnote Studio on social media.
+The page will reload if you make edits.\
+You will also see any lint errors in the console.
 
-My hope is that this project will help the Flipnote community to continue sharing their creations :)
+### `yarn test`
 
-### Built With
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-* [flipnote.js](https://github.com/jaames/flipnote.js) (my Flipnote parsing library)
-* [ffmpeg.js](https://github.com/Kagami/ffmpeg.js/) (for handling video conversion -- I made a [modified build ](https://github.com/jaames/ffmpeg.js) that handles PCM audio and GIF input, among other things)
-* [React](https://reactjs.com/)
-* [React Router](https://reacttraining.com/react-router/)
-* [React Transition Group](https://reactcommunity.org/react-transition-group/)
-* [react-dropzone](https://react-dropzone.js.org/)
-* [pullstate](https://github.com/lostpebble/pullstate)
-* [Poi](https://poi.js.org/)
-* [sudofont](https://github.com/Sudomemo/Sudofont) (for rendering certain custom characters that can be used in Nintendo DSi usernames)
-* [Sketch](https://sketchapp.com/) (for making graphics)
+### `yarn build`
 
-### Building
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-Copy `.env.example` to `.env`:
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-```
-cp .env.example .env
-```
-Install dependencies:
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-```
-npm install
-```
-Build production-ready assets in the `/dist` directory:
+### `yarn eject`
 
-```
-npm run build
-```
-Run development server:
+**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-```
-npm run dev
-```
-Generate sample Flipnote manifest file
+If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-```
-npm run manifest
-```
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-### Acknowledgments
+You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-* Everyone acknowledged in the [flipnote.js readme](https://github.com/jaames/flipnote.js#Acknowledgments)
-* [Kaeru Team](https://github.com/KaeruTeam) for providing helpful feedback and for their assistance with testing. 
-* [Sudomemo](http://www.sudomemo.net/) for providing sample Flipnotes and audio equalizer settings used in video conversion.
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).

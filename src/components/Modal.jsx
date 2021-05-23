@@ -1,9 +1,9 @@
 import { useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import { CSSTransition } from 'react-transition-group';
-import { useStoreState } from 'pullstate';
-import { GlobalStore } from '@/store';
-import useOnClickOutside from '@/utils/useOnClickOutside';
+import { CSSTransition } from './_ConversionModal/node_modules/react-transition-group';
+import { useStoreState } from './_ConversionModal/node_modules/pullstate';
+import { GlobalStore } from './_ConversionModal/node_modules/@/store';
+import useOnClickOutside from './_FlipnotePlayer/node_modules/@/utils/useOnClickOutside';
 
 import '@/styles/components/Modal.scss';
 

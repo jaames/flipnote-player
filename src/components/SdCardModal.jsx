@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Modal from '@/components/Modal';
+import Modal from './_ConversionModal/node_modules/@/components/Modal';
 import { flipnoteStudio } from '@/utils'
 
 const appVersionOptions = [
@@ -28,7 +28,7 @@ export default function SdCardModal({ isVisible, onHide }) {
             className="Select"
             id="appVersion"
             value={ appVersion }
-            onChange={ e => setAppVersion(event.target.value) }
+            onChange={ e => setAppVersion(e.target.value) }
           >
             {appVersionOptions.map(op => (
               <option key={ op.value } value={ op.value }>{ op.title }</option>
@@ -43,7 +43,7 @@ export default function SdCardModal({ isVisible, onHide }) {
             className="Select"
             id="region"
             value={ region }
-            onChange={ e => setRegion(event.target.value) }
+            onChange={ e => setRegion(e.target.value) }
           >
             {regionOptions.map(op => (
               <option key={ op.value } value={ op.value }>{ op.title }</option>

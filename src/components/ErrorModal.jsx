@@ -1,6 +1,6 @@
-import { useStoreState } from 'pullstate';
-import { GlobalStore } from '@/store';
-import Modal from '@/components/Modal';
+import { useStoreState } from './_ConversionModal/node_modules/pullstate';
+import { GlobalStore } from './_ConversionModal/node_modules/@/store';
+import Modal from './_ConversionModal/node_modules/@/components/Modal';
 
 export default function ErrorModal() {
   const hasError = useStoreState(GlobalStore, s => s.hasError);

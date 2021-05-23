@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.main {
+  flex: 1;
+}
+
+.side {
+  width: 240px;
+}

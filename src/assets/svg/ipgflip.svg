@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="506px" height="507px" viewBox="0 0 506 507" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>ipgflip</title>
+    <desc>Created with Sketch.</desc>
+    <g id="ipgflip" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <circle id="bg" stroke="#E10088" stroke-width="24" fill="#FFFFFF" cx="253" cy="254" r="235"></circle>
+        <path d="M388,349 L415,349 L415,376 L91,376 L91,349 L118,349 L118,327 L91,327 L91,268 L118,268 L118,214 L145,214 L145,133 L172,133 L172,106 L226,106 L226,133 L280,133 L280,106 L334,106 L334,133 L361,133 L361,214 L388,214 L388,268 L415,268 L415,327 L388,327 L388,349 Z M226,322 L226,349 L280,349 L280,322 L307,322 L307,295 L334,295 L334,241 L172,241 L172,295 L199,295 L199,322 L226,322 Z M307,133 L307,187 L334,187 L334,133 L307,133 Z M172,133 L172,187 L199,187 L199,133 L172,133 Z" id="frog" fill="#E10088"></path>
+    </g>
+</svg>

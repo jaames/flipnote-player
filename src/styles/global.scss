@@ -1,0 +1,48 @@
+@import './parts/sudofont.scss';
+
+body {
+  margin: 0;
+  font-family: 'sudofont', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-attachment: fixed;
+  background-position: center top;
+  background-repeat: repeat;
+  background-image: url('data:image/svg+xml;charset=utf8,\
+    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">\
+      <rect x="0" y="0" width="31" height="31" fill="white" stroke-width="1" stroke-dashoffset="10" stroke-dasharray="3 3" stroke="%23B5C1CE"/>\
+    </svg>\
+  ');
+}
+
+html, body {
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+@keyframes spin { 
+  100% {
+    transform: rotate(360deg);
+  } 
+}
+
+.Icon {
+  width: 32px;
+  height: 32px;
+}
+
+.Icon--spinner {
+  animation: spin 1s linear infinite;
+}

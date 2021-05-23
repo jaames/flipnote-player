@@ -1,4 +1,4 @@
-import { Store } from 'pullstate';
+import { Store } from './components/_ConversionModal/node_modules/pullstate';
 import { storage as localstorage } from '@/utils';
 
 export const GlobalStore = new Store({
