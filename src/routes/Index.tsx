@@ -10,7 +10,6 @@ import { NoteGrid } from '../components/NoteGrid';
 import { GlobalContext } from '../context/GlobalContext';
 import { PlayerContext } from '../context/PlayerContext';
 import { NoteListContext } from '../context/NoteListContext';
-import { UploadedNoteItem } from '../models';
 
 import styles from '../styles/Homepage.module.scss';
 
@@ -57,7 +56,7 @@ export function Index() {
               </div>
             )}
           </Dropzone>
-          <NoteFilterControls options={ noteListCtx.filterOptions }></NoteFilterControls>
+          {/* <NoteFilterControls options={ noteListCtx.filterOptions }></NoteFilterControls> */}
         </div>
       </div>
     </Layout>

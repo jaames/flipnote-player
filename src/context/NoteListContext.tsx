@@ -1,17 +1,20 @@
 import React, { createContext } from 'react';
-import { Flipnote, GifImage } from 'flipnote.js';
-import { NoteItem, NoteItemSource } from '../models';
-import { NoteFilter, NoteFilterOptions } from '../features/NoteFilter';
+import {
+  IndexedFlipnoteWithFile,
+  NotegridItem,
+  notegridItemFromIndexedNote
+} from '../models';
+import { NoteIndexer } from '../features/FileIndexer';
 
 interface Props {}
 
 interface State {
-  notes: NoteItem[];
-  filterOptions: NoteFilterOptions;
+  notes: IndexedFlipnoteWithFile[];
+  // filterOptions: NoteFilterOptions;
   numPages: number;
   notesPerPage: number;
   currPageIndex: number;
-  currPageNotes: NoteItem[];
+  currPageNotes: NotegridItem[];
   hasPrevPage: boolean;
   hasNextPage: boolean;
   processUploads: (files: File[]) => void;
@@ -22,7 +25,7 @@ interface State {
 
 export const NoteListContext = createContext<State>({
   notes: [],
-  filterOptions: {},
+  // filterOptions: {},
   numPages: 0,
   notesPerPage: 12,
   currPageIndex: 0,
@@ -37,17 +40,25 @@ export const NoteListContext = createContext<State>({
 
 export class NoteListContextProvider extends React.Component<Props, State> {
 
-  private uploadFilter = new NoteFilter();
+  // private uploadFilter = new NoteFilter();
 
   processUploads = async (files: File[]) => {
-    const filter = await this.uploadFilter.digestFiles(files);
-    const filterOptions = filter.getAvailableFilterOptions();
-    const notes = filter.apply();
-    this.setState({ filterOptions });
-    this.setNotesList(notes)
+    // this.setState({ filterOptions });
+    // this.setNotesList(notes);
+
+    console.time('a');
+    console.time('b');
+
+    const indexer = new NoteIndexer();
+    for (let i = 0; i < files.length; i++) {
+      indexer.digestFile(files[i]);
+    }
+    await indexer.completed();
+    await indexer.terminate();
+    this.setNotesList(indexer.notes);
   }
 
-  setNotesList = (notes: NoteItem[]) => {
+  setNotesList = (notes: IndexedFlipnoteWithFile[]) => {
     this.setState({
       notes,
       numPages: Math.ceil(notes.length / this.state.notesPerPage)
@@ -55,11 +66,14 @@ export class NoteListContextProvider extends React.Component<Props, State> {
     this.setPageIndex(0);
   }
 
-  setPageIndex = (pageIndex: number) => {
+  setPageIndex = async (pageIndex: number) => {
     const { notes, notesPerPage, numPages } = this.state;
     const startIndex = notesPerPage * pageIndex;
     const endIndex = startIndex + notesPerPage;
-    const pageNotes = notes.slice(startIndex, endIndex);
+    const pageNotes = await Promise.all(
+      notes.slice(startIndex, endIndex)
+      .map(notegridItemFromIndexedNote)    
+    );
     this.setState({
       currPageNotes: pageNotes,
       currPageIndex: pageIndex,
@@ -82,7 +96,7 @@ export class NoteListContextProvider extends React.Component<Props, State> {
 
   state: State = {
     notes: [],
-    filterOptions: {},
+    // filterOptions: {},
     numPages: 0,
     notesPerPage: 12,
     currPageIndex: 0,

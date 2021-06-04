@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { useLongHover } from '../utils';
 import { getNoteThumbUrl, getNoteAnimationUrl, revokeUrl } from '../features/GifConverter';
-import { NoteItem, NoteItemSource } from '../models';
+import { NotegridItem, NotegridItemType } from '../models';
 import { PlayerContext } from '../context/PlayerContext';
 import lockIcon from '../assets/svg/Icon/lockOutline.svg';
 
 import styles from '../styles/NoteThumb.module.scss';
 
 interface Props {
-  noteItem: NoteItem;
+  noteItem: NotegridItem;
 }
 
 export const NoteThumb: React.FunctionComponent<Props> = ({ noteItem }) => {
@@ -26,22 +26,22 @@ export const NoteThumb: React.FunctionComponent<Props> = ({ noteItem }) => {
       setPreviewSrc('');
     }
     // Sample notes loaded from URL
-    else if (noteItem && noteItem.sourceType === NoteItemSource.Sample)
-      playerCtx.openNoteFromSource(noteItem.sourceUrl);
+    else if (noteItem && noteItem.type === NotegridItemType.Sample)
+      playerCtx.openNoteFromSource(noteItem.source);
     // Upload notes loaded from note object
-    else if (noteItem && noteItem.sourceType === NoteItemSource.Upload)
-      playerCtx.openNote(noteItem.sourceNote);
+    else if (noteItem && noteItem.type === NotegridItemType.Uploaded)
+      playerCtx.openNote(noteItem.note);
   }, [noteItem]);
 
   // Handle updating images whenever the note item changes
   useEffect(() => {
     // Sample notes provide the URL right away
-    if (noteItem.sourceType === NoteItemSource.Sample)
+    if (noteItem.type === NotegridItemType.Sample)
       setThumbSrc(noteItem.thumbUrl);
     // For upload notes, generate a thumbnail GIF on request
     // TODO: show loader?
-    else if (noteItem.sourceType === NoteItemSource.Upload)
-      setThumbSrc(getNoteThumbUrl(noteItem.sourceNote));
+    else if (noteItem.type === NotegridItemType.Uploaded)
+      setThumbSrc(getNoteThumbUrl(noteItem.note));
     // Revoke old image blob urls (helps reduce memory usage)
     return () => {
       setThumbSrc('');
@@ -55,11 +55,11 @@ export const NoteThumb: React.FunctionComponent<Props> = ({ noteItem }) => {
   useEffect(() => {
     if (isHoverActive && !previewSrc) {
       // Sample notes provide the URL right away
-      if (noteItem.sourceType === NoteItemSource.Sample)
+      if (noteItem.type === NotegridItemType.Sample)
         setPreviewSrc(noteItem.previewUrl);
       // For upload notes, generate an animated GIF on request
-      if (noteItem.sourceType === NoteItemSource.Upload)
-        setPreviewSrc(getNoteAnimationUrl(noteItem.sourceNote));
+      if (noteItem.type === NotegridItemType.Uploaded)
+        setPreviewSrc(getNoteAnimationUrl(noteItem.note));
     }
   }, [isHoverActive, noteItem]);
 
@@ -81,7 +81,7 @@ export const NoteThumb: React.FunctionComponent<Props> = ({ noteItem }) => {
         </span>
       </div>
       <div className={ styles.author }>
-        { noteItem.authorname }
+        { noteItem.authorName }
       </div>
     </div>
   );

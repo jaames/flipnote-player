@@ -28,7 +28,7 @@ export class FilelistParser {
   public type: FilelistType;
   public bytes: Uint8Array;
   public size: number;
-  public list: Path[] = [];
+  public items: Path[] = [];
 
   constructor (type: FilelistType, buffer: ArrayBuffer) {
     this.bytes = new Uint8Array(buffer);
@@ -69,7 +69,7 @@ export class FilelistParser {
       for (let i = 0; i < size; i++) {
         const char = bytes[i];
         if (char === 0x0A) {
-          this.addPath(currPath); 
+          this.items.push(parsePath(currPath));
           currPath = '';
           continue;
         }
@@ -82,7 +82,7 @@ export class FilelistParser {
       for (let i = 6; i < size; i += 2) {
         const char = this.readUint16(i);
         if (char === separator) {
-          this.addPath(currPath); 
+          this.items.push(parsePath(currPath));
           currPath = '';
           continue;
         }
@@ -94,9 +94,4 @@ export class FilelistParser {
   private readUint16(offset: number) {
     return this.bytes[offset] | (this.bytes[offset + 1] << 8);
   }
-
-  private addPath(pathStr: string) {
-    this.list.push(parsePath(pathStr));
-  }
-  
 }

@@ -4,7 +4,7 @@ import { FilelistParser } from '../features/FilelistParser';
 export enum PlaylistSticker {
   Heart,
   Crown,
-  Note,
+  Music,
   Skull
 }
 
