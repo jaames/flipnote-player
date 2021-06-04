@@ -31,7 +31,7 @@ export function View() {
   return (
     <div className="">
       Flipnote by { meta?.current.username }
-      <FlipnotePlayer></FlipnotePlayer>
+      {/* <FlipnotePlayer></FlipnotePlayer> */}
     </div>
   );
 }

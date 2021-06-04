@@ -7,7 +7,7 @@
  */
 
 import { expose } from 'threads/worker';
-import { parseSource, FlipnoteFormat, FlipnoteVersion, GifImage } from 'flipnote.js';
+import { parseSource, FlipnoteVersion, GifImage } from 'flipnote.js';
 import { FilelistParser, FilelistType } from '../features/FilelistParser';
 import { stringHash } from '../utils/strings';
 import {
@@ -16,7 +16,6 @@ import {
   SystemType,
   NoteSticker,
   getStickerFromPlaylistName,
-  IndexerItem,
   IndexedItemType,
   IndexedError,
   IndexedFlipnote,

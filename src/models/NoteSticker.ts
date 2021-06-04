@@ -3,7 +3,7 @@ export enum NoteSticker {
   Crown,
   Music,
   Skull
-}
+};
 
 export function getStickerFromPlaylistName(name: string) {
   switch (name) {

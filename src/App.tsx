@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import { GlobalContextProvider } from './context/GlobalContext';
 import { NoteListContextProvider } from './context/NoteListContext';
@@ -14,17 +10,17 @@ import { View } from './routes/View';
 
 export default function App() {
   return (
-    <GlobalContextProvider>
-      <NoteListContextProvider>
-        <PlayerContextProvider>
-          <Router>
-            <Switch>
-              <Route exact path="/" component={ Index }/>
-              <Route path="/view" component={ View }/>
-            </Switch>
-          </Router>
-        </PlayerContextProvider>
-      </NoteListContextProvider>
-    </GlobalContextProvider>
+    <BrowserRouter>
+      <GlobalContextProvider>
+        <NoteListContextProvider>
+          <PlayerContextProvider>
+              <Switch>
+                <Route exact path="/" component={ Index }/>
+                <Route path="/view" component={ View }/>
+              </Switch>
+          </PlayerContextProvider>
+        </NoteListContextProvider>
+      </GlobalContextProvider>
+    </BrowserRouter>
   );
 }

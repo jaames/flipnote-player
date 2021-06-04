@@ -1,7 +1,8 @@
 import React, { createContext } from 'react';
 import { Flipnote, parseSource } from 'flipnote.js';
+import { withRouter, RouteComponentProps } from 'react-router';
 
-interface Props {}
+interface Props extends RouteComponentProps {};
 
 interface State {
   isNoteOpen: boolean;
@@ -9,7 +10,7 @@ interface State {
   openNote: (note: Flipnote) => void;
   openNoteFromSource: (source: any) => void;
   closeNote: () => void;
-}
+};
 
 export const PlayerContext = createContext<State>({
   isNoteOpen: false,
@@ -19,11 +20,12 @@ export const PlayerContext = createContext<State>({
   closeNote: () => {},
 });
 
-export class PlayerContextProvider extends React.Component<Props, State> {
+// actual export w/ withRouter() is below
+class _PlayerContextProvider extends React.Component<Props, State> {
 
   openNote = (note: Flipnote) => {
-    console.log(note);
     this.setState({ isNoteOpen: true, note });
+    this.props.history.push('/view');
   }
 
   openNoteFromSource = async (source: any) => {
@@ -58,5 +60,6 @@ export class PlayerContextProvider extends React.Component<Props, State> {
       </PlayerContext.Provider>
     );
   }
-
 }
+
+export const PlayerContextProvider = withRouter(_PlayerContextProvider);

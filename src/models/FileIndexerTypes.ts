@@ -1,16 +1,17 @@
-// import { Flipnote } from 'flipnote.js'
 import { Path } from './Path';
 import { SystemType } from './System';
 
+// TODO: this enum isn't really needed, but was useful for debugging. remove sometime?
 export enum IndexedItemType {
-  Error,
-  Flipnote,
-  Folder,
-  BackupFolder,
-  FolderIcon,
-  Author
+  Error = 'Error',
+  Flipnote = 'Flipnote',
+  Folder = 'Folder',
+  BackupFolder = 'BackupFolder',
+  FolderIcon = 'FolderIcon',
+  Author = 'Author'
 };
 
+// TODO: not needed anymore?
 interface IndexedItemBase {
   type: IndexedItemType;
 };
@@ -68,6 +69,7 @@ export interface IndexedBackupFolder extends IndexedItemBase {
   };
 };
 
+// TODO: not needed anymore?
 export type IndexerItem = IndexedItemBase 
   | IndexedAuthor
   | IndexedFlipnote

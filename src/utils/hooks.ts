@@ -1,10 +1,8 @@
 import { useCallback, useRef, useState } from 'react';
 
-const isTouchEvent = (e: Event): e is TouchEvent => {
-  return 'touches' in e;
-};
+const isTouchEvent = (e: Event): e is TouchEvent => 'touches' in e;
 
-const preventDefault = (e: Event) => {
+const preventDefaultTouchEvent = (e: Event) => {
   if (!isTouchEvent(e))
     return;
   if (e.touches.length < 2 && e.preventDefault)
@@ -19,7 +17,7 @@ export const useLongHover = (delay: number) => {
   const start = useCallback((event: TouchEvent | MouseEvent) => {
     setIsActive(false);
     if (event.target) {
-      event.target.addEventListener('touchend', preventDefault, { passive: false });
+      event.target.addEventListener('touchend', preventDefaultTouchEvent, { passive: false });
       target.current = event.target;
     }
     timeout.current = setTimeout(() => setIsActive(true), delay);
@@ -30,7 +28,7 @@ export const useLongHover = (delay: number) => {
     if (timeout.current)
       clearTimeout(timeout.current);
     if (target.current)
-      target.current.removeEventListener('touchend', preventDefault);
+      target.current.removeEventListener('touchend', preventDefaultTouchEvent);
   }, []);
 
   return [

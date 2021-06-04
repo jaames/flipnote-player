@@ -11,3 +11,6 @@ export const stringHash = (str: string, seed = 0) => {
   h2 = Math.imul(h2 ^ (h2>>>16), 2246822507) ^ Math.imul(h1 ^ (h1>>>13), 3266489909);
   return 4294967296 * (2097151 & h2) + (h1>>>0);
 }
+
+// returns a number indicating whether string A comes before string B (negative) or after (positive), in alphabetical order
+export const stringCompare = (a: string, b: string) => a.localeCompare(b);
