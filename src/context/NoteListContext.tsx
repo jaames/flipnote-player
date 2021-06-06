@@ -1,7 +1,9 @@
 import React, { createContext } from 'react';
 import {
   IndexedFlipnoteWithFile,
+  IndexedAuthor,
   IndexedFolder,
+  IndexedBackupFolder,
   NotegridItem,
   notegridItemFromIndexedNote
 } from '../models';
@@ -14,7 +16,8 @@ interface Props {}
 interface State {
   notes: IndexedFlipnoteWithFile[];
   folders: IndexedFolder[];
-  // filterOptions: NoteFilterOptions;
+  backupFolders: IndexedBackupFolder[];
+  authors: IndexedAuthor[];
   numPages: number;
   notesPerPage: number;
   currPageIndex: number;
@@ -23,6 +26,8 @@ interface State {
   hasNextPage: boolean;
   processUploads: (files: File[]) => void;
   toggleFolderFilter: (folder: IndexedFolder) => void,
+  toggleBackupFilter: (folder: IndexedBackupFolder) => void,
+  toggleAuthorFilter: (folder: IndexedAuthor) => void,
   nextPage: () => void,
   prevPage: () => void,
 }
@@ -30,6 +35,8 @@ interface State {
 export const NoteListContext = createContext<State>({
   notes: [],
   folders: [],
+  backupFolders: [],
+  authors: [],
   numPages: 0,
   notesPerPage: 12,
   currPageIndex: 0,
@@ -38,6 +45,8 @@ export const NoteListContext = createContext<State>({
   hasNextPage: false,
   processUploads: () => {},
   toggleFolderFilter: () => {},
+  toggleBackupFilter: () => {},
+  toggleAuthorFilter: () => {},
   nextPage: () => {},
   prevPage: () => {},
 });
@@ -55,11 +64,22 @@ export class NoteListContextProvider extends React.Component<Props, State> {
     await this.indexer.completed();
     await this.indexer.terminate();
     this.filter.resetFilters();
+    console.log(this.indexer);
     this.updateNoteList();
   }
 
   toggleFolderFilter = async (folder: IndexedFolder) => {
     this.filter.toggleFolderFilter(folder);
+    await this.updateNoteList();
+  }
+
+  toggleBackupFilter = async (folder: IndexedBackupFolder) => {
+    this.filter.toggleBackupFilter(folder);
+    await this.updateNoteList();
+  }
+
+  toggleAuthorFilter = async (author: IndexedAuthor) => {
+    this.filter.toggleAuthorFilter(author);
     await this.updateNoteList();
   }
 
@@ -82,9 +102,13 @@ export class NoteListContextProvider extends React.Component<Props, State> {
   private async updateNoteList() {
     const notes = this.filter.getFilteredNotes();
     const folders = this.indexer.folders;
+    const backupFolders = this.indexer.backupFolders;
+    const authors = this.indexer.authors;
     await this.setStateAsync({
       notes,
       folders,
+      backupFolders,
+      authors,
       numPages: Math.ceil(notes.length / this.state.notesPerPage)
     });
     await this.setPageIndex(0);
@@ -109,6 +133,8 @@ export class NoteListContextProvider extends React.Component<Props, State> {
   state: State = {
     notes: [],
     folders: [],
+    backupFolders: [],
+    authors: [],
     // filterOptions: {},
     numPages: 0,
     notesPerPage: 12,
@@ -118,6 +144,8 @@ export class NoteListContextProvider extends React.Component<Props, State> {
     hasNextPage: false,
     processUploads: this.processUploads,
     toggleFolderFilter: this.toggleFolderFilter,
+    toggleBackupFilter: this.toggleBackupFilter,
+    toggleAuthorFilter: this.toggleAuthorFilter,
     nextPage: this.nextPage,
     prevPage: this.prevPage,
   };

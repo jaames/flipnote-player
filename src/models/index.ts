@@ -1,4 +1,3 @@
-export * from './NoteFilter';
 export * from './NoteSticker';
 export * from './FileIndexerTypes';
 export * from './NotegridItem';

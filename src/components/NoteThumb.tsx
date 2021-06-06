@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext, useCallback } from 'react';
-import { useLongHover } from '../utils';
-import { getNoteThumbUrl, getNoteAnimationUrl, revokeUrl } from '../features/GifConverter';
+import { useLongHover, gifUrlFromNoteAnimation, gifUrlFromNoteThumb, gifUrlRevoke } from '../utils';
 import { NotegridItem, NotegridItemType } from '../models';
 import { PlayerContext } from '../context/PlayerContext';
 import lockIcon from '../assets/svg/Icon/lockOutline.svg';
@@ -41,13 +40,13 @@ export const NoteThumb: React.FunctionComponent<Props> = ({ noteItem }) => {
     // For upload notes, generate a thumbnail GIF on request
     // TODO: show loader?
     else if (noteItem.type === NotegridItemType.Uploaded)
-      setThumbSrc(getNoteThumbUrl(noteItem.note));
+      setThumbSrc(gifUrlFromNoteThumb(noteItem.note));
     // Revoke old image blob urls (helps reduce memory usage)
     return () => {
       setThumbSrc('');
       setPreviewSrc('');
-      revokeUrl(thumbSrc);
-      revokeUrl(previewSrc);
+      gifUrlRevoke(thumbSrc);
+      gifUrlRevoke(previewSrc);
     }
   }, [noteItem]);
 
@@ -59,7 +58,7 @@ export const NoteThumb: React.FunctionComponent<Props> = ({ noteItem }) => {
         setPreviewSrc(noteItem.previewUrl);
       // For upload notes, generate an animated GIF on request
       if (noteItem.type === NotegridItemType.Uploaded)
-        setPreviewSrc(getNoteAnimationUrl(noteItem.note));
+        setPreviewSrc(gifUrlFromNoteAnimation(noteItem.note));
     }
   }, [isHoverActive, noteItem]);
 

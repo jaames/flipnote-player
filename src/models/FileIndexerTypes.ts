@@ -27,6 +27,7 @@ export interface IndexedAuthor extends IndexedItemBase {
   hash: number;
   fsid: string;
   username: string;
+  isSelected: boolean;
 };
 
 export interface IndexedFlipnote extends IndexedItemBase {
@@ -57,6 +58,7 @@ export interface IndexedFolder extends IndexedItemBase {
   type: IndexedItemType.Folder;
   name: string;
   icon?: IndexedFolderIcon;
+  isSelected: boolean;
 };
 
 export interface IndexedBackupFolder extends IndexedItemBase {
@@ -67,6 +69,7 @@ export interface IndexedBackupFolder extends IndexedItemBase {
     month: number;
     day: number;
   };
+  isSelected: boolean;
 };
 
 // TODO: not needed anymore?

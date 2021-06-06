@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { NoteListContext } from '../context/NoteListContext';
 import { IndexedItemType, IndexedFolder, IndexedBackupFolder } from '../models';
-import { getArrayBufferUrl, revokeUrl } from '../features/GifConverter';
+import { gifUrlFromArrayBuffer, gifUrlRevoke } from '../utils';
 
 import styles from '../styles/FolderItem.module.scss';
 
@@ -17,13 +17,13 @@ export const FolderItem: React.FunctionComponent<Props> = ({ folder }) => {
   // Handle updating images whenever the folder changes
   useEffect(() => {
     if (folder.type === IndexedItemType.Folder && folder.icon)
-      setIconSrc(getArrayBufferUrl(folder.icon.gifData));
+      setIconSrc(gifUrlFromArrayBuffer(folder.icon.gifData));
     else
       setIconSrc('');
     // Revoke old image blob urls (helps reduce memory usage)
     return () => {
       setIconSrc('');
-      revokeUrl(iconSrc);
+      gifUrlRevoke(iconSrc);
     }
   }, [folder]);
 
@@ -38,8 +38,9 @@ export const FolderItem: React.FunctionComponent<Props> = ({ folder }) => {
 
   else {
     return (
-      <div className="FolderItem FolderItem--backupFolder">
-        { folder.name }
+      <div className={ styles.root } onClick={() => noteListCtx.toggleBackupFilter(folder)}>
+        <img className={ styles.icon } src={ iconSrc }/>
+        <div className={ styles.name }>{ folder.date.day }/{ folder.date.month }/{ folder.date.year }</div>
       </div>
     )
   }

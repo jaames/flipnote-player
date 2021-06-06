@@ -43,6 +43,10 @@ export class FilelistParser {
     return new FilelistParser(type, buffer);
   }
 
+  static async fromArrayBuffer(type: FilelistType, data: ArrayBuffer) {
+    return new FilelistParser(type, data);
+  }
+
   private xorDecrypt() {
     const { type, bytes, size } = this;
     // DSi list

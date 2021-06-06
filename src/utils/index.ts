@@ -7,3 +7,4 @@ export * from './sets';
 export * from './maps';
 export * from './hooks';
 export * from './uid';
+export * from './gif';

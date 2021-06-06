@@ -10,6 +10,7 @@ import { expose } from 'threads/worker';
 import { parseSource, FlipnoteVersion, GifImage } from 'flipnote.js';
 import { FilelistParser, FilelistType } from '../features/FilelistParser';
 import { stringHash } from '../utils/strings';
+import { promiseWithTimeout } from '../utils/promises';
 import {
   Path,
   parsePath,
@@ -25,7 +26,14 @@ import {
   IndexedAuthor
 } from '../models';
 
+// pattern to use for detecting DSi backup folder names
 const DSI_BACKUP_FOLDER_REGEX = /^(\d{4})(\d{2})(\d{2})$/;
+// file parse timeouts, in milliseconds
+// if parsing an individual file takes too long we can just error it out instead,
+// rather than making the user wait too long
+const TIMEOUT_NOTE = 500;
+const TIMEOUT_ICON = 500;
+const TIMEOUT_FILELIST = 500;
 
 export interface WorkerStats {
   numNotes: number;
@@ -72,7 +80,7 @@ async function digestFile(pathStr: string, data: ArrayBuffer) {
 async function digestPlaylist(type: FilelistType, path: Path, data: ArrayBuffer) {
   stats.numPlaylists += 1;
   try {
-    const playlist = new FilelistParser(type, data);
+    const playlist = await promiseWithTimeout(FilelistParser.fromArrayBuffer(type, data), TIMEOUT_FILELIST);
     const sticker = getStickerFromPlaylistName(path.base);
     if (sticker) {
       const paths = stickerLists.get(sticker);
@@ -96,7 +104,7 @@ async function digestPlaylist(type: FilelistType, path: Path, data: ArrayBuffer)
 async function digestIcon(path: Path, data: ArrayBuffer) {
   stats.numIcons += 1;
   try {
-    const icon = await parseSource(data);
+    const icon = await promiseWithTimeout(parseSource(data), TIMEOUT_ICON);
     const gif = GifImage.fromFlipnoteFrame(icon, 0);
     const item: IndexedFolderIcon = {
       type: IndexedItemType.FolderIcon,
@@ -122,7 +130,7 @@ async function digestIcon(path: Path, data: ArrayBuffer) {
 async function digestNote(path: Path, data: ArrayBuffer) {
   stats.numNotes += 1;
   try {
-    const note = await parseSource(data);
+    const note = await promiseWithTimeout(parseSource(data), TIMEOUT_NOTE);
     const meta = note.meta;
     const item: IndexedFlipnote = {
       type: IndexedItemType.Flipnote,
@@ -165,6 +173,7 @@ function digestNoteVersion(version: FlipnoteVersion) {
       hash: hash,
       username: version.username,
       fsid: version.fsid,
+      isSelected: false
     };
     authors.set(hash, author);
   }
@@ -194,7 +203,8 @@ function digestBackupFolder(parentFolder: string) {
     backupFolders.set(parentFolder, {
       type: IndexedItemType.BackupFolder,
       name: parentFolder,
-      date: { year, month, day }
+      date: { year, month, day },
+      isSelected: false
     });
   }
 }
@@ -203,7 +213,8 @@ function digestFolder(folder: string) {
   if(!folders.has(folder)) {
     folders.set(folder, {
       type: IndexedItemType.Folder,
-      name: folder
+      name: folder,
+      isSelected: false
     });
   }
 }

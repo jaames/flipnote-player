@@ -1,6 +1,16 @@
 import { FileIndexer } from './FileIndexer';
-import { IndexedFlipnoteWithFile, IndexedFolder, IndexedAuthor } from '../models';
-import { stringCompare, dateCompare, setHasAll, setHasAny } from '../utils';
+import {
+  IndexedFlipnoteWithFile,
+  IndexedFolder,
+  IndexedBackupFolder,
+  IndexedAuthor
+} from '../models';
+import {
+  stringCompare,
+  dateCompare,
+  setHasAll,
+  setHasAny
+} from '../utils';
 
 export enum SortMethod {
   Timestamp,
@@ -10,6 +20,7 @@ export enum SortMethod {
 
 interface Filters {
   folders: Set<string | undefined>; // set of folder names
+  backupFolders: Set<string | undefined>;
   authors: Set<string | undefined>; // set of user FSIDs
 };
 
@@ -19,6 +30,7 @@ export class FileFilter {
   public sortBy: SortMethod = SortMethod.Path;
   public filterBy: Filters = {
     folders: new Set(),
+    backupFolders: new Set(),
     authors: new Set(),
   };
 
@@ -29,6 +41,7 @@ export class FileFilter {
   public resetFilters() {
     this.filterBy = {
       folders: new Set(),
+      backupFolders: new Set(),
       authors: new Set(),
     }
   }
@@ -47,6 +60,14 @@ export class FileFilter {
       folders.add(folder.name);
   }
 
+  public toggleBackupFilter(folder: IndexedBackupFolder) {
+    const { backupFolders } = this.filterBy;
+    if (backupFolders.has(folder.name))
+      backupFolders.delete(folder.name);
+    else
+      backupFolders.add(folder.name);
+  }
+
   public toggleAuthorFilter(author: IndexedAuthor) {
     const { authors } = this.filterBy;
     if (authors.has(author.fsid))
@@ -57,10 +78,14 @@ export class FileFilter {
 
   private getFilterFn() {
     const filters = this.filterBy;
+    const useBackupFolders = filters.backupFolders.size > 0;
     const useFolders = filters.folders.size > 0;
     const useAuthors = filters.authors.size > 0;
 
     return (item: IndexedFlipnoteWithFile) => {
+      // 
+      if (useBackupFolders && !filters.backupFolders.has(item.path.parentFolder))
+        return false;
       // 
       if (useFolders && !filters.folders.has(item.path.folder))
         return false;

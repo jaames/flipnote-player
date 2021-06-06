@@ -9,12 +9,17 @@ export const NoteFilterControls: React.FunctionComponent<Props> = () => {
   const noteListCtx = useContext(NoteListContext);
 
   return (
-    <div className="FolderList">
-      {
-      noteListCtx.folders.map(folder => (
-        <FolderItem folder={ folder } key={ folder.name }/>
-      ))
-      }
+    <div className="FilterControls">
+      <div className="FolderList">
+        {noteListCtx.backupFolders.map(folder => (
+          <FolderItem folder={ folder } key={ folder.name }/>
+        ))}
+      </div>
+      <div className="FolderList">
+        {noteListCtx.folders.map(folder => (
+          <FolderItem folder={ folder } key={ folder.name }/>
+        ))}
+      </div>
     </div>
     // <div className="FilterControls">
     //   {(options.formats !== undefined) && (
