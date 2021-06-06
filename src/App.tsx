@@ -14,10 +14,10 @@ export default function App() {
       <GlobalContextProvider>
         <NoteListContextProvider>
           <PlayerContextProvider>
-              <Switch>
-                <Route exact path="/" component={ Index }/>
-                <Route path="/view" component={ View }/>
-              </Switch>
+            <Switch>
+              <Route exact path="/" component={ Index }/>
+              <Route path="/view" component={ View }/>
+            </Switch>
           </PlayerContextProvider>
         </NoteListContextProvider>
       </GlobalContextProvider>

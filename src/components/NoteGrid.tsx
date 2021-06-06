@@ -5,9 +5,6 @@ import styles from '../styles/NoteGrid.module.scss';
 
 interface Props {
   notes: NotegridItem[];
-  // pageIndex: number;
-  // numPages: number;
-
 }
 
 export const NoteGrid: React.FunctionComponent<Props> = ({ notes, }) => {

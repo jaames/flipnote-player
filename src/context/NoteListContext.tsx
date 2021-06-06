@@ -1,15 +1,19 @@
 import React, { createContext } from 'react';
 import {
   IndexedFlipnoteWithFile,
+  IndexedFolder,
   NotegridItem,
   notegridItemFromIndexedNote
 } from '../models';
-import { NoteIndexer } from '../features/FileIndexer';
+
+import { FileIndexer } from '../features/FileIndexer';
+import { FileFilter } from '../features/FileFilter';
 
 interface Props {}
 
 interface State {
   notes: IndexedFlipnoteWithFile[];
+  folders: IndexedFolder[];
   // filterOptions: NoteFilterOptions;
   numPages: number;
   notesPerPage: number;
@@ -18,14 +22,14 @@ interface State {
   hasPrevPage: boolean;
   hasNextPage: boolean;
   processUploads: (files: File[]) => void;
-  setPageIndex: (pageIndex: number) => void;
+  toggleFolderFilter: (folder: IndexedFolder) => void,
   nextPage: () => void,
   prevPage: () => void,
 }
 
 export const NoteListContext = createContext<State>({
   notes: [],
-  // filterOptions: {},
+  folders: [],
   numPages: 0,
   notesPerPage: 12,
   currPageIndex: 0,
@@ -33,40 +37,60 @@ export const NoteListContext = createContext<State>({
   hasPrevPage: false,
   hasNextPage: false,
   processUploads: () => {},
-  setPageIndex: () => {},
+  toggleFolderFilter: () => {},
   nextPage: () => {},
   prevPage: () => {},
 });
 
 export class NoteListContextProvider extends React.Component<Props, State> {
 
-  // private uploadFilter = new NoteFilter();
+  private indexer = new FileIndexer();
+  private filter = new FileFilter(this.indexer);
 
   processUploads = async (files: File[]) => {
-    // this.setState({ filterOptions });
-    // this.setNotesList(notes);
-
-    console.time('a');
-    console.time('b');
-
-    const indexer = new NoteIndexer();
-    for (let i = 0; i < files.length; i++) {
-      indexer.digestFile(files[i]);
-    }
-    await indexer.completed();
-    await indexer.terminate();
-    this.setNotesList(indexer.notes);
+    // Process files with file indexer
+    await this.indexer.init();
+    for (let i = 0; i < files.length; i++)
+      this.indexer.digestFile(files[i]);
+    await this.indexer.completed();
+    await this.indexer.terminate();
+    this.filter.resetFilters();
+    this.updateNoteList();
   }
 
-  setNotesList = (notes: IndexedFlipnoteWithFile[]) => {
-    this.setState({
+  toggleFolderFilter = async (folder: IndexedFolder) => {
+    this.filter.toggleFolderFilter(folder);
+    await this.updateNoteList();
+  }
+
+  nextPage = () => {
+    const { hasNextPage, currPageIndex } = this.state;
+    if (hasNextPage)
+      this.setPageIndex(currPageIndex + 1);
+  }
+
+  prevPage = () => {
+    const { hasPrevPage, currPageIndex } = this.state;
+    if (hasPrevPage)
+      this.setPageIndex(currPageIndex - 1);
+  }
+
+  private async setStateAsync(state: any) {
+    return new Promise<void>((resolve) => this.setState(state, resolve));
+  }
+
+  private async updateNoteList() {
+    const notes = this.filter.getFilteredNotes();
+    const folders = this.indexer.folders;
+    await this.setStateAsync({
       notes,
+      folders,
       numPages: Math.ceil(notes.length / this.state.notesPerPage)
     });
-    this.setPageIndex(0);
+    await this.setPageIndex(0);
   }
 
-  setPageIndex = async (pageIndex: number) => {
+  private async setPageIndex(pageIndex: number) {
     const { notes, notesPerPage, numPages } = this.state;
     const startIndex = notesPerPage * pageIndex;
     const endIndex = startIndex + notesPerPage;
@@ -82,20 +106,9 @@ export class NoteListContextProvider extends React.Component<Props, State> {
     });
   }
 
-  nextPage = () => {
-    const { hasNextPage, currPageIndex } = this.state;
-    if (hasNextPage)
-      this.setPageIndex(currPageIndex + 1);
-  }
-
-  prevPage = () => {
-    const { hasPrevPage, currPageIndex } = this.state;
-    if (hasPrevPage)
-      this.setPageIndex(currPageIndex - 1);
-  }
-
   state: State = {
     notes: [],
+    folders: [],
     // filterOptions: {},
     numPages: 0,
     notesPerPage: 12,
@@ -104,7 +117,7 @@ export class NoteListContextProvider extends React.Component<Props, State> {
     hasPrevPage: false,
     hasNextPage: false,
     processUploads: this.processUploads,
-    setPageIndex: this.setPageIndex,
+    toggleFolderFilter: this.toggleFolderFilter,
     nextPage: this.nextPage,
     prevPage: this.prevPage,
   };

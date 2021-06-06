@@ -7,7 +7,7 @@
 import { spawn, Pool, Worker, ModuleThread } from 'threads';
 import { WorkerDescriptor } from 'threads/dist/master/pool-types';
 import { FileIndexerWorker, WorkerStats } from '../workers/FileIndexerWorker';
-import { mapMerge, mapMergeToArray } from '../utils';
+import { assert, mapMerge, mapMergeToArray } from '../utils';
 import {
   Path,
   NoteSticker,
@@ -20,10 +20,10 @@ import {
   IndexedError,
 } from '../models';
 
-export class NoteIndexer {
+export class FileIndexer {
 
-  private _numThreads = (navigator?.hardwareConcurrency) || 4;
-  private _pool: Pool<ModuleThread<FileIndexerWorker>>;
+  private _maxAllowedThreads = (navigator?.hardwareConcurrency) || 4;
+  private _pool?: Pool<ModuleThread<FileIndexerWorker>>
   private _fileMap: Map<string, File> = new Map();
 
   public numFilesDigested = 0;
@@ -32,24 +32,36 @@ export class NoteIndexer {
   public authors: IndexedAuthor[] = [];
   public folders: IndexedFolder[] = [];
   public backupFolders: IndexedBackupFolder[] = [];
-
-  constructor() {
-    this._pool = Pool(this.spawnThread, this._numThreads);
-  }
   
   private spawnThread() {
     return spawn<FileIndexerWorker>(new Worker('../workers/FileIndexerWorker.ts'));
   }
 
+  public async init() {
+    if (this._pool !== undefined)
+      await this.terminate();
+    this._fileMap.clear();
+    this.numFilesDigested = 0;
+    this.notes = [];
+    this.errors  = [];
+    this.authors = [];
+    this.authors = [];
+    this.folders = [];
+    this.backupFolders = [];
+    this._pool = Pool(this.spawnThread, this._maxAllowedThreads);
+  }
+
   public digestFile(file: File) {
     this._fileMap.set(file.path, file);
     file.arrayBuffer().then(data => {
+      assert(this._pool !== undefined);
       this.numFilesDigested += 1;
       return this._pool.queue(thread => thread.digestFile(file.path, data));
     });
   }
 
   public getThreads() {
+    assert(this._pool !== undefined);
     const pool = this._pool as any;
     return pool.workers.map((w: WorkerDescriptor<ModuleThread<FileIndexerWorker>>) => w.init) as Promise<ModuleThread<FileIndexerWorker>>[];
   }
@@ -124,7 +136,7 @@ export class NoteIndexer {
 
   public async printDebugInfo() {
     const threads = await this.getThreadStats();
-    console.log(`Processed ${ this.numFilesDigested } files with ${ this._numThreads } threads:`)
+    console.log(`Processed ${ this.numFilesDigested } files with ${ this._maxAllowedThreads } threads:`)
     console.table(threads.reduce((table: any, stats, i) => {
       table[`Thread #${ i + 1 }`] = {
         'Flipnotes': stats.numNotes,
@@ -136,6 +148,7 @@ export class NoteIndexer {
   }
 
   public async completed() {
+    assert(this._pool !== undefined);
     await this._pool.completed();
     this.notes = await this.getNotes();
     this.authors = await this.getAuthors();
@@ -148,10 +161,12 @@ export class NoteIndexer {
   }
 
   public async terminate() {
+    assert(this._pool !== undefined);
     await this._pool.terminate();
   }
 
   public async forceTerminate() {
+    assert(this._pool !== undefined);
     await this._pool.terminate(true);
   }
 }

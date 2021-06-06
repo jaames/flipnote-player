@@ -14,7 +14,6 @@ import { NoteListContext } from '../context/NoteListContext';
 import styles from '../styles/Homepage.module.scss';
 
 export function Index() {
-  const history = useHistory();
   const globalCtx = useContext(GlobalContext);
   const playerCtx = useContext(PlayerContext);
   const noteListCtx = useContext(NoteListContext);
@@ -23,11 +22,6 @@ export function Index() {
     globalCtx.startLoading();
     await noteListCtx.processUploads(files);
     globalCtx.stopLoading();
-  }
-
-  function loadNote(note: Flipnote) {
-    playerCtx.openNote(note);
-    history.push('/view');
   }
 
   return (
@@ -56,7 +50,7 @@ export function Index() {
               </div>
             )}
           </Dropzone>
-          {/* <NoteFilterControls options={ noteListCtx.filterOptions }></NoteFilterControls> */}
+          <NoteFilterControls></NoteFilterControls>
         </div>
       </div>
     </Layout>

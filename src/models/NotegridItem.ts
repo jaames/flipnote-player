@@ -22,7 +22,6 @@ export interface NotegridUploadedItem extends NotegridItemBase {
   path: Path;
   note: Flipnote;
   file: File;
-  thumbUrl: string;
 }
 
 export interface NotegridSampleItem extends NotegridItemBase {
@@ -37,8 +36,6 @@ export type NotegridItem = NotegridUploadedItem | NotegridSampleItem;
 export const notegridItemFromIndexedNote = async (indexedNote: IndexedFlipnoteWithFile): Promise<NotegridItem> => {
   const { path, file, hash, authorName, isSpinoff, isLocked, system } = indexedNote;
   const note = await parseSource(file);
-  const gif = GifImage.fromFlipnoteFrame(note, note.thumbFrameIndex);
-  const thumbUrl = gif.getUrl();
 
   return {
     type: NotegridItemType.Uploaded,
@@ -47,7 +44,6 @@ export const notegridItemFromIndexedNote = async (indexedNote: IndexedFlipnoteWi
     note,
     file,
     system,
-    thumbUrl,
     authorName,
     isSpinoff,
     isLocked,

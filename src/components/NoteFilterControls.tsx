@@ -1,13 +1,26 @@
 import React, { useState, useContext } from 'react';
-// import { NoteFilterOptions } from '../models';
+import { NoteListContext } from '../context/NoteListContext';
 
-interface Props {
-  // options: NoteFilterOptions;
-}
+interface Props {}
 
 export const NoteFilterControls: React.FunctionComponent<Props> = () => {
+
+  const noteListCtx = useContext(NoteListContext);
+
   return (
-    <div></div>
+    <div className="FolderList">
+      {
+      noteListCtx.folders.map(folder => (
+        <div
+          className="FolderList__item"
+          key={ folder.name }
+          onClick={() => noteListCtx.toggleFolderFilter(folder)}
+        >
+          { folder.name }
+        </div>
+      ))
+      }
+    </div>
     // <div className="FilterControls">
     //   {(options.formats !== undefined) && (
     //     <div className="FilterControls__formats">
