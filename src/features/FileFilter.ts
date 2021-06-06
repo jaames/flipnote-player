@@ -72,15 +72,15 @@ export class FileFilter {
     }
   }
 
-  private getSortFn() {
+  private getSortFn(): (a: IndexedFlipnoteWithFile, b: IndexedFlipnoteWithFile) => number {
     switch (this.sortBy) {
       case SortMethod.Timestamp:
-        return (a: IndexedFlipnoteWithFile, b: IndexedFlipnoteWithFile) => dateCompare(a.timestamp, b.timestamp);
+        return (a, b) => dateCompare(a.timestamp, b.timestamp);
       case SortMethod.AuthorName:
-        return (a: IndexedFlipnoteWithFile, b: IndexedFlipnoteWithFile) => stringCompare(a.authorName, b.authorName);
+        return (a, b) => stringCompare(a.authorName, b.authorName);
       case SortMethod.Path:
       default:
-        return (a: IndexedFlipnoteWithFile, b: IndexedFlipnoteWithFile) => stringCompare(a.path.full, b.path.full);
+        return (a, b) => stringCompare(a.path.full, b.path.full);
     }
   }
 }

@@ -1,0 +1,22 @@
+.root {
+  display: flex;
+  min-height: 24px;
+  align-items: center;
+  margin: 4px 0;
+}
+
+.icon {
+  width: 24px;
+  margin-left: 2px;
+  image-rendering: auto;
+  image-rendering: crisp-edges;
+  image-rendering: pixelated;
+}
+
+.name {
+  margin-left: 30px;
+}
+
+.icon + .name {
+  margin-left: 4px;
+}

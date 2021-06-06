@@ -7,7 +7,7 @@
 import { spawn, Pool, Worker, ModuleThread } from 'threads';
 import { WorkerDescriptor } from 'threads/dist/master/pool-types';
 import { FileIndexerWorker, WorkerStats } from '../workers/FileIndexerWorker';
-import { assert, mapMerge, mapMergeToArray } from '../utils';
+import { assert, mapMerge, mapMergeToArray, stringCompare } from '../utils';
 import {
   Path,
   NoteSticker,
@@ -100,7 +100,7 @@ export class FileIndexer {
         if (folder) folder.icon = icon;
       }
     });
-    return [...folderMap.values()];
+    return [...folderMap.values()].sort((a, b) => stringCompare(a.name, b.name));
   }
 
   public async getBackupFolders() {

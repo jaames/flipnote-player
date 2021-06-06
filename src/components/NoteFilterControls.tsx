@@ -1,5 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { NoteListContext } from '../context/NoteListContext';
+import { FolderItem } from '../components/FolderItem';
 
 interface Props {}
 
@@ -11,13 +12,7 @@ export const NoteFilterControls: React.FunctionComponent<Props> = () => {
     <div className="FolderList">
       {
       noteListCtx.folders.map(folder => (
-        <div
-          className="FolderList__item"
-          key={ folder.name }
-          onClick={() => noteListCtx.toggleFolderFilter(folder)}
-        >
-          { folder.name }
-        </div>
+        <FolderItem folder={ folder } key={ folder.name }/>
       ))
       }
     </div>

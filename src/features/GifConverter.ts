@@ -19,3 +19,8 @@ export function revokeUrl(url: string) {
   if (url.startsWith('blob:'))
     URL.revokeObjectURL(url);
 }
+
+export function getArrayBufferUrl(data: ArrayBuffer) {
+  const blob = new Blob([data], { type: 'image/gif' });
+  return URL.createObjectURL(blob);
+}

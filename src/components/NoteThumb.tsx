@@ -9,7 +9,7 @@ import styles from '../styles/NoteThumb.module.scss';
 
 interface Props {
   noteItem: NotegridItem;
-}
+};
 
 export const NoteThumb: React.FunctionComponent<Props> = ({ noteItem }) => {
 
