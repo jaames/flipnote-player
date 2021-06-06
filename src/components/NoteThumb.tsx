@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useContext, useCallback } from 'react';
-import { useLongHover, gifUrlFromNoteAnimation, gifUrlFromNoteThumb, gifUrlRevoke } from '../utils';
+import React, { useContext, useCallback } from 'react';
 import { NotegridItem, NotegridItemType } from '../models';
 import { PlayerContext } from '../context/PlayerContext';
+import { useLongHover, useObjectUrl, gifUrlFromNoteAnimation, gifUrlFromNoteThumb } from '../utils';
 import lockIcon from '../assets/svg/Icon/lockOutline.svg';
 
 import styles from '../styles/NoteThumb.module.scss';
@@ -12,55 +12,40 @@ interface Props {
 
 export const NoteThumb: React.FunctionComponent<Props> = ({ noteItem }) => {
 
-  const [thumbSrc, setThumbSrc] = useState<string>('');
-  const [previewSrc, setPreviewSrc] = useState<string>('');
   const [isHoverActive, hoverEvents] = useLongHover(750);
   const playerCtx = useContext(PlayerContext);
 
   // Handle thumbnail clicks to open the note
   const handleClick = useCallback(() => {
-    // If no noteItem
-    if (!noteItem) {
-      setThumbSrc('');
-      setPreviewSrc('');
-    }
     // Sample notes loaded from URL
-    else if (noteItem && noteItem.type === NotegridItemType.Sample)
+    if (noteItem && noteItem.type === NotegridItemType.Sample)
       playerCtx.openNoteFromSource(noteItem.source);
     // Upload notes loaded from note object
     else if (noteItem && noteItem.type === NotegridItemType.Uploaded)
       playerCtx.openNote(noteItem.note);
   }, [noteItem]);
 
-  // Handle updating images whenever the note item changes
-  useEffect(() => {
-    // Sample notes provide the URL right away
-    if (noteItem.type === NotegridItemType.Sample)
-      setThumbSrc(noteItem.thumbUrl);
+  const thumbSrc = useObjectUrl(() => {
     // For upload notes, generate a thumbnail GIF on request
     // TODO: show loader?
+    if (noteItem.type === NotegridItemType.Sample)
+      return noteItem.thumbUrl;
     else if (noteItem.type === NotegridItemType.Uploaded)
-      setThumbSrc(gifUrlFromNoteThumb(noteItem.note));
-    // Revoke old image blob urls (helps reduce memory usage)
-    return () => {
-      setThumbSrc('');
-      setPreviewSrc('');
-      gifUrlRevoke(thumbSrc);
-      gifUrlRevoke(previewSrc);
-    }
+      return gifUrlFromNoteThumb(noteItem.note);
+    return '';
   }, [noteItem]);
 
-  // Handle showing a preview GIF on long hover
-  useEffect(() => {
-    if (isHoverActive && !previewSrc) {
+  const previewSrc = useObjectUrl(() => {
+    if (isHoverActive) {
       // Sample notes provide the URL right away
       if (noteItem.type === NotegridItemType.Sample)
-        setPreviewSrc(noteItem.previewUrl);
+        return noteItem.previewUrl;
       // For upload notes, generate an animated GIF on request
       if (noteItem.type === NotegridItemType.Uploaded)
-        setPreviewSrc(gifUrlFromNoteAnimation(noteItem.note));
+        return gifUrlFromNoteAnimation(noteItem.note);
     }
-  }, [isHoverActive, noteItem]);
+    return '';
+  }, [noteItem, isHoverActive]);
 
   return (
     <div className={ styles.root } onClick={ handleClick } {...hoverEvents}>

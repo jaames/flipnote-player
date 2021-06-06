@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { NoteListContext } from '../context/NoteListContext';
 import { IndexedItemType, IndexedFolder, IndexedBackupFolder } from '../models';
-import { gifUrlFromArrayBuffer, gifUrlRevoke } from '../utils';
+import { gifUrlFromArrayBuffer, useObjectUrl } from '../utils';
 
 import styles from '../styles/FolderItem.module.scss';
 
@@ -11,20 +11,12 @@ interface Props {
 
 export const FolderItem: React.FunctionComponent<Props> = ({ folder }) => {
 
-  const [iconSrc, setIconSrc] = useState<string>('');
   const noteListCtx = useContext(NoteListContext);
-
-  // Handle updating images whenever the folder changes
-  useEffect(() => {
+  const iconSrc = useObjectUrl(() => {
     if (folder.type === IndexedItemType.Folder && folder.icon)
-      setIconSrc(gifUrlFromArrayBuffer(folder.icon.gifData));
+      return gifUrlFromArrayBuffer(folder.icon.gifData);
     else
-      setIconSrc('');
-    // Revoke old image blob urls (helps reduce memory usage)
-    return () => {
-      setIconSrc('');
-      gifUrlRevoke(iconSrc);
-    }
+      return '';
   }, [folder]);
 
   if (folder.type === IndexedItemType.Folder) {

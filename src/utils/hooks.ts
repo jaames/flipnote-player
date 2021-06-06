@@ -1,4 +1,22 @@
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState, DependencyList } from 'react';
+import { gifUrlRevoke } from './gif';
+
+/**
+ * Handle cleaning up objectURLs used for generated GIFs, etc
+ */
+export const useObjectUrl = (urlFn: () => string, deps: DependencyList) => {
+  const [objUrl, setObjUrl] = useState<string>('');
+  useEffect(() => {
+    gifUrlRevoke(objUrl);
+    setObjUrl(urlFn());
+    // revoke url to clean up when element is destroyed
+    return () => {
+      setObjUrl('');
+      gifUrlRevoke(objUrl);
+    }
+  }, deps);
+  return objUrl;
+}
 
 const isTouchEvent = (e: Event): e is TouchEvent => 'touches' in e;
 
@@ -9,6 +27,9 @@ const preventDefaultTouchEvent = (e: Event) => {
     e.preventDefault();
 };
 
+/**
+ * update state boolean whenever an element is hovered over for more than the given delay, in millisecends
+ */
 export const useLongHover = (delay: number) => {
   const timeout = useRef<ReturnType<typeof setTimeout>>();
   const target = useRef<EventTarget>();
@@ -40,4 +61,4 @@ export const useLongHover = (delay: number) => {
       onTouchEnd: clear,
     }
   ];
-};
+}
