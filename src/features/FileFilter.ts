@@ -5,10 +5,10 @@ import {
   IndexedBackupFolder,
   IndexedAuthor
 } from '../models';
+
 import {
   stringCompare,
   dateCompare,
-  setHasAll,
   setHasAny
 } from '../utils';
 
