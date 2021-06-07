@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState, DependencyList } from 'react';
+import React, { RefObject, DependencyList, useCallback, useEffect, useRef, useState } from 'react';
 import { gifUrlRevoke } from './gif';
 
 /**
@@ -62,3 +62,28 @@ export const useLongHover = (delay: number) => {
     }
   ];
 }
+
+const DEFAULT_CLICK_EVENTS = ['mousedown', 'touchstart'];
+
+export const useClickAway = <E extends Event = MouseEvent>(ref: RefObject<HTMLElement | null>, fn: (event: E) => void, events: string[] = DEFAULT_CLICK_EVENTS) => {
+  const savedCallback = useRef(fn);
+
+  useEffect(() => {
+    savedCallback.current = fn;
+  }, [fn]);
+
+  useEffect(() => {
+    const handler = (event: any) => {
+      const el = ref.current;
+      el && !el.contains(event.target) && savedCallback.current(event);
+    }
+
+    for (const eventName of events)
+      document.addEventListener(eventName, handler);
+
+    return () => {
+      for (const eventName of events)
+        document.removeEventListener(eventName, handler);
+    }
+  }, [events, ref]);
+};
