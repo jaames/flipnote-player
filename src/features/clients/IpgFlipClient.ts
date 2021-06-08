@@ -4,16 +4,17 @@
  * The only Flipnote service to have all the API endpoints I want!?
  */
 
-import { Flipnote, parseSource } from 'flipnote.js';
-import { ClientType, ExternalServiceClient, ExternalFlipnoteItem, ExternalAuthorItem } from '../../models/ExternalServiceTypes';
+import { Flipnote, FlipnoteFormat, parseSource, utils } from 'flipnote.js';
+import { ClientType, ExternalService, ExternalFlipnoteItem, ExternalAuthorItem } from '../../models/ExternalServiceTypes';
 import { stringCompileTemplate } from '../../utils';
+import ipgIcon from '../../assets/svg/ipgflip.svg';
 
 const URL_REGEX = /https?:\/\/(?:www.)?ipgflip.xyz\/watch\/([0-9A-F]{6}_[0-9A-F]{13}_[0-9]{3})/;
 const URL_TEMPLATE_PPM = stringCompileTemplate`https://content.ipgflip.xyz/movie/${0}.ppm`;
 const URL_TEMPLATE_MEMO = stringCompileTemplate`https://api.ipgflip.xyz/flipnote/${0}`;
 const URL_TEMPLATE_USER = stringCompileTemplate`https://api.ipgflip.xyz/user/${0}@DSi`;
 
-export class IpgFlipClient implements ExternalServiceClient {
+export class IpgFlipClient implements ExternalService {
 
   public service = ClientType.IpgFlip;
 
@@ -36,14 +37,21 @@ export class IpgFlipClient implements ExternalServiceClient {
 
   async getAuthorDetails(fsid: string): Promise<ExternalAuthorItem[]> {
     try {
+      // IPGFlip only hosts DSi users
+      if (!utils.isPpmFsid(fsid))
+        throw '';
+      // Fetch user info
       const url = URL_TEMPLATE_USER([fsid]);
       const response = await fetch(url);
       const data = await response.json();
-      if (!data.sucess)
+      // Check API response
+      if (!data.success)
         throw '';
+
       return [
         {
           service: this.service,
+          iconUrl: ipgIcon,
           url
         }
       ];
@@ -55,15 +63,22 @@ export class IpgFlipClient implements ExternalServiceClient {
 
   async getNoteDetails(note: Flipnote): Promise<ExternalFlipnoteItem[]> {
     try {
+      // IPGFlip only hosts PPMs
+      if (note.format !== FlipnoteFormat.PPM)
+        throw '';
+      // Do fetch
       const filename = note.meta.current.filename;
       const url = URL_TEMPLATE_MEMO([filename]);
       const response = await fetch(url);
       const data = await response.json();
-      if (!data.sucess)
+      // Check API response
+      if (!data.success)
         throw '';
+      
       return [
         {
           service: this.service,
+          iconUrl: ipgIcon,
           url
         }
       ];

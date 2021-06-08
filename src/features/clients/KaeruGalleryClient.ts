@@ -4,15 +4,16 @@
  * Thanks Lauren for taking time to clean up API stuff for me :)
  */
 
-import { Flipnote, parseSource } from 'flipnote.js';
-import { ClientType, ExternalServiceClient, ExternalFlipnoteItem, ExternalAuthorItem } from '../../models/ExternalServiceTypes';
+import { Flipnote, FlipnoteFormat, parseSource } from 'flipnote.js';
+import { ClientType, ExternalService, ExternalFlipnoteItem, ExternalAuthorItem } from '../../models/ExternalServiceTypes';
 import { stringCompileTemplate } from '../../utils';
+import kaeruIcon from '../../assets/svg/kaeru_gallery.svg';
 
 const URL_REGEX = /https?:\/\/gallery.kaeru.world\/memo\/([0-9a-z]{28})/;
 const URL_TEMPLATE_KWZ = stringCompileTemplate`https://cdn.kaeru.world/memo/kwz/${0}.kwz`;
 const URL_TEMPLATE_MEMO = stringCompileTemplate`https://gallery.kaeru.world/api/v0/memo/${0}`;
 
-export class KaeruGalleryClient implements ExternalServiceClient {
+export class KaeruGalleryClient implements ExternalService {
 
   public service = ClientType.KaeruGallery;
 
@@ -40,15 +41,22 @@ export class KaeruGalleryClient implements ExternalServiceClient {
 
   async getNoteDetails(note: Flipnote): Promise<ExternalFlipnoteItem[]> {
     try {
+      // Kaeru Gallery only hosts KWZs
+      if (note.format !== FlipnoteFormat.KWZ)
+        throw '';
+      // Do API fetch
       const filename = note.meta.current.filename;
       const url = URL_TEMPLATE_MEMO([filename]);
       const response = await fetch(url);
       const data = await response.json();
+      // Check API response succcess
       if (data.code !== 200 || data.memo === undefined)
         throw '';
+
       return [
         {
           service: this.service,
+          iconUrl: kaeruIcon,
           url
         }
       ];

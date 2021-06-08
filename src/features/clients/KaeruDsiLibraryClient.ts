@@ -5,9 +5,10 @@
  */
 
 import { Flipnote, parseSource } from 'flipnote.js';
-import { ClientType, ExternalServiceClient, ExternalFlipnoteItem, ExternalAuthorItem } from '../../models/ExternalServiceTypes';
+import { ClientType, ExternalService, ExternalFlipnoteItem, ExternalAuthorItem } from '../../models/ExternalServiceTypes';
+import kaeruIcon from '../../assets/svg/kaeru_gallery.svg';
 
-export class KaeruDsiLibraryClient implements ExternalServiceClient {
+export class KaeruDsiLibraryClient implements ExternalService {
 
   public service = ClientType.KaeruDsiLibrary;
 

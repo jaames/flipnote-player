@@ -6,16 +6,16 @@
  */
 
 import { Flipnote } from 'flipnote.js';
-import { ExternalServiceClient} from '../models/ExternalServiceTypes';
+import { ExternalService} from '../models/ExternalServiceTypes';
 
 import { SudomemoClient } from './clients/SudomemoClient';
 import { KaeruGalleryClient } from './clients/KaeruGalleryClient';
 import { IpgFlipClient } from './clients/IpgFlipClient';
 import { KaeruDsiLibraryClient } from './clients/KaeruDsiLibraryClient';
 
-export class ExternalServices {
+export class ExternalServiceClient {
 
-  private clients: ExternalServiceClient[] = [
+  private clients: ExternalService[] = [
     new SudomemoClient(),
     new KaeruGalleryClient(),
     new IpgFlipClient(),

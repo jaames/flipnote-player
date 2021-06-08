@@ -10,14 +10,16 @@ export enum ClientType {
 export interface ExternalFlipnoteItem {
   service: ClientType;
   url: string;
+  iconUrl: string;
 };
 
 export interface ExternalAuthorItem {
   service: ClientType;
   url: string;
+  iconUrl: string;
 };
 
-export interface ExternalServiceClient {
+export interface ExternalService {
   service: ClientType;
   testNoteUrlMatch: (url: string) => boolean;
   getNoteFromUrl: (url: string) => Promise<Flipnote | null>;
