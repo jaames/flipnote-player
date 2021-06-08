@@ -6,15 +6,19 @@
 
 import { Flipnote, parseSource } from 'flipnote.js';
 import { ClientType, ExternalServiceClient, ExternalFlipnoteItem, ExternalAuthorItem } from '../../models/ExternalServiceTypes';
+import { stringCompileTemplate } from '../../utils';
 
-const IPG_URL_REGEX = /https?:\/\/(?:www.)?ipgflip.xyz\/watch\/([0-9A-F]{6}_[0-9A-F]{13}_[0-9]{3})/;
+const URL_REGEX = /https?:\/\/(?:www.)?ipgflip.xyz\/watch\/([0-9A-F]{6}_[0-9A-F]{13}_[0-9]{3})/;
+const URL_TEMPLATE_PPM = stringCompileTemplate`https://content.ipgflip.xyz/movie/${0}.ppm`;
+const URL_TEMPLATE_MEMO = stringCompileTemplate`https://api.ipgflip.xyz/flipnote/${0}`;
+const URL_TEMPLATE_USER = stringCompileTemplate`https://api.ipgflip.xyz/user/${0}@DSi`;
 
 export class IpgFlipClient implements ExternalServiceClient {
 
   public service = ClientType.IpgFlip;
 
   public testNoteUrlMatch(url: string) { 
-    return IPG_URL_REGEX.test(url);
+    return URL_REGEX.test(url);
   }
 
   async getNoteFromUrl(url: string) { 
@@ -22,7 +26,7 @@ export class IpgFlipClient implements ExternalServiceClient {
       return null;
     }
     try {
-      const noteSrc = url.replace(IPG_URL_REGEX, (match, filename) => (`https://content.ipgflip.xyz/movie/${ filename }.ppm`));
+      const noteSrc = url.replace(URL_REGEX, (match, filename) => URL_TEMPLATE_PPM([filename]));
       return await parseSource(noteSrc);
     }
     catch (e) {
@@ -32,7 +36,7 @@ export class IpgFlipClient implements ExternalServiceClient {
 
   async getAuthorDetails(fsid: string): Promise<ExternalAuthorItem[]> {
     try {
-      const url = `https://api.ipgflip.xyz/user/${ fsid }@DSi`;
+      const url = URL_TEMPLATE_USER([fsid]);
       const response = await fetch(url);
       const data = await response.json();
       if (!data.sucess)
@@ -52,7 +56,7 @@ export class IpgFlipClient implements ExternalServiceClient {
   async getNoteDetails(note: Flipnote): Promise<ExternalFlipnoteItem[]> {
     try {
       const filename = note.meta.current.filename;
-      const url = `https://api.ipgflip.xyz/flipnote/${ filename }`
+      const url = URL_TEMPLATE_MEMO([filename]);
       const response = await fetch(url);
       const data = await response.json();
       if (!data.sucess)

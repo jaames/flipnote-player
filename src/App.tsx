@@ -8,16 +8,6 @@ import { PlayerContextProvider } from './context/PlayerContext';
 import { Index } from './routes/Index';
 import { View } from './routes/View';
 
-import {SudomemoService, KaeruGalleryService} from './features/ExternalServices';
-
-(async () => {
-  const n = await KaeruGalleryService.getNoteMatchingUrl('https://gallery.kaeru.world/memo/cptmrsepzdnokt5jh5amezju1chc');
-  console.log(n);
-  // await SudomemoService.getNoteInfo();
-  // await sudomemo.getUserInfo();
-})()
-
-
 export default function App() {
   return (
     <BrowserRouter>

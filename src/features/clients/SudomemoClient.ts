@@ -6,6 +6,10 @@
 
 import { Flipnote } from 'flipnote.js';
 import { ClientType, ExternalServiceClient, ExternalFlipnoteItem, ExternalAuthorItem } from '../../models/ExternalServiceTypes';
+import { stringCompileTemplate } from '../../utils';
+
+const URL_TEMPLATE_MEMO = stringCompileTemplate`https://www.sudomemo.net/watch/${0}`;
+const URL_TEMPLATE_EMBED = stringCompileTemplate`https://www.sudomemo.net/oembed?url=${0}&format=json`;
 
 export class SudomemoClient implements ExternalServiceClient {
 
@@ -29,8 +33,8 @@ export class SudomemoClient implements ExternalServiceClient {
   async getNoteDetails(note: Flipnote): Promise<ExternalFlipnoteItem[]> {
     try {
       const filename = note.meta.current.filename;
-      const url = `https://www.sudomemo.net/watch/${ filename }`;
-      const oEmbedUrl = `https://www.sudomemo.net/oembed?url=${ url }&format=json`;
+      const url = URL_TEMPLATE_MEMO([filename]);
+      const oEmbedUrl = URL_TEMPLATE_EMBED([url]);
       const response = await fetch(oEmbedUrl);
       const data = await response.json();
       return [
