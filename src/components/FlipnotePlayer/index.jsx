@@ -50,6 +50,9 @@ export default function FlipnotePlayer(props) {
     const playerCanvas = document.createElement('canvas');
     window.player = new Player(playerCanvas, 640, 480);
     player.on('progress', progress => { setCurrentProgress(progress) });
+    player.on('frame:update', (e, a, b) => { console.log(e, a, b) });
+    player.on('*', (e, a, b) => { console.log(e, a, b) });
+    player.on('frame:update', frameIndex => { setCurrentFrame(frameIndex) });
     player.on('frame:update', frameIndex => { setCurrentFrame(frameIndex) });
     player.on('playback:end', () => { setPaused(true) });
     player.on('load', () => {

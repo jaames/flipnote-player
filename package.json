@@ -3,30 +3,28 @@
   "version": "3.1.0",
   "private": true,
   "dependencies": {
-    "@babel/core": "^7.4.3",
-    "@mapbox/svg-react-transformer-loader": "^1.0.6",
-    "babel-plugin-react-require": "^3.0.1",
-    "babel-plugin-root-import": "^6.1.0",
-    "babel-plugin-transform-define": "^1.3.0",
     "css-reset-and-normalize": "^1.0.1",
     "file-saver": "^2.0.2",
-    "flipnote.js": "^5.4.2",
+    "flipnote.js": "^6.0.0",
     "hotkeys-js": "^3.6.13",
     "immer": "^3.1.3",
     "jszip": "^3.2.2",
-    "node-sass": "^4.12.0",
-    "poi": "^12.10.3",
     "pullstate": "^1.3.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-dropzone": "^9.0.0",
     "react-router-dom": "^4.3.1",
     "react-transition-group": "^2.9.0",
-    "sass-loader": "^7.1.0"
+    "sass": "^1.85.0"
   },
   "scripts": {
-    "dev": "poi --serve",
-    "build": "poi --prod",
+    "start": "vite dev",
+    "build": "vite build",
     "manifest": "node ./scripts/generateManifest.js"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.4",
+    "vite": "^6.1.1",
+    "vite-plugin-svgr": "^4.3.0"
   }
 }
