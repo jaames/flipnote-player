@@ -32,39 +32,6 @@ export class kaeruGallery {
 
 }
 
-
-const IPG_URL_REGEX = /https?:\/\/(?:www.)?ipgflip.xyz\/watch\/([0-9A-F]{6}_[0-9A-F]{13}_[0-9]{3})/;
-
-export class ipgFlip {
-
-  static getFlipnoteUrl(fsid, filename) {
-    return `https://ipgflip.xyz/watch/${ filename }`;
-  }
-
-  static getFileFromFlipnoteUrl(flipnoteUrl) {
-    if (IPG_URL_REGEX.test(flipnoteUrl)) {
-      return flipnoteUrl.replace(IPG_URL_REGEX, (match, filename) => (`https://content.ipgflip.xyz/movie/${ filename }.ppm`));
-    }
-    return null;
-  }
-
-  static checkFlipnoteExists(fsid, filename) {
-    return new Promise((resolve, reject) => {
-      fetch(`https://api.ipgflip.xyz/flipnote/${ filename }`)
-        .then(res => res.json())
-        .then(data => {
-          if (data['success'] === true) {
-            resolve(ipgFlip.getFlipnoteUrl(fsid, filename));
-          } else {
-            reject();
-          }
-        })
-        .catch(reject);
-    });
-  }
-
-}
-
 export class sudomemo {
 
   static getFlipnoteUrl(fsid, filename) {

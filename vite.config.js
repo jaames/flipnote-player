@@ -5,13 +5,21 @@ import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
 
 export default defineConfig({
+  plugins: [
+    react(),
+    svgr(),
+  ],
+  define: {
+    __VERSION__: JSON.stringify(process.env.npm_package_version),
+  },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
-      '@server': path.resolve(__dirname, '../server/src'),
+      '@': path.resolve(__dirname, './src')
     },
   },
-
+  build: {
+    watch: false
+  },
   css: {
     preprocessorOptions: {
         scss: {
@@ -20,24 +28,7 @@ export default defineConfig({
         },
     },
   },
-
-  define: {
-    __VERSION__: JSON.stringify(process.env.npm_package_version),
-  },
-
-  plugins: [
-    react(),
-    svgr({
-      include: '**/*.svg'
-    }),
-  ],
-
   optimizeDeps: {
-    force: true,
-    esbuildOptions: {
-      loader: {
-        '.js': 'jsx',
-      },
-    },
+    exclude: ['node_modules']
   },
 })

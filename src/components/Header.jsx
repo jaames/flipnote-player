@@ -4,7 +4,7 @@ import { CSSTransition } from 'react-transition-group';
 import { GlobalStore } from '@/store';
 import ThemeToggle from '@/components/ThemeToggle';
 import Icon from '@/components/Icon';
-import Logo from '@/svg/logo.svg';
+import Logo from '@/svg/logo.svg?react';
 import '@/styles/components/Header.scss';
 
 export default () => {

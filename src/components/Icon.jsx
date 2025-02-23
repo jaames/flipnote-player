@@ -1,16 +1,16 @@
-import play from '@/svg/play.svg';
-import pause from '@/svg/pause.svg';
-import loop from '@/svg/loop.svg';
-import noloop from '@/svg/noloop.svg';
-import firstFrame from '@/svg/firstFrame.svg';
-import lastFrame from '@/svg/lastFrame.svg';
-import prevFrame from '@/svg/prevFrame.svg';
-import nextFrame from '@/svg/nextFrame.svg';
-import settings from '@/svg/settings.svg';
-import loader from '@/svg/loader.svg';
-import chevronLeft from '@/svg/chevronLeft.svg';
-import chevronRight from '@/svg/chevronRight.svg';
-import externalService from '@/svg/externalService.svg';
+import play from '@/svg/play.svg?react';
+import pause from '@/svg/pause.svg?react';
+import loop from '@/svg/loop.svg?react';
+import noloop from '@/svg/noloop.svg?react';
+import firstFrame from '@/svg/firstFrame.svg?react';
+import lastFrame from '@/svg/lastFrame.svg?react';
+import prevFrame from '@/svg/prevFrame.svg?react';
+import nextFrame from '@/svg/nextFrame.svg?react';
+import settings from '@/svg/settings.svg?react';
+import loader from '@/svg/loader.svg?react';
+import chevronLeft from '@/svg/chevronLeft.svg?react';
+import chevronRight from '@/svg/chevronRight.svg?react';
+import externalService from '@/svg/externalService.svg?react';
 
 import '@/styles/components/Icon.scss';
 
