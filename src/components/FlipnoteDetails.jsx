@@ -12,7 +12,6 @@ export default (props) => {
 
   const playerNote = useStoreState(PlayerStore, store => store.note);
   const [kaeruGalleryUrl, setKaeruGalleryUrl] = useState(false);
-  // const [ipgFlipUrl, setIpgFlipUrl] = useState(false);
   const [sudomemoUrl, setSudomemoUrl] = useState(false);
 
   if (!playerNote) {

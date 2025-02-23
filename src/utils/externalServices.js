@@ -60,7 +60,7 @@ export class sudomemo {
 }
 
 export function getFileFromFlipnoteUrl(flipnoteUrl) {
-  const supportedServices = [kaeruGallery, ipgFlip];
+  const supportedServices = [kaeruGallery];
   for (const service of supportedServices) {
     const url = service.getFileFromFlipnoteUrl(flipnoteUrl); 
     if (url) {
@@ -73,6 +73,5 @@ export function getFileFromFlipnoteUrl(flipnoteUrl) {
 export default {
   getFileFromFlipnoteUrl,
   kaeruGallery,
-  ipgFlip,
   sudomemo
 }
