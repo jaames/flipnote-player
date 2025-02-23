@@ -1,0 +1,70 @@
+{
+  "items": [
+    {
+      "filename": "mrjohn.ppm",
+      "has_sudomemo_account": true,
+      "links": {
+        "Sudomemo": "https://www.sudomemo.net/user/9C03A1301E17A554@DSi"
+      }
+    },
+    {
+      "filename": "bokeh.ppm",
+      "has_sudomemo_account": true,
+      "links": {
+        "Sudomemo": "https://www.sudomemo.net/user/5C8376C0A0E463D3@DSi"
+      }
+    },
+    {
+      "filename": "juntso.ppm",
+      "has_sudomemo_account": true,
+      "links": {
+        "Sudomemo": "https://www.sudomemo.net/user/5800EED0E1DD94C4@DSi"
+      }
+    },
+    {
+      "filename": "bee.ppm",
+      "has_sudomemo_account": true,
+      "links": {
+        "Sudomemo": "https://www.sudomemo.net/user/540F54D0517A4646@DSi",
+        "Youtube": "https://www.youtube.com/user/alwaysAKATSUKI/featured",
+        "DA": "https://a-mellifera.deviantart.com/"
+      }
+    },
+    {
+      "filename": "keke.ppm",
+      "has_sudomemo_account": true,
+      "links": {
+        "Sudomemo": "https://www.sudomemo.net/user/9E0F17F0CC6F24E0@DSi",
+        "Twitter": "https://twitter.com/Kekeflipnote",
+        "Tumblr": "https://k-eke.tumblr.com/"
+      }
+    },
+    {
+      "filename": "pekira_beach.ppm",
+      "links": {
+        "Colors! Live": "http://colorslive.com/author?id=134149"
+      }
+    },
+    {
+      "filename": "hatch.ppm"
+    },
+    {
+      "filename": "isofurabon.ppm",
+      "links": {
+        "Hatena": "http://profile.hatena.ne.jp/eikaisan/"
+      }
+    },
+    {
+      "filename": "samplememo_01.ppm"
+    },
+    {
+      "filename": "samplememo_03.ppm"
+    },
+    {
+      "filename": "samplememo_02.ppm"
+    },
+    {
+      "filename": "samplememo_09.ppm"
+    }
+  ]
+}
