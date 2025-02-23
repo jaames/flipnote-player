@@ -4,15 +4,37 @@
   @include theme((
     color: "text-invert",
   ));
-  display: flex;
-  align-items: center;
+  display: flex-column;
   font-size: 0.85rem;
   padding: 24px 0;
 
   @include breakpoint-medium {
-    
     padding: 64px 0;
     margin-bottom: 0;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .Footer__left, .Footer__right {
+    @include breakpoint-medium {
+      flex: .5;
+    }
+  }
+
+  .Footer__right {
+    margin-top: 1em;
+    text-wrap: balance;
+
+    @include breakpoint-medium {
+      margin: 0;
+      text-align: right;
+      margin-left: auto;
+    }
+  }
+
+  .Footer__socials {
+    display: flex;
+    gap: 16px;
   }
 
   p {

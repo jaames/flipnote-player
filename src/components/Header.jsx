@@ -18,7 +18,7 @@ export default () => {
         </Link>
         <Link to="/" className="Header__title">
           <h1>Flipnote Player</h1>
-          <h2 className="Header__subtitle">Version { process.env.__VERSION__ }</h2>
+          <h2 className="Header__subtitle">Version { __VERSION__ }</h2>
         </Link>
         <CSSTransition
           in={ isLoading }

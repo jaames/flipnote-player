@@ -47,9 +47,6 @@ export default function Mp4Panel({ flipnote }) {
 
   return (
     <div className="Mp4Converter">
-      <p className="Note">
-        This feature is highly experimental. Video conversion may not work on certain devices.
-      </p>
       <div className="FormGroup">
         <div className="FormItem">
           <label htmlFor="quality">Compression</label>

@@ -47,11 +47,10 @@ export default function FlipnotePlayer(props) {
   }
 
   useLayoutEffect(() => {
-    const playerCanvas = document.createElement('canvas');
-    window.player = new Player(playerCanvas, 640, 480);
+    window.player = new Player(canvasWrapper.current, 640, 480);
     player.on('progress', progress => { setCurrentProgress(progress) });
-    player.on('frame:update', frameIndex => { setCurrentFrame(frameIndex) });
-    player.on('playback:end', () => { setPaused(true) });
+    player.on('frameupdate', frameIndex => { setCurrentFrame(frameIndex) });
+    player.on('ended', () => { setPaused(true) });
     player.on('load', () => {
       setType(player.noteFormat);
       setLoop(player.loop);
@@ -62,7 +61,6 @@ export default function FlipnotePlayer(props) {
       player.resize(rect.width, rect.width * 0.75);
     }
     resizeCanvas();
-    canvasWrapper.current.appendChild(playerCanvas);
     window.addEventListener('resize', resizeCanvas);
     player.openNote(playerNote);
 
