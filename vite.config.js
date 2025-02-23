@@ -1,7 +1,8 @@
-import { defineConfig, transformWithEsbuild } from 'vite';
+import path from 'path';
+
+import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import svgr from 'vite-plugin-svgr';
-import path from 'path';
 
 export default defineConfig({
   resolve: {
@@ -11,20 +12,16 @@ export default defineConfig({
     },
   },
 
-  plugins: [
-    // {
-    //   name: 'treat-js-files-as-jsx',
-    //   async transform(code, id) {
-    //     if (!id.match(/src\/.*\.js$/))  return null
+  css: {
+    preprocessorOptions: {
+        scss: {
+            api: 'modern', // or 'modern'
+            silenceDeprecations: ['global-builtin', 'import', 'color-functions'],
+        },
+    },
+  },
 
-    //     // Use the exposed transform from vite, instead of directly
-    //     // transforming with esbuild
-    //     return transformWithEsbuild(code, id, {
-    //       loader: 'jsx',
-    //       jsx: 'automatic',
-    //     })
-    //   },
-    // },
+  plugins: [
     react(),
     svgr({
       include: '**/*.svg'
