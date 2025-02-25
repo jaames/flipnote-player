@@ -24,8 +24,9 @@ export default class ImageSequenceConverter {
       }
     }
     else if (this.format === 'png' || this.format === 'jpeg') {
-      const canvas = document.createElement('canvas');
-      const player = new Player(canvas, flipnote.width, flipnote.height);
+      const el = document.createElement('div');
+      const player = new Player(el, flipnote.width, flipnote.height);
+      const canvas = el.querySelector('canvas');
       player.openNote(flipnote);
       for (let frameIndex = 0; frameIndex < flipnote.frameCount; frameIndex++) {
         player.setCurrentFrame(frameIndex);
