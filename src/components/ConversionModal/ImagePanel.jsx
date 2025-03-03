@@ -16,7 +16,7 @@ export default function ImagePanel({ flipnote }) {
           format: imageFormat
         });
       })
-      .then(imgSequence => {
+      .then(async (imgSequence) => {
         return imgSequence.convert(flipnote);
       })
       .then(imgSequence => {
