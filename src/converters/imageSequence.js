@@ -7,11 +7,13 @@ export default class ImageSequenceConverter {
   constructor() {
     this.zip = null;
     this.format = null;
+    this.scale = 1;
   }
 
-  init({ format }) {
+  init({ format, scale }) {
     this.zip = new JSZip();
     this.format = format;
+    this.scale = scale;
     return this;
   }
 
@@ -25,7 +27,7 @@ export default class ImageSequenceConverter {
     }
     else if (this.format === 'png' || this.format === 'jpeg') {
       const el = document.createElement('div');
-      const renderer = new Html5Canvas(el, flipnote.imageWidth, flipnote.imageHeight, {
+      const renderer = new Html5Canvas(el, flipnote.imageWidth * this.scale, flipnote.imageHeight * this.scale, {
         useDpi: false,
         useSmoothing: false,
       });

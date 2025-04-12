@@ -3,6 +3,7 @@ import { useState } from 'react';
 export default function ImagePanel({ flipnote }) {
 
   const [imageFormat, setImageFormat] = useState('png');
+  const [imageScale, setImageScale] = useState('1');
   const [filename, setFilename] = useState(`${ flipnote.meta.current.filename }.zip`);
 
   function convert(flipnote) {
@@ -13,7 +14,8 @@ export default function ImagePanel({ flipnote }) {
       })
       .then(imgSequence => {
         return imgSequence.init({
-          format: imageFormat
+          format: imageFormat,
+          scale: parseInt(imageScale)
         });
       })
       .then(async (imgSequence) => {
@@ -41,6 +43,23 @@ export default function ImagePanel({ flipnote }) {
           </select>
         </div>
       </div>
+      { ['png', 'jpeg'].includes(imageFormat) && (
+        <div className="FormGroup">
+          <div className="FormItem">
+            <label htmlFor="format">Image Scale</label>
+            <select 
+              id="format"
+              className="Select"
+              value={ imageScale }
+              onChange={ e => setImageScale(event.target.value) }
+            >
+              <option key="1" value="1">1x</option>
+              <option key="2" value="2">2x</option>
+              <option key="3" value="3">3x</option>
+            </select>
+          </div>
+        </div>
+      )}
       <div className="FormGroup">
         <div className="FormItem FormItem--flex3">
           <label htmlFor="filename">Output Filename</label>
