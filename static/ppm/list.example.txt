@@ -1,0 +1,6 @@
+# Sample Flipnote filename list
+# Thumbnails and manifest file will be generated for all Flipnotes listed below
+1.ppm
+2.ppm
+3.ppm
+4.ppm

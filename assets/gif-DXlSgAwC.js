@@ -1,0 +1,1 @@
+import{f as r}from"./index-CYX_Bv7d.js";import{F as s}from"./FileSaver.min-jGvrVWwZ.js";class n{constructor(){this.gif=null}init(){return this}convert(t){return this.gif=r.GifImage.fromFlipnote(t),this}saveAs(t){const i=this.gif.getBlob();s.saveAs(i,t)}}export{n as default};

@@ -1,0 +1,14 @@
+# Sample Flipnote filename list
+# Thumbnails and manifest file will be generated for all Flipnotes listed below
+mrjohn.ppm
+bokeh.ppm
+juntso.ppm
+bee.ppm
+keke.ppm
+pekira_beach.ppm
+hatch.ppm
+isofurabon.ppm
+samplememo_01.ppm
+samplememo_03.ppm
+samplememo_02.ppm
+samplememo_09.ppm
