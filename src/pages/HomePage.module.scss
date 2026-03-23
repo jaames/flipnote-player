@@ -1,0 +1,29 @@
+@reference "../styles/root.css";
+
+.layout {
+  @apply mx-auto flex max-w-2xl flex-col gap-4 px-6 py-16;
+
+  a {
+    color: red;
+  }
+}
+
+.lead {
+  @apply text-sm font-medium uppercase tracking-wide text-[var(--color-muted)];
+}
+
+.title {
+  @apply text-3xl font-semibold tracking-tight text-[var(--color-foreground)];
+}
+
+.blurb {
+  @apply text-base leading-relaxed text-[var(--color-muted)];
+}
+
+.code {
+  @apply rounded bg-black/5 px-1.5 py-0.5 font-mono text-sm text-[var(--color-foreground)] dark:bg-white/10;
+}
+
+.link {
+  @apply inline-flex w-fit rounded-md border border-[var(--color-border)] px-3 py-2 text-sm font-medium text-[var(--color-accent)] underline-offset-4 hover:underline;
+}

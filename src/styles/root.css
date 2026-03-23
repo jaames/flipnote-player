@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+@theme {
+  /* Design tokens as CSS variables (Tailwind 4) */
+  --color-background: oklch(0.985 0.002 247);
+  --color-foreground: oklch(0.2 0.02 247);
+  --color-muted: oklch(0.55 0.02 247);
+  --color-border: oklch(0.9 0.01 247);
+  --color-accent: oklch(0.55 0.18 250);
+  --font-sans: ui-sans-serif, system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    @apply antialiased;
+  }
+
+  body {
+    @apply min-h-dvh bg-[var(--color-background)] font-sans text-[var(--color-foreground)];
+  }
+
+  #root {
+    @apply min-h-dvh;
+  }
+}

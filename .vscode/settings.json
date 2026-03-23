@@ -1,0 +1,15 @@
+{
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "tailwindcss.includeLanguages": {
+    "typescript": "typescript",
+    "typescriptreact": "typescriptreact",
+    "scss": "scss"
+  },
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "tsconfig.*.json": "${capture}.tsconfig.json",
+    "vite.config.*.json": "${capture}.vite.config.json",
+    "wrangler.json": "${capture}.wrangler.json",
+    "package*.json": "${capture}.package.json",
+  }
+}
