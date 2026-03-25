@@ -1,11 +1,7 @@
-@reference "../styles/root.css";
+@reference '../styles/root.css';
 
 .layout {
   @apply mx-auto flex max-w-2xl flex-col gap-4 px-6 py-16;
-
-  a {
-    color: red;
-  }
 }
 
 .lead {
@@ -26,4 +22,29 @@
 
 .link {
   @apply inline-flex w-fit rounded-md border border-[var(--color-border)] px-3 py-2 text-sm font-medium text-[var(--color-accent)] underline-offset-4 hover:underline;
+}
+
+.inlineLink {
+  @apply font-medium text-[var(--color-accent)] underline-offset-4 hover:underline;
+}
+
+.playerSection {
+  @apply flex flex-col gap-2;
+}
+
+.playerMount {
+  @apply overflow-hidden rounded-lg border border-[var(--color-border)] bg-black/5 dark:bg-white/5;
+
+  /* Canvas is injected by flipnote.js Player */
+  :global(canvas) {
+    display: block;
+    width: 100%;
+    height: auto;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+  }
+}
+
+.playerError {
+  @apply text-sm text-red-600 dark:text-red-400;
 }
