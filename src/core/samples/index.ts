@@ -1,4 +1,5 @@
 import { BSON } from 'bson';
+
 import {
   assert,
   isObject,
@@ -7,8 +8,12 @@ import {
   isTypedArray,
   isBoolean,
   isDate,
-} from '../utils';
-import { ExpandedSampleManifestEntry, SampleManifestEntry } from './types';
+} from '@/utils';
+
+import type {
+  ExpandedSampleManifestEntry,
+  SampleManifestEntry
+} from './types';
 
 export * from './types';
 
