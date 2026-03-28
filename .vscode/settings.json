@@ -11,5 +11,9 @@
     "vite.config.*.json": "${capture}.vite.config.json",
     "wrangler.json": "${capture}.wrangler.json",
     "package*.json": "${capture}.package.json",
-  }
+  },
+  "cSpell.words": [
+    "flipnote",
+    "Flipnotes"
+  ]
 }

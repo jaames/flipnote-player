@@ -1,0 +1,4 @@
+dist
+node_modules
+# Prettier HTML output uses double-quoted attributes; keep single quotes
+index.html

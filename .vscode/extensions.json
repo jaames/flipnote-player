@@ -1,5 +1,6 @@
 {
   "recommendations": [
-    "bradlc.vscode-tailwindcss"
+    "bradlc.vscode-tailwindcss",
+    "esbenp.prettier-vscode"
   ]
 }
