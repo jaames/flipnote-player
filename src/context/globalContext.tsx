@@ -1,11 +1,8 @@
 import {
   createContext,
-  createElement,
   useCallback,
   useContext,
-  useMemo,
   useState,
-  type ReactNode,
 } from 'react';
 
 import {
@@ -21,9 +18,11 @@ export type GlobalContextValue = {
   toggleLoading: () => void;
 };
 
+type Props = React.PropsWithChildren<{}>;
+
 const GlobalContext = createContext<GlobalContextValue | null>(null);
 
-export const GlobalProvider = ({ children }: { children: ReactNode }) => {
+export const GlobalContextProvider = ({ children }: Props) => {
   const [theme, setTheme] = useState<Theme>('light');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -35,17 +34,14 @@ export const GlobalProvider = ({ children }: { children: ReactNode }) => {
     setIsLoading((prev) => !prev);
   }, []);
 
-  const value = useMemo(
-    () => ({
-      theme,
-      isLoading,
-      toggleTheme,
-      toggleLoading,
-    }),
-    [theme, isLoading, toggleTheme, toggleLoading],
-  );
+  const value: GlobalContextValue = {
+    theme,
+    isLoading,
+    toggleTheme,
+    toggleLoading,
+  };
 
-  return createElement(GlobalContext.Provider, { value }, children);
+  return <GlobalContext.Provider value={value}>{children}</GlobalContext.Provider>;
 }
 
 export const useGlobalContext = (): GlobalContextValue => {

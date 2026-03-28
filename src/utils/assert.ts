@@ -1,7 +1,7 @@
-type AssertFn = (value: unknown, message?: string) => asserts value is boolean;
+type AssertFn = (condition: unknown, message?: string) => asserts condition;
 
-export const assert: AssertFn = (value, message = 'Assertion failed') => {
-  if (!value) {
+export const assert: AssertFn = (condition, message = 'Assertion failed') => {
+  if (!condition) {
     throw new Error(message);
   }
 };

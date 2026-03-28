@@ -15,6 +15,8 @@ export type SampleManifestEntry = SampleMetaEntry & {
   ext: FlipnoteFormat;
   timestamp: Date;
   lock: boolean;
+  stem: string;
+  hash: string;
 };
 
 export type ExpandedSampleManifestEntry = SampleManifestEntry & {

@@ -1,7 +1,9 @@
 import { parse, GifImage } from 'flipnote.js';
 import { readFile, writeFile } from 'fs/promises';
-import { resolve } from 'path';
+import { resolve, basename, extname } from 'path';
+import { createHash } from 'crypto';
 import { BSON } from 'bson';
+
 import type {
   SampleMetaEntry,
   SampleManifestEntry,
@@ -21,6 +23,11 @@ const manifest: SampleManifestEntry[] = await Promise.all(
     const note = await parse(file);
     const thumbImg = GifImage.fromFlipnoteFrame(note, note.thumbFrameIndex);
     const thumbBuffer = new Uint8Array(thumbImg.getArrayBuffer());
+    const stem = basename(filepath, extname(filepath));
+    const hash = createHash('shake256', { outputLength: 6 })
+      .update(note.meta.current.filename)
+      .digest('hex');
+    
     return {
       ...item,
       thumb: thumbBuffer,
@@ -28,6 +35,8 @@ const manifest: SampleManifestEntry[] = await Promise.all(
       ext: note.format,
       timestamp: note.meta.timestamp,
       lock: note.meta.lock,
+      stem,
+      hash,
     };
   }),
 );

@@ -1,12 +1,14 @@
 import { Route, Routes } from 'react-router-dom';
-import { HomePage } from './pages/HomePage';
-import { NotFoundPage } from './pages/NotFoundPage';
+import { Home } from './pages/Home';
+import { View } from './pages/View';
+import { NotFound } from './pages/NotFound';
 
 export function App() {
   return (
     <Routes>
-      <Route path='/' element={<HomePage />} />
-      <Route path='*' element={<NotFoundPage />} />
+      <Route path='/' element={<Home/>} />
+      <Route path='/view/:id?' element={<View />} />
+      <Route path='*' element={<NotFound />} />
     </Routes>
   );
 }

@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-// import { Link } from 'react-router-dom';
+import { useCallback, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   destroySampleFlipnoteThumbnails,
   ExpandedSampleManifestEntry,
@@ -9,12 +9,12 @@ import {
 import { SampleMemoGrid } from '@/components/grid/SampleMemoGrid';
 import { useGlobalContext } from '@/context/globalContext';
 
-export function HomePage() {
+export const Home = () => {
+  const navigate = useNavigate();
+  const { theme, toggleTheme } = useGlobalContext();
+  
   const [manifest, setManifest] = useState<ExpandedSampleManifestEntry[]>([]);
 
-  const { theme, toggleTheme } = useGlobalContext();
-
-  
   useEffect(() => {
     const fetchData = async () => {
       const data = await getSampleFlipnotes();
@@ -27,6 +27,10 @@ export function HomePage() {
     };
   }, []);
 
+  const handleSelect = useCallback((arg: ExpandedSampleManifestEntry) => {
+    navigate(`/view/${arg.hash}`);
+  }, []);
+
   return (
     <main className="layout flex gap-4 max-w-7xl mx-auto">
       <div className="side-area flex flex-col gap-2 w-[340px]">
@@ -35,8 +39,8 @@ export function HomePage() {
       </div>
       <div className='main-area flex flex-col gap-2'>
         <h2 className='text-lg font-semibold'>Sample Flipnotes</h2>
-        <SampleMemoGrid items={manifest} onSelect={(arg) => { console.log(arg); }} />
+        <SampleMemoGrid items={manifest} onSelect={handleSelect} />
       </div>
     </main>
   );
-}
+};
